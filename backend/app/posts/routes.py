@@ -1,6 +1,6 @@
 from app.posts import bp
 from app.extensions import db
-from app.models.post import Post
+from app.models.models import Post
 from flask import jsonify
 
 @bp.route('/')
