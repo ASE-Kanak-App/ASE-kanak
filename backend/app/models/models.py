@@ -1,7 +1,5 @@
 from app.extensions import db
 
-from app.extensions import db
-
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -25,7 +23,20 @@ class User(db.Model):
             "posts":self.posts
         }
     
+class TokenBlockList(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, nullable=False)
 
+    def __repr__(self):
+        return f'<TokenBlockList "{self.jti}">'
+    
+    def obj_to_dict(self):
+        return {
+            "id":self.id,
+            "jti": self.jti,
+            "created_at":self.created_at,
+        }
 
 class Post(db.Model):
 
