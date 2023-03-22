@@ -13,13 +13,7 @@ export default class AppRouter extends React.Component {
             <BrowserRouter>
                 <Routes>
                     <React.Fragment>
-                        <Route
-                            path="/login"
-                            exact
-                            render={() => (
-                                <Login/>
-                            )}
-                        />
+                        <Route path='/login' element={<Login/>} />
                     </React.Fragment>
                 </Routes>
             </BrowserRouter>
