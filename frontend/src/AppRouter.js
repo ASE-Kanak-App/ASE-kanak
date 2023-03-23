@@ -4,7 +4,8 @@ import {
     BrowserRouter,
     Route
 } from "react-router-dom"
-import Login from "./login"
+import Login from "./components/pages/login"
+import Register from "./components/pages/register"
 
 
 export default class AppRouter extends React.Component {
@@ -14,6 +15,7 @@ export default class AppRouter extends React.Component {
                 <Routes>
                     <React.Fragment>
                         <Route path='/login' element={<Login/>} />
+                        <Route path='/register' element={<Register/>} />
                     </React.Fragment>
                 </Routes>
             </BrowserRouter>
