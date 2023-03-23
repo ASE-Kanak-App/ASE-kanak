@@ -25,8 +25,8 @@ class User(db.Model):
     
 class TokenBlockList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    jti = db.Column(db.String(36), nullable=False, index=True)
-    created_at = db.Column(db.DateTime, nullable=False)
+    jti = db.Column(db.String(36), nullable=True, index=True)
+    created_at = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return f'<TokenBlockList "{self.jti}">'
