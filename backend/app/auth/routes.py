@@ -7,6 +7,9 @@ from app.models.models import User, TokenBlockList
 from flask_jwt_extended import get_jwt
 from flask_jwt_extended import jwt_required
 from datetime import datetime, timezone
+from dotenv import load_dotenv
+import os
+import jwt
 
 @bp.route('/signup', methods = ['POST'])
 def register():
@@ -87,8 +90,9 @@ def login():
   
     if check_password_hash(user.password, auth.get('password')):
         # generates the JWT Token
-        token = encode_token(user.id)  
-        return make_response(jsonify({'token' : token.decode('UTF-8')}), 201)
+        token = encode_token(user.id)
+        load_dotenv()
+        return make_response(jsonify({'token' : jwt.decode(jwt=token, key=os.getenv('SECRET'), algorithms=["HS256"])}), 201)
     
     # returns 403 if password is wrong
     resp = {
@@ -97,7 +101,7 @@ def login():
     }
     return make_response(jsonify(resp)), 403
 
-
+'''
 @bp.route('/logout', methods=['DELETE'])
 @jwt_required()
 def logout():
@@ -105,7 +109,7 @@ def logout():
     now = datetime.now(timezone.utc)
     db.session.add(TokenBlockList(jti=jti, created_at=now))
     db.session.commit()
-    return make_response(jsonify(msg="JWT revoked - Logout successful"))
+    return make_response(jsonify(msg="JWT revoked - Logout successful"))'''
 
 # @bp.route("/protected", methods=["GET"])
 # @jwt_required()
