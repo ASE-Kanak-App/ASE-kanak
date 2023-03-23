@@ -3,6 +3,9 @@ import jwt
 import app
 from app.extensions import db
 from app.models.models import TokenBlockList
+from config import Config
+from dotenv import load_dotenv
+import os
 
 def encode_token(user_id):
     payload ={
@@ -11,8 +14,10 @@ def encode_token(user_id):
         'sub': user_id
         
     }
-    token = jwt.encode(payload,app.config['SECRET_KEY'],algorithm= 'HS256')
+    load_dotenv()
+    token = jwt.encode(payload = {'user':user_id}, key = os.getenv('SECRET'), algorithm= 'HS256')
     return token
+
 
 '''
 @jwt.token_in_blocklist_loader
