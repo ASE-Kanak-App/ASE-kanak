@@ -97,7 +97,7 @@ def login():
     }
     return make_response(jsonify(resp)), 403
 
-
+'''
 @bp.route('/logout', methods=['DELETE'])
 @jwt_required()
 def logout():
@@ -110,4 +110,4 @@ def logout():
 # @bp.route("/protected", methods=["GET"])
 # @jwt_required()
 # def protected():
-#     return make_response(jsonify(msg="Access revoked"))
+#     return make_response(jsonify(msg="Access revoked"))'''

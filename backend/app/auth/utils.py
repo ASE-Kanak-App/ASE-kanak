@@ -14,9 +14,10 @@ def encode_token(user_id):
     token = jwt.encode(payload,app.config['SECRET_KEY'],algorithm= 'HS256')
     return token
 
+'''
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
     jti = jwt_payload["jti"]
     token = db.session.query(TokenBlockList.id).filter_by(jti=jti).scalar()
 
-    return token is not None
+    return token is not None'''
