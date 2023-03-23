@@ -7,6 +7,7 @@
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -35,4 +36,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.logo-position {
+  position: fixed;
+  width: 960px;
+  height: 201px;
+  left: 158px;
+  top: 54px;
+}
+
+.rectangle {
+  position: absolute;
+  width: 685px;
+  height: 982px;
+  left: 0px;
+  top: 0px;
+
+  background: #7BD37A;
 }
