@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Checkbox, Form, Input} from 'antd';
 import styled from 'styled-components'
 import headerImage from '../images/Component 3.png'
+import { Link } from 'react-router-dom';
 import dogImage from '../images/Component 1.png'
 import catImage from '../images/Component 2.png'
 
@@ -34,16 +35,15 @@ const customStyle2 = {
 
 const Register: React.FC = () => (
 
-
-    <div style={{
-        background: 'linear-gradient(' +
-            'to left,' +
-            ' #40B44B  40%,' +
-            ' #7BD37A 40%,' +
-            ' #7BD37A 0%)',
-        height: '100vh',
-        width: '100vw'
-    }}>
+        <div style={{
+            background: 'linear-gradient(' +
+                'to left,' +
+                ' #40B44B  40%,' +
+                ' #7BD37A 40%,' +
+                ' #7BD37A 0%)',
+            height: '100vh',
+            width: '100vw'
+        }}>
 
         <div style={{
             display: 'flex',
@@ -93,9 +93,9 @@ const Register: React.FC = () => (
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle2} htmlType="submit">
-                            Sign Up
-                        </Button>
+                            <Button style={customStyle2} htmlType="submit">
+                                    Sign Up
+                            </Button>
                     </Form.Item>
 
 

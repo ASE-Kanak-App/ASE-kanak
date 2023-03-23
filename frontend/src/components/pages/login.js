@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Checkbox, Form, Input} from 'antd';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import headerImage from '../images/Component 3.png'
 import dogImage from '../images/Component 1.png'
@@ -33,7 +34,6 @@ const customStyle2 = {
 }
 
 const Login: React.FC = () => (
-
 
     <div style={{
         background: 'linear-gradient(' +
@@ -95,16 +95,19 @@ const Login: React.FC = () => (
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button style={customStyle1} htmlType="submit">
-                            Sign In
+                            <Link to={'/mainPage'}>
+                                Sign In
+                            </Link>
                         </Button>
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button style={customStyle2} htmlType="submit">
-                            Sign Up
+                            <Link to="/register">
+                                Sign Up
+                            </Link>
                         </Button>
                     </Form.Item>
-
 
                 </Form>
             </FormContainer>
