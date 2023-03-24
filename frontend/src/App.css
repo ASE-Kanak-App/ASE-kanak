@@ -55,3 +55,38 @@
 
   background: #7BD37A;
 }
+
+.special-heading {
+  color: #ffaeae;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.news-feed-container {
+  width: 80%;
+  max-width: 800px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.news-feed {
+  margin: auto;
+  max-width: 800px;
+  height: max-content;
+  border: 2px solid black;
+  background-color: white;
+  padding: 250px;
+}
+
+.article {
+  margin: 10px;
+  padding: 10px;
+}

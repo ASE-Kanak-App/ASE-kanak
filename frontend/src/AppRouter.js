@@ -6,7 +6,7 @@ import {
 } from "react-router-dom"
 import Login from "./components/pages/login"
 import Register from "./components/pages/register"
-import mainPage from "./components/pages/mainPage"
+import MainPage from "./components/pages/mainPage";
 
 
 export default class AppRouter extends React.Component {
@@ -17,7 +17,7 @@ export default class AppRouter extends React.Component {
                     <React.Fragment>
                         <Route path='/login' element={<Login/>} />
                         <Route path='/register' element={<Register/>} />
-                        <Route path='/mainPage' element={<mainPage/>} />
+                        <Route path='/mainpage' element={<MainPage/>}/>
                     </React.Fragment>
                 </Routes>
             </BrowserRouter>
