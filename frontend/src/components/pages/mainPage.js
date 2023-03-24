@@ -25,8 +25,6 @@ const MainPage: React.FC = () => (
         background: 'linear-gradient(' +
             ' #7BD37A 0%,' +
             ' #40B44B 100%)',
-        height: '200vh',
-        width: '200vh'
     }}>
         <div className="main-page">
             <Space>
