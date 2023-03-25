@@ -2,6 +2,7 @@ from flask import Flask
 
 from config import Config
 from app.extensions import db
+from flask_jwt_extended import JWTManager
 
 def create_app(config_class = Config):
     app = Flask(__name__)
@@ -9,6 +10,7 @@ def create_app(config_class = Config):
 
     #Initialize flask extensions here
     db.init_app(app=app)
+    jwt_app = JWTManager(app)
 
     #Register blueprints here
     from app.main import bp as main_bp

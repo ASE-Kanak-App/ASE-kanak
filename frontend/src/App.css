@@ -7,6 +7,7 @@
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -35,4 +36,57 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.logo-position {
+  position: fixed;
+  width: 960px;
+  height: 201px;
+  left: 158px;
+  top: 54px;
+}
+
+.rectangle {
+  position: absolute;
+  width: 685px;
+  height: 982px;
+  left: 0px;
+  top: 0px;
+
+  background: #7BD37A;
+}
+
+.special-heading {
+  color: #ffaeae;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.news-feed-container {
+  width: 80%;
+  max-width: 800px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.news-feed {
+  margin: auto;
+  max-width: 800px;
+  height: max-content;
+  border: 2px solid black;
+  background-color: white;
+  padding: 250px;
+}
+
+.article {
+  margin: 10px;
+  padding: 10px;
 }
