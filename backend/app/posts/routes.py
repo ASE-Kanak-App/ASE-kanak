@@ -23,7 +23,7 @@ def retrieve_post(id):
 
     return jsonify(post.obj_to_dict())
 
-@bp.route('/createPost/', methods = ['GET', 'POST'])
+@bp.route('/createPost/', methods = ['POST'])
 def create_post():
     if request.method == 'POST':
         # check if the post request has the file part
