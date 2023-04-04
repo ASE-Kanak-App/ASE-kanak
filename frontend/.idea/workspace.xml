@@ -5,41 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0283e6-1499-4898-9283-915f9518e437" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/core/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/core/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/core/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/core/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/eslint-parser/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/eslint-parser/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/eslint-parser/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/eslint-parser/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/helper-compilation-targets/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/helper-compilation-targets/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/helper-compilation-targets/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/helper-compilation-targets/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/helper-define-polyfill-provider/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/helper-define-polyfill-provider/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/helper-define-polyfill-provider/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/helper-define-polyfill-provider/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/plugin-transform-runtime/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/plugin-transform-runtime/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/plugin-transform-runtime/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/plugin-transform-runtime/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/preset-env/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/preset-env/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@babel/preset-env/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@babel/preset-env/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@eslint/eslintrc/node_modules/.bin/js-yaml" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@eslint/eslintrc/node_modules/.bin/js-yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@eslint/eslintrc/node_modules/js-yaml/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@eslint/eslintrc/node_modules/js-yaml/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/babel-plugin-polyfill-corejs2/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/babel-plugin-polyfill-corejs2/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/babel-plugin-polyfill-corejs2/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/babel-plugin-polyfill-corejs2/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-import/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-import/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-import/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-import/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-jsx-a11y/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-jsx-a11y/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-jsx-a11y/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-jsx-a11y/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/.bin/resolve" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/.bin/resolve" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/resolve/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/resolve/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint-plugin-react/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint/node_modules/.bin/js-yaml" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint/node_modules/.bin/js-yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/eslint/node_modules/js-yaml/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/eslint/node_modules/js-yaml/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/istanbul-lib-instrument/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/istanbul-lib-instrument/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/istanbul-lib-instrument/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/istanbul-lib-instrument/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/make-dir/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/make-dir/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/make-dir/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/make-dir/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/postcss-svgo/node_modules/.bin/svgo" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss-svgo/node_modules/.bin/svgo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/postcss-svgo/node_modules/svgo/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/postcss-svgo/node_modules/svgo/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/tsconfig-paths/node_modules/.bin/json5" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/tsconfig-paths/node_modules/.bin/json5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/tsconfig-paths/node_modules/json5/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/tsconfig-paths/node_modules/json5/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/mainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/mainPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/models/User.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/helpers/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/login.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,10 +50,15 @@
     &quot;nodejs_interpreter_path&quot;: &quot;/opt/homebrew/bin/node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/models" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -98,6 +73,8 @@
       <workItem from="1679473771354" duration="6942000" />
       <workItem from="1679498193797" duration="3041000" />
       <workItem from="1679647155165" duration="522000" />
+      <workItem from="1680547316909" duration="62000" />
+      <workItem from="1680547385408" duration="9950000" />
     </task>
     <servers />
   </component>

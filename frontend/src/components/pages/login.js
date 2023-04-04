@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import headerImage from '../images/Component 3.png'
 import dogImage from '../images/Component 1.png'
-import catImage from '../images/Component 2.png'
+import {useState} from "react";
+import User from "../models/User";
+
 
 const FormContainer = styled.div`
     margin-left: 100vh;
@@ -12,14 +14,6 @@ const FormContainer = styled.div`
     width: 425px;
     height: 243px;
 `;
-
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-};
 
 const customStyle1 = {
     backgroundColor: '#ffaeae',
@@ -33,8 +27,49 @@ const customStyle2 = {
     color: '#000000',
 }
 
-const Login: React.FC = () => (
 
+const Login: React.FC = () => {
+
+    let [LoginData, setLoginData] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleChange = (event) => {
+        let value = event.target.value;
+        let name = event.target.name;
+
+        setLoginData({
+            ...LoginData,
+            [name]: value
+        })
+    }
+
+    const onLogin = async () => {
+        const requestBody = JSON.stringify({
+            email: LoginData.email,
+            password: LoginData.password
+        });
+        console.log(requestBody);
+        const response = await fetch('http://127.0.0.1:5000/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: requestBody
+        });
+        console.log(response.data);
+        const user = new User(response);
+        console.log(user);
+
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+    };
+
+
+
+    return(
     <div style={{
         background: 'linear-gradient(' +
             'to right,' +
@@ -74,11 +109,11 @@ const Login: React.FC = () => (
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        label="eMail"
+                        name="email"
+                        rules={[{required: true, message: 'Please input your eMail!' }]}
                     >
-                        <Input />
+                        <Input onChange={handleChange} name='email'/>
                     </Form.Item>
 
                     <Form.Item
@@ -86,7 +121,7 @@ const Login: React.FC = () => (
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
-                        <Input.Password />
+                        <Input.Password onChange={handleChange} name='password'/>
                     </Form.Item>
 
                     <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
@@ -94,7 +129,7 @@ const Login: React.FC = () => (
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle1} htmlType="submit">
+                        <Button style={customStyle1} htmlType="submit" onClick={onLogin} >
                             <Link to={'/mainPage'}>
                                 Sign In
                             </Link>
@@ -102,7 +137,7 @@ const Login: React.FC = () => (
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle2} htmlType="submit">
+                        <Button style={customStyle2} htmlType="submit" >
                             <Link to="/register">
                                 Sign Up
                             </Link>
@@ -112,6 +147,7 @@ const Login: React.FC = () => (
                 </Form>
             </FormContainer>
         </div>
-);
+    )
+}
 
 export default Login;
