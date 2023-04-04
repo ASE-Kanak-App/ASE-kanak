@@ -2,6 +2,7 @@ from app.posts import bp
 from app.extensions import db
 from app.models.models import Post
 from flask import jsonify, request, make_response
+from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 from werkzeug.utils import secure_filename
 from app.posts.utils import allowed_file
 import os
@@ -57,4 +58,56 @@ def create_post():
             db.session.commit()
 
             return make_response(jsonify(post.obj_to_dict())), 201
+
+@bp.route('/updatePost/<int:id>', methods = ['POST'])
+def update_post(id):
+    post = db.session.get(Post, id)
+    if post is None:
+        resp = {
+            'status': 'not successful',
+            'message': 'Post not found'
+        }
+        return make_response(jsonify(resp)), 401
+    
+    post.title = str(request.form['title'])
+    post.content = str(request.form['content'])
+    post.user_id = int(request.form['user_id'])
+
+    file = request.files['file']
+    if file:
+        if file.filename == '':
+            resp = {
+                    'status': 'not successful',
+                    'message': 'File cannot be null'
+            }
+            return make_response(jsonify(resp)), 401
         
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            post.mimetype = filename
+    
+    db.session.add(post)
+    db.session.commit()
+    resp = {
+        'status': "Successful",
+        'message': 'Your post has been edited'
+    }
+    return make_response(jsonify(resp)), 201
+
+@bp.route('/deletePost/<int:id>', methods = ['DELETE'])
+def delete_post(id):
+    post = db.session.get(Post, id)
+    if post is None:
+        resp = {
+            'status': 'not successful',
+            'message': 'Post not found'
+        }
+        return make_response(jsonify(resp)), 401
+
+    db.session.delete(post)
+    db.session.commit()
+    resp = {
+        'status': 'Successful',
+        'message': 'Post deleted successfully'
+    }
+    return make_response(jsonify(resp)), 201

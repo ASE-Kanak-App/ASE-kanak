@@ -82,5 +82,54 @@ def test_one_post_retrieve():
     flask_app = create_app(Config)
 
     with flask_app.test_client() as test_client:
-        response = test_client.get("/posts/retrievePost/1")
+        response = test_client.get("/posts/retrievePost/28")
         assert response.status_code == 200
+
+def test_post_update():
+    """
+    Check if the post has been updated 
+    with a successful status"""
+    
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        data={"title": "title_new", "content": "content_new",
+            "user_id": 2, "file":"worker.jpg"}
+        data = {key: str(value) for key, value in data.items()}
+        data['file'] = (io.BytesIO(b"abcdef"), 'test.jpg')
+        response = test_client.post("/posts/updatePost/28", 
+        data=data,follow_redirects = True,
+        content_type='multipart/form-data')
+        assert response.status_code == 201
+
+def test_non_existent_post_update():
+    """
+    Check if updating a post that does not exist
+    gives invalid response"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        data={"title": "title_new", "content": "content_new",
+            "user_id": 2, "file":"worker.jpg"}
+        data = {key: str(value) for key, value in data.items()}
+        data['file'] = (io.BytesIO(b"abcdef"), 'test.jpg')
+        response = test_client.post("/posts/updatePost/100", 
+        data=data,follow_redirects = True,
+        content_type='multipart/form-data')
+        assert response.status_code == 401
+
+def test_post_deletion():
+    """
+    Check if the post is deleted
+    with a successful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.delete("/posts/deletePost/28")
+        assert response.status_code == 201
+
+def test_non_existent_post_deletion():
+    """
+    Check if a non existent post
+    gives unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.delete("/posts/deletePost/28")
+        assert response.status_code == 401
