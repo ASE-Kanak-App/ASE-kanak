@@ -54,25 +54,25 @@ const Login: React.FC = () => {
     }
 
     const onLogin = async () => {
-        const requestBody = JSON.stringify({
-            email: LoginData.email,
-            password: LoginData.password
-        });
-        console.log(requestBody);
-        const response = await fetch('http://127.0.0.1:5000/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: requestBody
-        });
-        console.log(response.data);
-        const user = new User(response);
-        console.log(user);
+        try{
+            const requestBody = JSON.stringify({
+                email: LoginData.email,
+                password: LoginData.password
+            });
+            console.log(requestBody);
+            const response = await fetch('http://127.0.0.1:5000/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: requestBody
+            });
+            console.log(response.data);
 
-        localStorage.setItem('token', user.token);
-        localStorage.setItem('user', JSON.stringify(user));
-
+            window.open("/MainPage")
+        } catch (e) {
+            alert("something went wrong: " + e.message);
+        }
     };
 
 
@@ -137,10 +137,8 @@ const Login: React.FC = () => {
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle1} htmlType="submit" onClick={onLogin} >
-                            <Link to={'/mainPage'}>
-                                Sign In
-                            </Link>
+                        <Button style={customStyle1} htmlType="submit" onClick={onLogin}>
+                            Sign In
                         </Button>
                     </Form.Item>
 
