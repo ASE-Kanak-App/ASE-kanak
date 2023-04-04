@@ -5,7 +5,10 @@ import styled from 'styled-components'
 import headerImage from '../images/Component 3.png'
 import dogImage from '../images/Component 1.png'
 import {useState} from "react";
+import {api} from "../../helpers/api";
 import User from "../models/User";
+
+
 
 
 const FormContainer = styled.div`
@@ -38,10 +41,13 @@ const customStyle2 = {
 
 const Login: React.FC = () => {
 
+
     let [LoginData, setLoginData] = useState({
         email: '',
         password: ''
     })
+
+    const [posts, setPosts] = useState([]);
 
     const handleChange = (event) => {
         let value = event.target.value;
@@ -53,13 +59,35 @@ const Login: React.FC = () => {
         })
     }
 
-    const onLogin = async () => {
+    const onlogin = async () => {
         try{
             const requestBody = JSON.stringify({
                 email: LoginData.email,
                 password: LoginData.password
             });
             console.log(requestBody);
+            console.log("here2")
+            const response = await api.post('/auth/login', {
+                method: 'POST',
+                body: requestBody
+            });
+            console.log("here1")
+            const responseData = await response.json();
+            console.log(responseData)
+            console.log("here")
+        } catch (e) {
+            alert("something went wrong: " + e.message);
+        }
+    };
+
+    const Login = async () => {
+        try{
+            const requestBody = JSON.stringify({
+                email: LoginData.email,
+                password: LoginData.password
+            });
+            console.log(requestBody);
+            console.log("here2")
             const response = await fetch('http://127.0.0.1:5000/auth/login', {
                 method: 'POST',
                 headers: {
@@ -67,9 +95,10 @@ const Login: React.FC = () => {
                 },
                 body: requestBody
             });
-            console.log(response.data);
-
-            window.open("/MainPage")
+            console.log("here1")
+            const responseData = await response.json();
+            console.log(responseData)
+            console.log("here")
         } catch (e) {
             alert("something went wrong: " + e.message);
         }
@@ -137,7 +166,9 @@ const Login: React.FC = () => {
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle1} htmlType="submit" onClick={onLogin}>
+                        <Button style={customStyle1} htmlType="submit" onClick={onlogin}>
+                            <Link to={"/MainPage"}>
+                            </Link>
                             Sign In
                         </Button>
                     </Form.Item>
@@ -145,8 +176,8 @@ const Login: React.FC = () => {
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button style={customStyle2} htmlType="submit" >
                             <Link to="/register">
-                                Sign Up
                             </Link>
+                                Sign Up
                         </Button>
                     </Form.Item>
 
