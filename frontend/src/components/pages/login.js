@@ -15,6 +15,14 @@ const FormContainer = styled.div`
     height: 243px;
 `;
 
+const onFinish = (values: any) => {
+    console.log('Success:', values);
+};
+
+const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+};
+
 const customStyle1 = {
     backgroundColor: '#ffaeae',
     borderColor: '#ffaeae',
