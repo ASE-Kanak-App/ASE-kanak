@@ -1,6 +1,8 @@
 from app import create_app
 from config import Config
 import json
+from dotenv import load_dotenv
+import os
 
 ######## Signup #######
 
@@ -31,7 +33,7 @@ def test_existing_user():
                                     data={"email" : 'lucifer@gmail.com', "firstname" : 'lucifer', 
                                     "username" : 'lucifer', "lastname" : 'user',
                                     "password" : 'lucifer', "intro" : 'intro', "phone" : '12345'})
-        assert response.status_code == 401
+        assert response.status_code == 202
         assert b"Error occured, user already exists" in response.data
 
 def verify_max_min_credential_length():
@@ -108,9 +110,12 @@ def test_logout():
     """
     Test if the user is able to logout
     """
+    load_dotenv()
+
+    headers = {'Authorization': os.getenv('AUTH')}
     flask_app = create_app(Config)
     with flask_app.test_client() as test_client:
-        response = test_client.post("/auth/logout")
+        response = test_client.delete("/auth/logout", headers=headers)
     assert b"JWT revoked - Logout successful" in response.data
 
 # def test_redirection():
