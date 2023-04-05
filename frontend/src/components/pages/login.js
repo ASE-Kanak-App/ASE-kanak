@@ -6,6 +6,7 @@ import headerImage from '../images/Component 3.png'
 import dogImage from '../images/Component 1.png'
 import {useState} from "react";
 import {api} from "../../helpers/api";
+import axios from "axios";
 import User from "../models/User";
 
 
@@ -47,8 +48,6 @@ const Login: React.FC = () => {
         password: ''
     })
 
-    const [posts, setPosts] = useState([]);
-
     const handleChange = (event) => {
         let value = event.target.value;
         let name = event.target.name;
@@ -59,52 +58,30 @@ const Login: React.FC = () => {
         })
     }
 
-    const onlogin = async () => {
-        try{
-            const requestBody = JSON.stringify({
-                email: LoginData.email,
-                password: LoginData.password
+    const onLogin = async () => {
+        const FormData = require('form-data');
+        let data = new FormData();
+        data.append('email', LoginData.email);
+        data.append('password', LoginData.password);
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://127.0.0.1:5000/auth/login',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+
+        api.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log(error);
             });
-            console.log(requestBody);
-            console.log("here2")
-            const response = await api.post('/auth/login', {
-                method: 'POST',
-                body: requestBody
-            });
-            console.log("here1")
-            const responseData = await response.json();
-            console.log(responseData)
-            console.log("here")
-        } catch (e) {
-            alert("something went wrong: " + e.message);
-        }
     };
-
-    const Login = async () => {
-        try{
-            const requestBody = JSON.stringify({
-                email: LoginData.email,
-                password: LoginData.password
-            });
-            console.log(requestBody);
-            console.log("here2")
-            const response = await fetch('http://127.0.0.1:5000/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: requestBody
-            });
-            console.log("here1")
-            const responseData = await response.json();
-            console.log(responseData)
-            console.log("here")
-        } catch (e) {
-            alert("something went wrong: " + e.message);
-        }
-    };
-
-
 
     return(
     <div style={{
@@ -161,12 +138,12 @@ const Login: React.FC = () => {
                         <Input.Password onChange={handleChange} name='password'/>
                     </Form.Item>
 
-                    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                    {/*<Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
                         <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
+                    </Form.Item>*/}
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle1} htmlType="submit" onClick={onlogin}>
+                        <Button style={customStyle1} htmlType="submit" onClick={onLogin}>
                             <Link to={"/MainPage"}>
                             </Link>
                             Sign In
