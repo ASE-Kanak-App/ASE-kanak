@@ -46,9 +46,9 @@ const Register: React.FC = () => {
         lastName: '',
         password: '',
         confirmPassword: '',
-        eMail: '',
-        phoneNumber: '',
-        introduction: ''
+        email: '',
+        phone: '',
+        intro: ''
     })
 
     const handleChange = (event) => {
@@ -71,18 +71,19 @@ const Register: React.FC = () => {
         const FormData = require('form-data');
         let data = new FormData();
         data.append('username', RegistrationData.username);
-        data.append('firstName', RegistrationData.firstName);
-        data.append('lastName', RegistrationData.lastName);
+        data.append('firstname', RegistrationData.firstName);
+        data.append('lastname', RegistrationData.lastName);
         data.append('password', RegistrationData.password);
-        data.append('confirmPassword', RegistrationData.confirmPassword);
-        data.append('eMail', RegistrationData.eMail);
-        data.append('phoneNumber', RegistrationData.phoneNumber);
-        data.append('role', RegistrationData.introduction);
+        data.append('email', RegistrationData.email);
+        data.append('phone', RegistrationData.phone);
+        data.append('intro', RegistrationData.intro);
+
+        console.log("data "+data);
 
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://127.0.0.1:5000/auth/login',
+            url: 'auth/signup',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -92,16 +93,12 @@ const Register: React.FC = () => {
         api.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                const user = new User(response.data);
-                user.setEmail(LoginData.email);
-                localStorage.setItem('user', JSON.stringify(user));
-                console.log("new user: "+localStorage.getItem('user'));
-
+                alert("You have successfully registered!")
                 // move to main page
                 window.location.href = "/MainPage";
             })
             .catch((error) => {
-                alert("Wrong email or password, please try again")
+                alert("Registration failed!")
                 console.log(error);
             });
     };
@@ -156,14 +153,14 @@ const Register: React.FC = () => {
                         name="firstName"
                         rules={[{ required: true, message: 'Please input your First Name!' }]}
                     >
-                        <Input onChange={handleChange} name='firstName'/>
+                        <Input onChange={handleChange} name='firstname'/>
                     </Form.Item>
                     <Form.Item
                         label="Last Name"
                         name="lastName"
                         rules={[{ required: true, message: 'Please input your Last Name!' }]}
                     >
-                        <Input onChange={handleChange} name='lastName'/>
+                        <Input onChange={handleChange} name='lastname'/>
                     </Form.Item>
 
                     <Form.Item
@@ -186,21 +183,21 @@ const Register: React.FC = () => {
                         name="eMail"
                         rules={[{ required: true, message: 'Please input your eMail!' }]}
                     >
-                        <Input onChange={handleChange} name='eMail'/>
+                        <Input onChange={handleChange} name='email'/>
                     </Form.Item>
                     <Form.Item
                         label="Phone Number"
                         name="phoneNumber"
                         rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                     >
-                        <Input onChange={handleChange} name='phoneNumber'/>
+                        <Input onChange={handleChange} name='phone'/>
                     </Form.Item>
                     <Form.Item
                         label="Introduction"
                         name="introduction"
                         rules={[{ min: 8, required: true, message: 'Please input an introduction!' }]}
                     >
-                        <Input onChange={handleChange} name='introduction'/>
+                        <Input onChange={handleChange} name='intro'/>
                     </Form.Item>
 
 
@@ -212,6 +209,7 @@ const Register: React.FC = () => {
                         <Button style={customStyle2} htmlType="submit" onClick={onRegister}>
                             Sign Up
                         </Button>
+                        Or <a href="/login">login now!</a>
                     </Form.Item>
                 </Form>
             </FormContainer>

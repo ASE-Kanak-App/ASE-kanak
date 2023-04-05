@@ -67,7 +67,7 @@ const Login: React.FC = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: '/auth/signup',
+            url: 'auth/login',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
