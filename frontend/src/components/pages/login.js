@@ -7,7 +7,7 @@ import dogImage from '../images/Component 1.png'
 import {useState} from "react";
 import {api} from "../../helpers/api";
 import axios from "axios";
-import User from "../models/User";
+import {User} from "../models/User";
 
 
 
@@ -77,8 +77,16 @@ const Login: React.FC = () => {
         api.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
+                const user = new User(response.data);
+                user.setEmail(LoginData.email);
+                localStorage.setItem('user', JSON.stringify(user));
+                console.log("new user: "+localStorage.getItem('user'));
+
+                // move to main page
+                window.location.href = "/MainPage";
             })
             .catch((error) => {
+                alert("Wrong email or password, please try again")
                 console.log(error);
             });
     };
@@ -125,7 +133,7 @@ const Login: React.FC = () => {
                     <Form.Item
                         label="eMail"
                         name="email"
-                        rules={[{required: true, message: 'Please input your eMail!' }]}
+                        rules={[{required: false, message: 'Please input your eMail!' }]}
                     >
                         <Input onChange={handleChange} name='email'/>
                     </Form.Item>
@@ -133,7 +141,7 @@ const Login: React.FC = () => {
                     <Form.Item
                         label="Password"
                         name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: false, message: 'Please input your password!' }]}
                     >
                         <Input.Password onChange={handleChange} name='password'/>
                     </Form.Item>
@@ -144,8 +152,6 @@ const Login: React.FC = () => {
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button style={customStyle1} htmlType="submit" onClick={onLogin}>
-                            <Link to={"/MainPage"}>
-                            </Link>
                             Sign In
                         </Button>
                     </Form.Item>
@@ -153,8 +159,8 @@ const Login: React.FC = () => {
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button style={customStyle2} htmlType="submit" >
                             <Link to="/register">
-                            </Link>
                                 Sign Up
+                            </Link>
                         </Button>
                     </Form.Item>
 
