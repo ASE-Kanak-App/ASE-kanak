@@ -8,6 +8,7 @@ from flask_jwt_extended import get_jwt
 from flask_jwt_extended import jwt_required
 from datetime import datetime, timezone
 from dotenv import load_dotenv
+
 import os
 import jwt
 
@@ -70,6 +71,8 @@ def login():
 
     # creates dictionary of form data
     auth = request.form
+
+    print(auth)
   
     if not auth or not auth.get('email') or not auth.get('password'):
         # returns 401 if any email or / and password is missing
