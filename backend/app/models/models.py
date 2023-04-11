@@ -2,11 +2,12 @@ from app.extensions import db
 from flask_login import UserMixin
 from datetime import datetime
 
+user_fk = 'user.id' 
 
 class Follow(db.Model):
-    follower_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+    follower_id = db.Column(db.Integer, db.ForeignKey(user_fk),
                             primary_key=True)
-    followed_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+    followed_id = db.Column(db.Integer, db.ForeignKey(user_fk),
                             primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -61,7 +62,7 @@ class User(db.Model, UserMixin):
             "username":self.username,
             "posts":self.posts
         }
-    
+
 class TokenBlockList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     jti = db.Column(db.String(36), nullable=True, index=True)
@@ -78,11 +79,10 @@ class TokenBlockList(db.Model):
         }
 
 class Post(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     content = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey(user_fk))
     mimetype = db.Column(db.Text, nullable=False)
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
     likes = db.relationship('Likes', backref='post', lazy='dynamic')
@@ -102,10 +102,10 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(255))
     commneted_on = db.Column(db.Integer, db.ForeignKey('post.id'))
-    commented_by = db.Column(db.Integer, db.ForeignKey('user.id'))
+    commented_by = db.Column(db.Integer, db.ForeignKey(user_fk))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
 class Likes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     liked_on = db.Column(db.Integer, db.ForeignKey('post.id'))
-    liked_by = db.Column(db.Integer, db.ForeignKey('user.id'))
+    liked_by = db.Column(db.Integer, db.ForeignKey(user_fk))

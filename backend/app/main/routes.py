@@ -7,7 +7,6 @@ from flask import render_template, flash, redirect, url_for, request, current_ap
 from flask import jsonify, make_response, request
 
 # main page that the user views
-@bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
@@ -72,18 +71,15 @@ def follow(username):
         resp = {'status': 'Unsuccessful',
                 'message': 'User not found'}
         return make_response(jsonify(resp)), 401
-        # return redirect(url_for('main.index'))
     if user == current_user:
         resp = {'status': 'Unsuccessful',
                 'message': 'You cannot follow yourself'}
         return make_response(jsonify(resp)), 401
-        # return redirect(url_for('main.user', username=username))
     current_user.follow(user)
     db.session.commit()
     resp = {'status': 'Successful',
             'message': f'You are now following {username}!'}
     return make_response(jsonify(resp)), 201
-    # return redirect(url_for('main.user', username=username))
 
 @bp.route('/unfollow/<username>')
 @login_required
@@ -93,18 +89,15 @@ def unfollow(username):
         resp = {'status': 'Unsuccessful',
                 'message': 'User not found'}
         return make_response(jsonify(resp)), 401
-        # return redirect(url_for('main.index'))
     if user == current_user:
         resp = {'status': 'Unsuccessful',
                 'message': 'You cannot unfollow yourself'}
         return make_response(jsonify(resp)), 401
-        # return redirect(url_for('main.user', username=username))
     current_user.unfollow(user)
     db.session.commit()
     resp = {'status': 'Successful',
             'message': f'You are not following {username}!'}
     return make_response(jsonify(resp)), 201
-    # return redirect(url_for('main.user', username=username))
 
 # searching for other users
 @bp.route('/search')
