@@ -35,25 +35,25 @@ def create_post():
             }
             return make_response(jsonify(resp)), 401
         
-        file = request.files['file']
+        file_name = request.files['file']
 
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
 
-        if file.filename == '':
+        if file_name.filename == '':
             resp = {
                     'status': 'not successful',
                     'message': 'File cannot be null'
             }
             return make_response(jsonify(resp)), 401
         
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+        if file_name and allowed_file(file_name.filename):
+            filename = secure_filename(file_name.filename)
 
             post = Post(title = request.form['title'], content = request.form['content'],
                 user_id = request.form['user_id'], mimetype = filename)
             
-            file.save(os.path.join(os.environ.get('UPLOAD_FOLDER'), filename))
+            file_name.save(os.path.join(os.environ.get('UPLOAD_FOLDER'), filename))
             db.session.add(post)
             db.session.commit()
 
@@ -73,17 +73,17 @@ def update_post(id):
     post.content = str(request.form['content'])
     post.user_id = int(request.form['user_id'])
 
-    file = request.files['file']
-    if file:
-        if file.filename == '':
+    file_name = request.files['file']
+    if file_name:
+        if file_name.filename == '':
             resp = {
                     'status': 'not successful',
                     'message': 'File cannot be null'
             }
             return make_response(jsonify(resp)), 401
         
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+        if file_name and allowed_file(file_name.filename):
+            filename = secure_filename(file_name.filename)
             post.mimetype = filename
     
     db.session.add(post)

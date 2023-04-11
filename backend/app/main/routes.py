@@ -7,7 +7,7 @@ from flask import render_template, flash, redirect, url_for, request, current_ap
 from flask import jsonify, make_response, request
 
 # main page that the user views
-@bp.route('/index', methods=['GET', 'POST'])
+@bp.route('/index', methods=['POST'])
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
