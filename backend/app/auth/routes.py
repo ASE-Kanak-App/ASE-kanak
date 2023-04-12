@@ -115,6 +115,15 @@ def logout():
     db.session.commit()
     return make_response(jsonify(msg="JWT revoked - Logout successful"))
 
+@bp.route('/getUserId/', methods=['GET'])
+def getUser():
+    args = request.args
+    email = args.get('email')
+    user = User.query.filter_by(email=email).first()
+
+    return make_response(jsonify(user.obj_to_dict()))
+
+
 # @bp.route("/protected", methods=["GET"])
 # @jwt_required()
 # def protected():
