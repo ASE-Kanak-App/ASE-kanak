@@ -1,15 +1,17 @@
 import React, {useState} from "react";
 import { Input, message, Upload } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { InboxOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from "styled-components";
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import {string} from "prop-types";
+import {createPostInProfile} from "./posts";
+import FormData from "form-data";
+import {api} from "../../../helpers/api";
+import {User} from "../../models/User";
+const { Dragger } = Upload;
 
 const { TextArea } = Input;
-const onChange = (e) => {
-    console.log('Change:', e.target.value);
-};
 
 
 
@@ -25,52 +27,51 @@ const PostContainer = styled.div`
   margin: 0 2%;
 `;
 
-function getBase64(img: RcFile, callback: (imageUrl: string) => void) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(string(reader.result)));
-    reader.readAsDataURL(img);
-}
+
+
 const CreatePost: React.FC = () => {
-    const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState('');
 
-    const uploadButton = (
-        <div>
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </div>
-    );
+    let [postData, setPostData] = useState({
+        title: '',
+        content: '',
+        files: null
+    });
 
-    const handleChange = (info: UploadChangeParam<UploadFile<any>>) => {
-        if (info.file.status === 'uploading') {
-            setLoading(true);
-            return;
-        }
-        if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, (imageUrl) => {
-                setImageUrl(imageUrl);
-                setLoading(false);
-            });
-        }
+    const [file, setFile] = useState();
+
+    function handleChange(e) {
+        let file = URL.createObjectURL(e.target.files[0]);
+        let value = e.target.value;
+        let name = e.target.name;
+
+        setFile(file);
+
+        setPostData({
+            ...postData,
+            [name]: value
+        })
+    }
+
+    const createPost = async () => {
+        createPostInProfile(postData.title, postData.content, file)
+        console.log(postData);
+
     };
 
-
-    const beforeUpload = (file: RcFile) => {
-        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-        if (!isJpgOrPng) {
-            message.error('You can only upload JPG/PNG file!');
-        }
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isLt2M) {
-            message.error('Image must smaller than 2MB!');
-        }
-        return isJpgOrPng && isLt2M;
-    };
 
     return(
         <PostContainer>
-            <div className="news-feed" style={{
+            <div className="title" style={{
+                'font-size': '1.5em',
+                'text-align': 'left',
+                'background':'#D7ADAD',
+                'display': 'flex',
+                'flex-direction': 'column',
+                'padding': '3%',
+                'margin': '0 2%'}}>
+                <Input placeholder = "Title" onChange={handleChange} name='title' />
+            </div>
+            <div className="content" style={{
                 'background': '#D7ADAD',
                 'display': 'flex',
                 'flex-direction': 'column',
@@ -81,12 +82,13 @@ const CreatePost: React.FC = () => {
                         showCount
                         maxLength={100}
                         style={{ height: 120, marginBottom: 24 }}
-                        onChange={onChange}
+                        onChange={handleChange}
+                        name="content"
                         placeholder="What's on your mind?"
                     />
                 {/* Your article components go here */}
             </div>
-            <div className="news-feed" style={{
+            <div className="image" style={{
                 'background': '#D7ADAD',
                 'display': 'flex',
                 'flex-direction': 'column',
@@ -94,20 +96,31 @@ const CreatePost: React.FC = () => {
                 'margin': '0 2%',
                 'border':'0',
                 'align-items':'centre'}}>
-                <div className={'upload-image'} style={{ 'align-items':'centre','background': 'white', 'height': 120}}>
-                    <Upload
-                        name="avatar"
-                        listType="picture-card"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        beforeUpload={beforeUpload}
-                        onChange={handleChange}
-                    >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-                    </Upload>
-                </div>
+                <div className={'upload-image'} style={{
+                    'font-size': '1.5em',
+                    'text-align': 'left',
+                    'background':'#D7ADAD',
+                    'display': 'flex',
+                    'flex-direction': 'column',
+                    'padding': '3%',
+                    'margin': '0 2%'}}>
 
+                        <input type="file"
+                               onChange={handleChange}
+                               name="files"
+                        />
+                        <img src={file}/>
+                </div>
+            </div>
+            <div className="submit" style={{
+                'background': '#D7ADAD',
+                'display': 'flex',
+                'flex-direction': 'column',
+                'padding': '3%',
+                'margin': '0 2%',
+                'border':'0',
+                'align-items':'centre'}}>
+                <button onClick={() => createPost(postData)}>Submit</button>
             </div>
 
         </PostContainer>

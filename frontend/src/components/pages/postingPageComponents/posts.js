@@ -69,24 +69,37 @@ const Post = ({ post: { name, text, file } }) => {
     );
 };
 
+const posts = [
+    {
+        name: "Karim Abouel Naga",
+        text: `Hello this is a first post!`,
+        file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
+    },
+    {
+        name: "Kevin Kindler",
+        text: `Hello this is the second post!`,
+        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+    },
+    {
+        name: "Kevin Kindler",
+        text: `Hello this is the third post!`,
+        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+    }
+];
+
+// function to create a post
+// input: title, text, image if any
+// add it to the posts array
+export function createPostInProfile(title, text, image){
+    posts.push({
+        name: title,
+        text: text,
+        file: image,
+    });
+}
+
 function Posts(){
-    const posts = [
-        {
-            name: "Karim Abouel Naga",
-            text: `Hello this is a first post!`,
-            file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
-        },
-        {
-            name: "Kevin Kindler",
-            text: `Hello this is the second post!`,
-            file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-        },
-        {
-            name: "Kevin Kindler",
-            text: `Hello this is the third post!`,
-            file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-        }
-    ];
+
 
     return (
         <div className="posts-container">
