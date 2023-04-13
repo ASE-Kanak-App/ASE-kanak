@@ -7,6 +7,7 @@ import {
 import Login from "./components/pages/login"
 import Register from "./components/pages/register"
 import MainPage from "./components/pages/mainPage";
+import PostingPage from "./components/pages/postingPage";
 
 
 export default class AppRouter extends React.Component {
@@ -18,6 +19,7 @@ export default class AppRouter extends React.Component {
                         <Route path='/login' element={<Login/>} />
                         <Route path='/register' element={<Register/>} />
                         <Route path='/mainpage' element={<MainPage/>}/>
+                        <Route path='/posts' element={<PostingPage/>}/>
                     </React.Fragment>
                 </Routes>
             </BrowserRouter>
