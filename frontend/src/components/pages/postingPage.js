@@ -56,6 +56,8 @@ function Logout(){
 
 
 
+
+
 const PostingPage: React.FC = () => (
 
     <div style={{
@@ -82,9 +84,26 @@ const PostingPage: React.FC = () => (
                 </Space>
             </div>
         </div>
-
+        <div className="create-post" style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "transparent"
+        }}>
                 <CreatePost />
+
+        </div>
+        <div className="post-feed" style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "transparent",
+        }}>
                 <PostsFeed />
+            </div>
+
+
+
 
             {/* Render other components and content here */}
     </div>
