@@ -103,6 +103,7 @@ function Posts(){
 
 
 const PostsFeed: React.FC = () => (
+    <PostContainer>
         <div className="news-feed" style={customStyle1}>
 
 
@@ -110,6 +111,7 @@ const PostsFeed: React.FC = () => (
 
             {/* Your article components go here */}
         </div>
+    </PostContainer>
 );
 
 export default PostsFeed;

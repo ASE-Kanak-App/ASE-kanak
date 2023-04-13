@@ -72,8 +72,6 @@ const CreatePost: React.FC = () => {
         <PostContainer>
             <div className="news-feed" style={{
                 'background': '#D7ADAD',
-                'font-size': '15px',
-                'line-height': '24px',
                 'display': 'flex',
                 'flex-direction': 'column',
                 'padding': '3%',
@@ -90,25 +88,24 @@ const CreatePost: React.FC = () => {
             </div>
             <div className="news-feed" style={{
                 'background': '#D7ADAD',
-                'font-size': '15px',
-                'line-height': '24px',
                 'display': 'flex',
                 'flex-direction': 'column',
                 'padding': '3%',
                 'margin': '0 2%',
-                'border':'0'}}>
-                <div className={'upload-image'} style={{'background': 'white', height: 120}}>
-                <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    showUploadList={false}
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    beforeUpload={beforeUpload}
-                    onChange={handleChange}
-                >
-                    {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-                </Upload>
+                'border':'0',
+                'align-items':'centre'}}>
+                <div className={'upload-image'} style={{ 'align-items':'centre','background': 'white', 'height': 120}}>
+                    <Upload
+                        name="avatar"
+                        listType="picture-card"
+                        className="avatar-uploader"
+                        showUploadList={false}
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        beforeUpload={beforeUpload}
+                        onChange={handleChange}
+                    >
+                        {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                    </Upload>
                 </div>
 
             </div>
