@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {View} from "react-native";
 import {Space} from "antd";
 
+
 const customStyle1 = {
     backgroundColor: 'transparent',
     padding: '10px',
@@ -91,11 +92,17 @@ const posts = [
 // input: title, text, image if any
 // add it to the posts array
 export function createPostInProfile(title, text, image){
+    console.log("here1")
+    //add post to posts
     posts.push({
         name: title,
         text: text,
         file: image,
-    });
+    })
+    console.log("here")
+    console.log(posts)
+    //reload Posts
+
 }
 
 function Posts(){
