@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Input, message, Upload } from 'antd';
+import {Button, Input, message, Upload} from 'antd';
 import { InboxOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from "styled-components";
 import type { UploadChangeParam } from 'antd/es/upload';
@@ -58,6 +58,12 @@ const CreatePost: React.FC = () => {
 
     };
 
+    const hiddenFileInput = React.useRef(null);
+
+    const handleClick = () => {
+        hiddenFileInput.current.click();
+    };
+
 
     return(
         <PostContainer>
@@ -104,12 +110,17 @@ const CreatePost: React.FC = () => {
                     'flex-direction': 'column',
                     'padding': '3%',
                     'margin': '0 2%'}}>
-
-                        <input type="file"
-                               onChange={handleChange}
-                               name="files"
+                    <Button onClick={handleClick}>
+                        Choose Image
+                    </Button>
+                    <input
+                        type="file"
+                        onChange={handleChange}
+                        name="files"
+                        ref={hiddenFileInput}
+                        style={{'display': 'none'}}
                         />
-                        <img src={file}/>
+                    <img src={file}/>
                 </div>
             </div>
             <div className="submit" style={{
