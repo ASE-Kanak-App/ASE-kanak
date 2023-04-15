@@ -3,6 +3,7 @@ import {Button, Form, Input, Upload, message} from "antd";
 import styled from "styled-components";
 import { UploadOutlined } from "@ant-design/icons";
 import '../../App.css';
+import NavigationBar from '../../NavigationBar';
 import headerImage from "../images/header2.png"
 import Posts, { PostContainer, Heading, Text, Test } from "./postingPageComponents/posts";
 
@@ -86,6 +87,10 @@ function ProfilePage() {
             height: '100vh',
             width: '100vw'
         }}>>
+
+            <div>
+                <NavigationBar />
+            </div>
 
             <div>
                 <img src={headerImage} alt="My Image" style={{
