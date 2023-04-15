@@ -77,6 +77,14 @@
   display: flex;
 }
 
+.news-feed-container2 {
+  position: relative;
+  max-width: 400px;
+  margin-left: 50%;
+  margin-top: -10%;
+
+}
+
 .news-feed {
   margin: auto;
   max-width: 800px;
@@ -89,4 +97,8 @@
 .article {
   margin: 10px;
   padding: 10px;
+}
+
+.personal-feed-profile {
+  background-color: black;
 }
