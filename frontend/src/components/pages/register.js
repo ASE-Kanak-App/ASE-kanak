@@ -129,7 +129,7 @@ const Register: React.FC = () => {
             <img src={dogImage} alt="Dog Image" style={{ marginLeft: '15vh'}} />
         </div>
 
-
+        <div style={{marginTop: '-10vh', position:'absolute'}}>
             <FormContainer>
                 <Form
                     name="basic"
@@ -213,6 +213,10 @@ const Register: React.FC = () => {
                     </Form.Item>
                 </Form>
             </FormContainer>
+        </div>
+
+
+
         </div>
     )
 }
