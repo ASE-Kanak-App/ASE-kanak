@@ -117,19 +117,21 @@ const Register: React.FC = () => {
         <div style={{
             display: 'flex',
             marginLeft: '35vh',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
+            position:'absolute'
         }}>
             <img src={headerImage} alt="My Image" style={{ marginTop: '20px' }} />
         </div>
 
         <div style={{
-            marginTop: '5vh',
-            marginLeft: '120vh'
+            marginTop: '30vh',
+            marginLeft: '120vh',
+            position:'absolute'
         }}>
             <img src={dogImage} alt="Dog Image" style={{ marginLeft: '15vh'}} />
         </div>
 
-
+        <div style={{marginTop:'50vh', position:'absolute'}}>
             <FormContainer>
                 <Form
                     name="basic"
@@ -213,6 +215,10 @@ const Register: React.FC = () => {
                     </Form.Item>
                 </Form>
             </FormContainer>
+        </div>
+
+
+
         </div>
     )
 }

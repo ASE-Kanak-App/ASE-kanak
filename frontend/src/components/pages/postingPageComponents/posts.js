@@ -15,7 +15,7 @@ const customStyle1 = {
 
 
 
-const PostContainer = styled.div`
+export const PostContainer = styled.div`
   font-size: 1.5em;
   text-align: left;
   background: 'linear-gradient(' +
@@ -27,7 +27,7 @@ const PostContainer = styled.div`
   margin: 0 2%;
 `;
 
-const Heading = styled.div`
+export const Heading = styled.div`
   background: #D7ADAD;
   font-family: 'Cousine';
   font-style: normal;
@@ -40,7 +40,7 @@ const Heading = styled.div`
   align-items: center;
 `;
 
-const Text =styled.div`
+export const Text =styled.div`
   background: #D7ADAD;
   font-family: 'Akshar';
   font-style: normal;
@@ -48,7 +48,7 @@ const Text =styled.div`
   font-size: 15px;
   line-height: 24px;
  `;
-const Test =styled.div`
+export const Test =styled.div`
   background: #D7ADAD;
   font-size: 15px;
   line-height: 24px;

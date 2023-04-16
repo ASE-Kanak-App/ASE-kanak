@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import {View} from "react-native";
 import {Space} from "antd";
+import NavigationBar from '../../../NavigationBar';
 
 const customStyle1 = {
     backgroundColor: 'transparent',
@@ -146,18 +147,15 @@ function Logout(){
 
 const NewsFeed: React.FC = () => (
         <div className="news-feed" style={customStyle1}>
-            <View style={{
-                display: 'flex',
-                flexDirection: 'row'
-            }}>
-                <Space>
-                    <Logout />
-                    <CreatePost />
-                    <EditUser />
-                </Space>
-            </View>
 
-            <Posts />
+            <div style={{marginTop: '-15vh', marginLeft: '2.5vh'}}>
+                <NavigationBar/>
+            </div>
+
+            <div style={{marginTop: '10vh'}}>
+                <Posts />
+            </div>
+
 
             {/* Your article components go here */}
         </div>
