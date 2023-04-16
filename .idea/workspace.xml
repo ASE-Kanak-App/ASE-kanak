@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="409fba92-09f4-43c8-82f9-1da461f50096" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/register.js" afterDir="false" />
-    </list>
+    <list default="true" id="409fba92-09f4-43c8-82f9-1da461f50096" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
