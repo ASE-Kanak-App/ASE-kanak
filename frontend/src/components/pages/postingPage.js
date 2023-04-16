@@ -9,7 +9,7 @@ import {ProfileOutlined,
     UserOutlined,
 } from '@ant-design/icons';
 import CreatePost from "./postingPageComponents/createPost";
-
+import NavigationBar from '../../NavigationBar';
 
 const iconStyle = {
     display: 'flex',
@@ -74,21 +74,18 @@ const PostingPage: React.FC = () => (
                 height: '100%',
                 textAlign: 'center',
             }} />
-            <div className="main-page-icons" style={{
-                width: '75%',
-            }}>
-                <Space size="large">
-                    <MainPage />
-                    <EditUser />
-                    <Logout />
-                </Space>
-            </div>
         </div>
+
+        <div style={{marginTop: '-15vh', marginLeft: '60vh'}}>
+            <NavigationBar/>
+        </div>
+
         <div className="create-post" style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            background: "transparent"
+            background: "transparent",
+            marginTop: '5vh'
         }}>
                 <CreatePost />
 
