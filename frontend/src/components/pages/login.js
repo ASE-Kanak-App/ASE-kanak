@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import headerImage from '../images/Component 3.png'
 import dogImage from '../images/Component 1.png'
-import catImage from '../images/Component 2.png'
+import {useState} from "react";
+import {api} from "../../helpers/api";
+import axios from "axios";
+import {User} from "../models/User";
+
+
+
 
 const FormContainer = styled.div`
     margin-left: 100vh;
@@ -33,8 +39,59 @@ const customStyle2 = {
     color: '#000000',
 }
 
-const Login: React.FC = () => (
 
+const Login: React.FC = () => {
+
+
+    let [LoginData, setLoginData] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleChange = (event) => {
+        let value = event.target.value;
+        let name = event.target.name;
+
+        setLoginData({
+            ...LoginData,
+            [name]: value
+        })
+    }
+
+    const onLogin = async () => {
+        const FormData = require('form-data');
+        let data = new FormData();
+        data.append('email', LoginData.email);
+        data.append('password', LoginData.password);
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'auth/login',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+
+        api.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                const user = new User(response.data);
+                user.setEmail(LoginData.email);
+                localStorage.setItem('user', JSON.stringify(user));
+                console.log("new user: "+localStorage.getItem('user'));
+
+                // move to main page
+                window.location.href = "/MainPage";
+            })
+            .catch((error) => {
+                alert("Wrong email or password, please try again")
+                console.log(error);
+            });
+    };
+
+    return(
     <div style={{
         background: 'linear-gradient(' +
             'to right,' +
@@ -74,35 +131,33 @@ const Login: React.FC = () => (
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        label="eMail"
+                        name="email"
+                        rules={[{required: false, message: 'Please input your eMail!' }]}
                     >
-                        <Input />
+                        <Input onChange={handleChange} name='email'/>
                     </Form.Item>
 
                     <Form.Item
                         label="Password"
                         name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: false, message: 'Please input your password!' }]}
                     >
-                        <Input.Password />
+                        <Input.Password onChange={handleChange} name='password'/>
                     </Form.Item>
 
-                    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                    {/*<Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
                         <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
+                    </Form.Item>*/}
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle1} htmlType="submit">
-                            <Link to={'/mainPage'}>
-                                Sign In
-                            </Link>
+                        <Button style={customStyle1} htmlType="submit" onClick={onLogin}>
+                            Sign In
                         </Button>
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle2} htmlType="submit">
+                        <Button style={customStyle2} htmlType="submit" >
                             <Link to="/register">
                                 Sign Up
                             </Link>
@@ -112,6 +167,7 @@ const Login: React.FC = () => (
                 </Form>
             </FormContainer>
         </div>
-);
+    )
+}
 
 export default Login;
