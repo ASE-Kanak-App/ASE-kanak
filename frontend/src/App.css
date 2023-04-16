@@ -102,3 +102,35 @@
 .personal-feed-profile {
   background-color: black;
 }
+
+.navbar {
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  background-color: beige;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 50px;
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  background-color: #f2f2f2;
+  color: black;
+  border-radius: 10px;
+}

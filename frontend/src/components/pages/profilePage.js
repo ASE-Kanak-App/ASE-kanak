@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { UploadOutlined } from "@ant-design/icons";
 import '../../App.css';
 import NavigationBar from '../../NavigationBar';
-import headerImage from "../images/header2.png"
+import headerImage from "../images/header2.png";
+import ProfilePicture from '../images/dog.png';
 import Posts, { PostContainer, Heading, Text, Test } from "./postingPageComponents/posts";
 
 
@@ -88,9 +89,6 @@ function ProfilePage() {
             width: '100vw'
         }}>>
 
-            <div>
-                <NavigationBar />
-            </div>
 
             <div>
                 <img src={headerImage} alt="My Image" style={{
@@ -98,6 +96,10 @@ function ProfilePage() {
                     marginLeft: '70vh',
                     height: '30%'
                 }} />
+            </div>
+
+            <div style={{ marginLeft:'85vh' ,marginTop: '20vh' }}>
+                <NavigationBar />
             </div>
 
 
@@ -119,23 +121,18 @@ function ProfilePage() {
                             onChange={handleUpload}
                             showUploadList={false}
                         >
-                            {profilePicture ? (
-                                <img
-                                    src="frontend/src/components/images/Component 1.png"
-                                    alt="Profile Picture"
-                                    style={{ width: "150px", height: "150px", objectFit: "cover" }}
-                                />
-                            ) : (
                                 <div
-                                    style={{marginLeft:"22vh", width: "150px", height: "150px", backgroundColor: "#f0f0f0" }}
+                                    style={{ marginLeft: "17vh", width: "250px", height: "250px", backgroundColor: "#f0f0f0", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", marginTop:'-10vh'}}
                                 >
-                                    <img
-                                        src="/backend/media/images/worker.jpg"
-                                        alt="Profile Picture"
-                                        style={{ width: "150px", height: "150px", objectFit: "cover" }}
-                                    />
-                                    <div style={{ fontSize: "16px", color: "#a0a0a0" }}>
-                                        Click to upload a photo
+                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                        <img
+                                            src="frontend/src/components/images/Component 1.png"
+                                            alt="Picture"
+                                            style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "50%" }}
+                                        />
+                                        <div style={{ fontSize: "20px", color: "#a0a0a0"}}>
+                                            Upload Photo
+                                        </div>
                                     </div>
                                 </div>
                             )}

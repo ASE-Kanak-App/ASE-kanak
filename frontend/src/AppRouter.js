@@ -19,11 +19,11 @@ export default class AppRouter extends React.Component {
             <BrowserRouter>
                     <Routes>
                         <React.Fragment>
-                            <Route exact path='/login' element={<Login/>} />
                             <Route path='/register' element={<Register/>} />
                             <Route path='/mainpage' element={<MainPage/>}/>
                             <Route path='/posts' element={<PostingPage/>}/>
                             <Route path='/profile' element={<ProfilePage/>}/>
+                            <Route exact path='/' element={<Login/>} />
                         </React.Fragment>
                     </Routes>
 
