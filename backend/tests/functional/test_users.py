@@ -118,14 +118,12 @@ def test_logout():
         response = test_client.delete("/auth/logout", headers=headers)
     assert b"JWT revoked - Logout successful" in response.data
 
-# def test_redirection():
-#     """
-#     Test if user is able to go to the login page after logging out
-#     """
-#     return
-
-# def test_session_expiry():
-#     """
-#     Verify if the user is automatically logged out after their session expiry
-#     """
-#     return
+####### Retrieve User ########
+def test_logout():
+    """
+    Test if the user is able to logout
+    """
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.get("/auth/getUserId/?email=akshay@gmail.com")
+    assert b"email" in response.data

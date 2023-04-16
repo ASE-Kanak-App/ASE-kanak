@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import '../../../App.css';
 import styled from "styled-components";
+import {
+    ProfileOutlined,
+    LogoutOutlined,
+    UserOutlined,
+} from '@ant-design/icons';
+import {View} from "react-native";
+import {Space} from "antd";
 
 const customStyle1 = {
     backgroundColor: 'transparent',
     padding: '10px',
     border: "none",
+}
+
+const iconStyle = {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '100%',
+    textAlign: 'center',
+    color: 'black',
+    fontSize: '20px',
 }
 
 const PostContainer = styled.div`
@@ -51,13 +68,6 @@ const Test =styled.div`
   margin: 0 2%;
  `;
 
-// Mock Newsfeed depends on the API to come
-function Welcome(props) {
-    return <h1>Hello, {props.name}</h1>;
-}
-
-
-
 const Post = ({ post: { name, text, file } }) => {
     return (
         <PostContainer>
@@ -100,10 +110,55 @@ function Posts(){
     );
 }
 
+// clickable icon to move to create post page
+function CreatePost(){
+    return (
+        <div className="create-post">
+            <a href="/posts">
+                <ProfileOutlined className="create-post-icon" style={iconStyle} ProfileOutlined />
+                <p className="create-post-text" style={iconStyle} >Posts</p>
+            </a>
+        </div>
+    );
+}
+
+// clickable icon with text to move to Profile
+function EditUser(){
+    return (
+        <div className="edit-profile">
+            <a href="/profile">
+                <UserOutlined className="edit-profile-icon"  style={iconStyle} UserOutlined/>
+                <p className="edit-profile-text" style={iconStyle} >Profile</p>
+            </a>
+        </div>
+    );
+}
+function Logout(){
+    return (
+        <div className="logout">
+            <a href="/login">
+                <LogoutOutlined className="edit-profile-icon"  style={iconStyle} LogoutOutlined/>
+                <p className="logout-text" style={iconStyle} >Logout</p>
+            </a>
+        </div>
+    );
+}
+
 const NewsFeed: React.FC = () => (
         <div className="news-feed" style={customStyle1}>
+            <View style={{
+                display: 'flex',
+                flexDirection: 'row'
+            }}>
+                <Space>
+                    <Logout />
+                    <CreatePost />
+                    <EditUser />
+                </Space>
+            </View>
 
             <Posts />
+
             {/* Your article components go here */}
         </div>
 );

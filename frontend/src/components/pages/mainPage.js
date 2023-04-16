@@ -7,16 +7,6 @@ import {
     LogoutOutlined,
     ProfileOutlined,
 } from '@ant-design/icons';
-import styled from "styled-components";
-
-
-const header = styled.div`
-  height: ${props => props.height}px;
-  background: ${props => props.background};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 
 const MainPage: React.FC = () => (
@@ -27,10 +17,6 @@ const MainPage: React.FC = () => (
             ' #40B44B 100%)',
     }}>
         <div className="main-page">
-            <Space>
-                <LogoutOutlined />
-                <ProfileOutlined />
-            </Space>
 
             <img src={headerImage} alt="My Image" style={{
                 display: 'flex',
