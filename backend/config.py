@@ -13,3 +13,4 @@ class Config:
     JWT_SECRET_KEY = os.getenv('SECRET')
     JWT_BLACKLIST_ENABLED = True
     JWT_BLACKLIST_TOKEN_CHECKS = True
+    UPLOAD_FOLDER = '/media/images/'

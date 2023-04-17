@@ -11,7 +11,6 @@ class User(db.Model):
     intro = db.Column(db.String(10000))
     phone = db.Column(db.String(12))
     posts = db.relationship('Post', backref = 'user', lazy = True)
-
     def __repr__(self):
         return f'<User "{self.username}">'
     
@@ -22,6 +21,7 @@ class User(db.Model):
             "username":self.username,
             "posts":self.posts
         }
+    
     
 class TokenBlockList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,6 +44,7 @@ class Post(db.Model):
     title = db.Column(db.String(200))
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    mimetype = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
         return f'<Post "{self.title}">'
@@ -52,5 +53,6 @@ class Post(db.Model):
         return {
             "id": self.id,
             "title": self.title,
-            "content":self.content
+            "content":self.content,
+            "image":self.mimetype,
         }
