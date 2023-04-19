@@ -138,7 +138,7 @@ def getUser():
         }
         return make_response(jsonify(resp))
 
-
+        
 
 # @bp.route("/protected", methods=["GET"])
 # @jwt_required()

@@ -119,7 +119,7 @@ def test_logout():
     assert b"JWT revoked - Logout successful" in response.data
 
 ####### Retrieve User ########
-def test_logout():
+def test_user_retrieve():
     """
     Test if the user is able to logout
     """

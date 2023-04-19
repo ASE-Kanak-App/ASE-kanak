@@ -82,7 +82,7 @@ def test_one_post_retrieve():
     flask_app = create_app(Config)
 
     with flask_app.test_client() as test_client:
-        response = test_client.get("/posts/retrievePost/4")
+        response = test_client.get("/posts/retrievePost/1")
         assert response.status_code == 200
 
 '''def test_post_update():
@@ -132,4 +132,84 @@ def test_non_existent_post_deletion():
     flask_app = create_app(Config)
     with flask_app.test_client() as test_client:
         response = test_client.delete("/posts/deletePost/28")
+        assert response.status_code == 401
+
+
+def test_valid_comment_creation():
+    """
+    Given the valid inputs
+    When the /makeComment page is requested(POST)
+    Then check response is valid"""
+
+    flask_app = create_app(Config)
+
+    with flask_app.test_client() as test_client:
+        data={"post_id":1, "content": "content",
+            "user_id": 2}
+        data = {key: str(value) for key, value in data.items()}
+        response = test_client.post("/posts/makeComment", 
+        data=data,follow_redirects = True,
+        content_type='multipart/form-data')
+        
+        assert response.status_code == 201
+
+def test_comments_by_post_retrieve():
+    """
+    Check if all the posts are retrieved
+    with a successful status"""
+
+    flask_app = create_app(Config)
+
+    with flask_app.test_client() as test_client:
+        response = test_client.get("/posts/getCommentByPost/1")
+        assert response.status_code == 200
+
+def test_comments_by_user_retrieve():
+    """
+    Check if all the posts are retrieved
+    with a successful status"""
+
+    flask_app = create_app(Config)
+
+    with flask_app.test_client() as test_client:
+        response = test_client.get("/posts/getCommentByUser/1")
+        assert response.status_code == 200
+
+
+def test_comment_update():
+    """
+    Check if the post has been updated 
+    with a successful status"""
+    
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        data={"content": "content_new"}
+        data = {key: str(value) for key, value in data.items()}
+        response = test_client.post("/posts/updateComment/1", 
+        data=data,follow_redirects = True,
+        content_type='multipart/form-data')
+        assert response.status_code == 201
+
+def test_non_existing_comment_update():
+    """
+    Check if the post has been updated 
+    with a successful status"""
+    
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        data={"content": "content_new"}
+        data = {key: str(value) for key, value in data.items()}
+        response = test_client.post("/posts/updateComment/9000", 
+        data=data,follow_redirects = True,
+        content_type='multipart/form-data')
+        assert response.status_code == 401
+
+
+def test_non_existent_post_deletion():
+    """
+    Check if a non existent post
+    gives unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.delete("/posts/deletePost/9000")
         assert response.status_code == 401
