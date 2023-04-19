@@ -12,6 +12,7 @@ class User(db.Model):
     phone = db.Column(db.String(12))
     posts = db.relationship('Post', backref = 'user', lazy = True)
     comments = db.relationship('Comment', backref = 'user', lazy = True)
+
     def __repr__(self):
         return f'<User "{self.username}">'
     
@@ -30,6 +31,7 @@ class Post(db.Model):
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     mimetype = db.Column(db.Text, nullable=False)
+    likes = db.Column(db.Integer, default=0)
     comments = db.relationship('Comment', backref = 'post', lazy = True)
 
     def __repr__(self):
@@ -40,6 +42,7 @@ class Post(db.Model):
             "id": self.id,
             "title": self.title,
             "content":self.content,
+            "likes":self.likes,
             "image":self.mimetype,
         }
     
