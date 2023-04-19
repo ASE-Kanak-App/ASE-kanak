@@ -1,6 +1,6 @@
 from app.posts import bp
 from app.extensions import db
-from app.models.models import Post
+from app.models.models import Post, Comment
 from flask import jsonify, request, make_response
 from flask_login import login_user, logout_user, current_user, login_required, LoginManager
 from werkzeug.utils import secure_filename
@@ -111,3 +111,71 @@ def delete_post(id):
         'message': 'Post deleted successfully'
     }
     return make_response(jsonify(resp)), 201
+
+@bp.route('/makeComment/', methods = ['POST'])
+def make_comment():
+    comment = Comment(post_id = request.form['post_id'], content = request.form['content'],
+                user_id = request.form['user_id'])
+    db.session.add(comment)
+    db.session.commit()
+
+    return make_response(jsonify(comment.obj_to_dict())), 201
+
+@bp.route('/getCommentByPost/<int:id>', methods = ['GET'])
+def get_comments_by_post(id):
+    comments = Comment.query.filter_by(post_id=id).all()
+    
+    all_comments = list()
+    for comment in comments:
+        all_comments.append(comment.obj_to_dict())
+
+    return make_response(jsonify(all_comments)), 200
+
+@bp.route('/getCommentByUser/<int:id>', methods = ['GET'])
+def get_comments_by_user(id):
+    comments = Comment.query.filter_by(user_id=id).all()
+    
+    all_comments = list()
+    for comment in comments:
+        all_comments.append(comment.obj_to_dict())
+
+    return make_response(jsonify(all_comments)), 200
+
+@bp.route('/deleteComment/<int:id>', methods = ['DELETE'])
+def delete_comment(id):
+    comment = db.session.get(Comment, id)
+    if comment is None:
+        resp = {
+            'status': 'not successful',
+            'message': 'Comment'
+        }
+        return make_response(jsonify(resp)), 401
+
+    db.session.delete(comment)
+    db.session.commit()
+    resp = {
+        'status': 'Successful',
+        'message': 'Comment deleted successfully'
+    }
+    return make_response(jsonify(resp)), 201
+
+@bp.route('/updateComment/<int:id>', methods = ['POST'])
+def update_comment(id):
+    comment = db.session.get(Comment, id)
+    if comment is None:
+        resp = {
+            'status': 'not successful',
+            'message': 'Post not found'
+        }
+        return make_response(jsonify(resp)), 401
+    
+    comment.content = str(request.form['content'])
+    
+    db.session.add(comment)
+    db.session.commit()
+    resp = {
+        'status': "Successful",
+        'message': 'Your comment has been edited'
+    }
+    return make_response(jsonify(resp)), 201
+

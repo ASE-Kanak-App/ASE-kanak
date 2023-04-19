@@ -11,6 +11,7 @@ class User(db.Model):
     intro = db.Column(db.String(10000))
     phone = db.Column(db.String(12))
     posts = db.relationship('Post', backref = 'user', lazy = True)
+    comments = db.relationship('Comment', backref = 'user', lazy = True)
     def __repr__(self):
         return f'<User "{self.username}">'
     
@@ -18,8 +19,43 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-            "username":self.username,
-            "posts":self.posts
+            "username":self.username
+        }
+    
+
+class Post(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    content = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    mimetype = db.Column(db.Text, nullable=False)
+    comments = db.relationship('Comment', backref = 'post', lazy = True)
+
+    def __repr__(self):
+        return f'<Post "{self.title}">'
+    
+    def obj_to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "content":self.content,
+            "image":self.mimetype,
+        }
+    
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return f'<Comment "{self.content[:20]}...">'
+    
+    def obj_to_dict(self):
+        return {
+            "content":self.content,
         }
     
     
@@ -36,23 +72,4 @@ class TokenBlockList(db.Model):
             "id":self.id,
             "jti": self.jti,
             "created_at":self.created_at,
-        }
-
-class Post(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    content = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    mimetype = db.Column(db.Text, nullable=False)
-
-    def __repr__(self):
-        return f'<Post "{self.title}">'
-    
-    def obj_to_dict(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "content":self.content,
-            "image":self.mimetype,
         }
