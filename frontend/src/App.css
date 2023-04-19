@@ -77,6 +77,14 @@
   display: flex;
 }
 
+.news-feed-container2 {
+  position: relative;
+  max-width: 400px;
+  margin-left: 50%;
+  margin-top: -10%;
+
+}
+
 .news-feed {
   margin: auto;
   max-width: 800px;
@@ -89,4 +97,40 @@
 .article {
   margin: 10px;
   padding: 10px;
+}
+
+.personal-feed-profile {
+  background-color: black;
+}
+
+.navbar {
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  background-color: beige;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 50px;
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  background-color: #f2f2f2;
+  color: black;
+  border-radius: 10px;
 }
