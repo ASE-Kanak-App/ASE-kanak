@@ -213,3 +213,42 @@ def test_non_existent_post_deletion():
     with flask_app.test_client() as test_client:
         response = test_client.delete("/posts/deletePost/9000")
         assert response.status_code == 401
+
+
+def test_post_likes():
+    """
+    Check if a non existent post
+    gives unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/posts/likePost/1")
+        assert response.status_code == 201
+
+def test_post_unlikes():
+    """
+    Check if a non existent post
+    gives unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/posts/unlikePost/1")
+        assert response.status_code == 201
+
+def test_nonexisting_post_likes():
+    """
+    Check if a non existent post
+    gives unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/posts/likePost/1000")
+        assert response.status_code == 401
+
+def test_nonexisting_post_unlikes():
+    """
+    Check if a non existent post
+    gives unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/posts/unlikePost/1000")
+        assert response.status_code == 401
+
+

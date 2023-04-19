@@ -165,7 +165,7 @@ def update_comment(id):
     if comment is None:
         resp = {
             'status': 'not successful',
-            'message': 'Post not found'
+            'message': 'Comment not found'
         }
         return make_response(jsonify(resp)), 401
     
@@ -176,6 +176,54 @@ def update_comment(id):
     resp = {
         'status': "Successful",
         'message': 'Your comment has been edited'
+    }
+    return make_response(jsonify(resp)), 201
+
+@bp.route('/likePost/<int:id>', methods = ['POST'])
+def like_post(id):
+    post = db.session.get(Post, id)
+    if post is None:
+        resp = {
+            'status': 'not successful',
+            'message': 'Post not found'
+        }
+        return make_response(jsonify(resp)), 401
+    
+    post.likes = post.likes + 1
+    
+    db.session.add(post)
+    db.session.commit()
+    resp = {
+        'status': "Successful",
+        'message': 'Post has been liked'
+    }
+    return make_response(jsonify(resp)), 201
+
+@bp.route('/unlikePost/<int:id>', methods = ['POST'])
+def unlike_post(id):
+    post = db.session.get(Post, id)
+    if post is None:
+        resp = {
+            'status': 'not successful',
+            'message': 'Post not found'
+        }
+        return make_response(jsonify(resp)), 401
+    
+    if post.likes == 0:
+        resp = {
+        'status': "Successful",
+        'message': 'Post has been unliked'
+        }
+        return make_response(jsonify(resp)), 201
+
+    post.likes = post.likes - 1
+    
+    db.session.add(post)
+    db.session.commit()
+
+    resp = {
+        'status': "Successful",
+        'message': 'Post has been unliked'
     }
     return make_response(jsonify(resp)), 201
 
