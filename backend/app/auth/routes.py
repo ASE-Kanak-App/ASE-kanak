@@ -3,7 +3,7 @@ from app.extensions import db
 from flask import jsonify, make_response, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.auth.utils import encode_token
-from app.models.models import User, TokenBlockList
+from app.models.models import User, TokenBlockList, Follow
 from flask_jwt_extended import get_jwt
 from flask_jwt_extended import jwt_required
 from datetime import datetime, timezone
@@ -138,7 +138,76 @@ def getUser():
         }
         return make_response(jsonify(resp))
 
-        
+@bp.route('/follow/', methods=['POST'])
+def follow():
+    email = request.form['email']
+    username = request.form['username']
+
+    current_user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        resp = {
+            "status": "Error",
+            "message": "User cannot be none"
+        }
+        return make_response(jsonify(resp))
+    
+    if current_user.is_following(user):
+        resp = {
+            "status": "Error",
+            "message": "You are already following"
+        }
+        return make_response(jsonify(resp))
+    current_user.follow(user)
+    db.session.commit()
+    resp = {
+            "status": "Success",
+            "message": "Followed successfully"
+    }
+    return make_response(jsonify(resp)), 201
+
+
+@bp.route('/unfollow/', methods=['POST'])
+def unfollow():
+    email = request.form['email']
+    username = request.form['username']
+
+    current_user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        resp = {
+            "status": "Error",
+            "message": "User cannot be none"
+        }
+        return make_response(jsonify(resp))
+    if not current_user.is_following(user):
+        resp = {
+            "status": "Error",
+            "message": "You are not following"
+        }
+        return make_response(jsonify(resp))
+    current_user.unfollow(user)
+    db.session.commit()
+    resp = {
+            "status": "Success",
+            "message": "Unfollowed successfully"
+    }
+    return make_response(jsonify(resp)), 201
+
+
+@bp.route('/getFollowers/<int:id>')
+def get_followers(id):
+    followers = Follow.query.filter_by(followed_id=id).all()
+
+    all_followers = list()
+    for follower in followers:
+        all_followers.append(follower.obj_to_dict())
+
+    return make_response(jsonify(all_followers)), 201
+
+
+
+
 
 # @bp.route("/protected", methods=["GET"])
 # @jwt_required()
