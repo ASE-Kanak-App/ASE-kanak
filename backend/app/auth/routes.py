@@ -150,14 +150,14 @@ def follow():
             "status": "Error",
             "message": "User cannot be none"
         }
-        return make_response(jsonify(resp))
+        return make_response(jsonify(resp)), 401
     
     if current_user.is_following(user):
         resp = {
             "status": "Error",
             "message": "You are already following"
         }
-        return make_response(jsonify(resp))
+        return make_response(jsonify(resp)), 402
     current_user.follow(user)
     db.session.commit()
     resp = {
@@ -179,13 +179,13 @@ def unfollow():
             "status": "Error",
             "message": "User cannot be none"
         }
-        return make_response(jsonify(resp))
+        return make_response(jsonify(resp)), 401
     if not current_user.is_following(user):
         resp = {
             "status": "Error",
             "message": "You are not following"
         }
-        return make_response(jsonify(resp))
+        return make_response(jsonify(resp)), 402
     current_user.unfollow(user)
     db.session.commit()
     resp = {
@@ -195,7 +195,7 @@ def unfollow():
     return make_response(jsonify(resp)), 201
 
 
-@bp.route('/getFollowers/<int:id>')
+@bp.route('/getFollowers/<int:id>', methods=['GET'])
 def get_followers(id):
     followers = Follow.query.filter_by(followed_id=id).all()
 

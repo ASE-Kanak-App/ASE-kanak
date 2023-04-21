@@ -250,5 +250,3 @@ def test_nonexisting_post_unlikes():
     with flask_app.test_client() as test_client:
         response = test_client.post("/posts/unlikePost/1000")
         assert response.status_code == 401
-
-
