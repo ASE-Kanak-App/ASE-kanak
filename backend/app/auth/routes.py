@@ -64,8 +64,6 @@ def register():
 
         return make_response(jsonify(resp)), 202
 
-
-
 @bp.route('/login', methods = ['POST'])
 def login():
 
@@ -137,6 +135,52 @@ def getUser():
             "message": "Could not retrieve, user does not exists"
         }
         return make_response(jsonify(resp))
+
+@bp.route('/editUserInfo/', methods = ['POST'])
+def edit_user_info():
+    user = User.query.filter_by(email = request.form['email']).first()
+
+    if not user:
+        resp = {
+                    'status': 'not successful',
+                    'message': 'user does not exist'
+                }
+        return make_response(jsonify(resp)), 401
+
+    if len(request.form['password'])<5 or len(request.form['password'])>100:
+        resp = {
+            'status': 'not successful',
+            'message': 'incorrect password length'
+        }
+        return make_response(jsonify(resp)), 402
+    
+    if len(request.form['email'])==0 or len(request.form['email'])>100:
+        resp = {
+            'status': 'not successful',
+            'message': 'incorrect email length'
+        }
+        return make_response(jsonify(resp)), 403
+    
+    user.email = request.form['email']
+    user.username = request.form['username']
+    user.firstname = request.form['firstname']
+    user.lastname = request.form['lastname']
+    user.intro = request.form['intro']
+    user.phone = request.form['phone']
+
+    hashed_password = generate_password_hash(request.form['password'])
+    assert hashed_password != request.form['password']
+    user.password = hashed_password      
+    db.session.add(user)
+    db.session.commit()
+
+    resp = {
+        'status': 'success',
+        'message': 'User Information edited successfully'
+    }
+
+    return make_response(jsonify(resp)), 201
+
 
 @bp.route('/follow/', methods=['POST'])
 def follow():

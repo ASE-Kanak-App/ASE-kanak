@@ -22,6 +22,23 @@ def test_user_registration():
         assert response.status_code == 201 or response.status_code == 202
         assert b"User registered successfully" in response.data or b"Error occured, user already exists" in response.data
 
+def test_user_registration_2():
+    """
+    Given the valid details
+    When the /signup page is requested(POST)
+    Then check the response is valid"""
+
+    flask_app = create_app(Config)
+
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/auth/signup",  
+                                    data={"email" : 'kevin@gmail.com', "firstname" : 'kevin', 
+                                    "username" : 'kevinxyz', "lastname" : 'xyz',
+                                    "password" : 'kevin123', "intro" : 'intro', "phone" : '123456'})
+        assert response.status_code == 201 or response.status_code == 202
+        assert b"User registered successfully" in response.data or b"Error occured, user already exists" in response.data
+
+
 def test_existing_user():
     """
     Verify that a user cannot re-register 
@@ -128,6 +145,50 @@ def test_user_retrieve():
         response = test_client.get("/auth/getUserId/?email=akshay@gmail.com")
     assert b"email" in response.data
 
+###### Test Updating User Info #######
+def test_user_info_update():
+    """
+    Test if an existing user can update the info
+    (surname changed to 'Green')
+    with a successful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/auth/editUserInfo/",
+                                    data={"email" : 'lucifer@gmail.com', "firstname" : 'lucifer', 
+                                    "username" : 'lucifer', "lastname" : 'Green',
+                                    "password" : 'lucifer', "intro" : 'intro', "phone" : '12345'})
+
+    assert response.status_code == 201
+    assert b"User Information edited successfully" in response.data
+
+def test_non_existent_user_update():
+    """
+    Test if an non-existing user cannot update the info
+    with a unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/auth/editUserInfo/",
+                                    data={"email" : 'xyz@gmail.com', "firstname" : 'xyz', 
+                                    "username" : 'xyz', "lastname" : 'xyz',
+                                    "password" : 'xyzzzzzz', "intro" : 'intro', "phone" : '12345'})
+
+    assert response.status_code == 401
+    assert b"user does not exist" in response.data
+
+def test_incorrect_password_update():
+    """
+    Test if an existing user cannot update the info
+    if the password has an incorrect length
+    with a unsuccessful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.post("/auth/editUserInfo/",
+                                    data={"email" : 'lucifer@gmail.com', "firstname" : 'lucifer', 
+                                    "username" : 'lucifer', "lastname" : 'Green',
+                                    "password" : 'l1', "intro" : 'intro', "phone" : '12345'})
+
+    assert response.status_code == 402
+    assert b"incorrect password length" in response.data
 
 ####### Testing follow/unfollowing of users ########
 
