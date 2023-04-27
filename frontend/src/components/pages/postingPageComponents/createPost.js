@@ -15,7 +15,7 @@ const { TextArea } = Input;
 
 
 
-const PostContainer = styled.div`
+export const PostContainer = styled.div`
   font-size: 1.5em;
   text-align: left;
   background: 'linear-gradient(' +
@@ -26,6 +26,22 @@ const PostContainer = styled.div`
   padding: 3%;
   margin: 0 2%;
 `;
+
+export const Test =styled.div`
+  background: #D7ADAD;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  margin: 0 2%;
+ `;
+
+const customStyle1 = {
+    backgroundColor: 'transparent',
+    padding: '10px',
+    border: "none",
+}
 
 
 
@@ -39,13 +55,23 @@ const CreatePost: React.FC = () => {
 
     const [file, setFile] = useState();
 
-    function handleChange(e) {
-        let file = URL.createObjectURL(e.target.files[0]);
+    function handleFileChange(e) {
         let value = e.target.value;
         let name = e.target.name;
-
+        let file = URL.createObjectURL(e.target.files[0]);
         setFile(file);
+        setPostData({
+            ...postData,
+            [name]: value
+        })
+    }
 
+
+    function handleChange(e) {
+        let value = e.target.value;
+        let name = e.target.name;
+        console.log(value)
+        console.log(name)
         setPostData({
             ...postData,
             [name]: value
@@ -67,42 +93,12 @@ const CreatePost: React.FC = () => {
 
     return(
         <PostContainer>
-            <div className="title" style={{
-                'font-size': '1.5em',
-                'text-align': 'left',
-                'background':'#D7ADAD',
-                'display': 'flex',
-                'flex-direction': 'column',
-                'padding': '3%',
-                'margin': '0 2%'}}>
-                <Input placeholder = "Title" onChange={handleChange} name='title' />
-            </div>
-            <div className="content" style={{
-                'background': '#D7ADAD',
-                'display': 'flex',
-                'flex-direction': 'column',
-                'padding': '3%',
-                'margin': '0 2%',
-                'border':'0'}}>
-                    <TextArea
-                        showCount
-                        maxLength={100}
-                        style={{ height: 120, marginBottom: 24 }}
-                        onChange={handleChange}
-                        name="content"
-                        placeholder="What's on your mind?"
-                    />
-                {/* Your article components go here */}
-            </div>
-            <div className="image" style={{
-                'background': '#D7ADAD',
-                'display': 'flex',
-                'flex-direction': 'column',
-                'padding': '3%',
-                'margin': '0 2%',
-                'border':'0',
-                'align-items':'centre'}}>
-                <div className={'upload-image'} style={{
+        <div className="news-feed" style={customStyle1}>
+        <div className="posts-container">
+        <div className="aroundAPost" style={{background: "transparent"}}>
+        <PostContainer>
+            <Test>
+                <div className="title" style={{
                     'font-size': '1.5em',
                     'text-align': 'left',
                     'background':'#D7ADAD',
@@ -110,30 +106,72 @@ const CreatePost: React.FC = () => {
                     'flex-direction': 'column',
                     'padding': '3%',
                     'margin': '0 2%'}}>
-                    <Button onClick={handleClick}>
-                        Choose Image
-                    </Button>
-                    <input
-                        type="file"
-                        onChange={handleChange}
-                        name="files"
-                        ref={hiddenFileInput}
-                        style={{'display': 'none'}}
-                        />
-                    <img src={file}/>
+                    <Input placeholder = "Title" onChange={handleChange} name='title' />
                 </div>
-            </div>
-            <div className="submit" style={{
-                'background': '#D7ADAD',
-                'display': 'flex',
-                'flex-direction': 'column',
-                'padding': '3%',
-                'margin': '0 2%',
-                'border':'0',
-                'align-items':'centre'}}>
-                <button onClick={() => createPost(postData)}>Submit</button>
-            </div>
 
+                <div className="content" style={{
+                    'background': '#D7ADAD',
+                    'display': 'flex',
+                    'flex-direction': 'column',
+                    'padding': '3%',
+                    'margin': '0 2%',
+                    'border':'0'}}>
+                        <TextArea
+                            showCount
+                            maxLength={100}
+                            style={{ height: 120, marginBottom: 24 }}
+                            onChange={handleChange}
+                            name="content"
+                            placeholder="What's on your mind?"
+                        />
+                    {/* Your article components go here */}
+                </div>
+
+                <div className="image" style={{
+                    'background': '#D7ADAD',
+                    'display': 'flex',
+                    'flex-direction': 'column',
+                    'padding': '3%',
+                    'margin': '0 2%',
+                    'border':'0',
+                    'align-items':'centre'}}>
+                    <div className={'upload-image'} style={{
+                        'font-size': '1.5em',
+                        'text-align': 'left',
+                        'background':'#D7ADAD',
+                        'display': 'flex',
+                        'flex-direction': 'column',
+                        'padding': '3%',
+                        'margin': '0 2%'}}>
+                        <Button onClick={handleClick}>
+                            Choose Image
+                        </Button>
+                        <input
+                            type="file"
+                            onChange={handleFileChange}
+                            name="files"
+                            ref={hiddenFileInput}
+                            style={{'display': 'none'}}
+                            />
+                        <img className="image" src={file} alt="" />
+                    </div>
+                </div>
+
+                <div className="submit" style={{
+                    'background': '#D7ADAD',
+                    'display': 'flex',
+                    'flex-direction': 'column',
+                    'padding': '3%',
+                    'margin': '0 2%',
+                    'border':'0',
+                    'align-items':'centre'}}>
+                    <button onClick={() => createPost(postData)}>Submit</button>
+                </div>
+            </Test>
+        </PostContainer>
+        </div>
+        </div>
+        </div>
         </PostContainer>
     )
 };

@@ -77,8 +77,9 @@ const Login: React.FC = () => {
         api.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                const user = new User(response.data);
-                user.setEmail(LoginData.email);
+                const loginData = response.data;
+                const user = new User();
+                user.setToken(loginData.token)
                 localStorage.setItem('user', JSON.stringify(user));
                 console.log("new user: "+localStorage.getItem('user'));
 
