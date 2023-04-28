@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import {View} from "react-native";
 import {Space} from "antd";
+import getUserId from "./GetUserID";
 
 
 const customStyle1 = {
@@ -34,7 +35,7 @@ export const Heading = styled.div`
   font-weight: 700;
   font-size: 36px;
   line-height: 24px;
-  height: 126px;
+  height: 50px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -45,9 +46,18 @@ export const Text =styled.div`
   font-family: 'Akshar';
   font-style: normal;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 20px;
   line-height: 24px;
  `;
+
+export const Title =styled.div`
+  background: #D7ADAD;
+  font-family: 'Akshar';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+`;
 export const Test =styled.div`
   background: #D7ADAD;
   font-size: 15px;
@@ -58,11 +68,12 @@ export const Test =styled.div`
   margin: 0 2%;
  `;
 
-const Post = ({ post: { name, text, file } }) => {
+const Post = ({ post: { name,title, text, file } }) => {
     return (
         <PostContainer>
             <Test>
-                <Heading>{name}</Heading>
+                <Heading>{title}</Heading>
+                <Title>{"posted by: " +name}</Title>
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
             </Test>
@@ -72,17 +83,20 @@ const Post = ({ post: { name, text, file } }) => {
 
 const posts = [
     {
-        name: "Karim Abouel Naga",
+        name: localStorage.getItem("username"),
+        title: "Title",
         text: `Hello this is a first post!`,
         file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
     },
     {
-        name: "Kevin Kindler",
+        name: localStorage.getItem("username"),
+        title: "Title",
         text: `Hello this is the second post!`,
         file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
     },
     {
-        name: "Kevin Kindler",
+        name: localStorage.getItem("username"),
+        title: "Title",
         text: `Hello this is the third post!`,
         file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
     }
@@ -91,11 +105,12 @@ const posts = [
 // function to create a post
 // input: title, text, image if any
 // add it to the posts array
-export function createPostInProfile(title, text, image){
+export function createPostInProfile(name, title, text, image){
     console.log("here1")
     //add post to posts
     posts.push({
-        name: title,
+        name: name,
+        title: title,
         text: text,
         file: image,
     })
@@ -105,9 +120,7 @@ export function createPostInProfile(title, text, image){
 
 }
 
-function Posts(){
-
-
+function Posts() {
     return (
         <div className="posts-container">
             {posts.map((post) => (

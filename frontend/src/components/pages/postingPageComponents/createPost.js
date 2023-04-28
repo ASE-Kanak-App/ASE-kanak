@@ -53,13 +53,24 @@ const CreatePost: React.FC = () => {
         files: null
     });
 
+    const FormData = require('form-data');
+    let data = new FormData();
+
     const [file, setFile] = useState();
+
+    const [filedata, setFiledata] = useState();
 
     function handleFileChange(e) {
         let value = e.target.value;
         let name = e.target.name;
         let file = URL.createObjectURL(e.target.files[0]);
+        let filedata = e.target.files[0];
+        console.log("e.target.files[0]", e.target.files[0])
+        console.log(value)
+        console.log(name)
+        console.log(file)
         setFile(file);
+        setFiledata(filedata);
         setPostData({
             ...postData,
             [name]: value
@@ -79,8 +90,30 @@ const CreatePost: React.FC = () => {
     }
 
     const createPost = async () => {
-        createPostInProfile(postData.title, postData.content, file)
-        console.log(postData);
+        data.append('title', postData.title);
+        data.append('content', postData.content);
+        data.append('user_id', localStorage.getItem("userId"));
+        data.append('file', filedata);
+        console.log("data", data)
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'posts/createPost/',
+            headers: {
+                'content-type': 'multipart/form-data'
+            },
+            data : data
+        };
+
+        api.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                const responseData = response.data;
+            })
+            .catch((error) => {
+                alert("Wrong email or password, please try again")
+                console.log(error);
+            })
 
     };
 
