@@ -9,6 +9,7 @@ import {
 import {View} from "react-native";
 import {Space} from "antd";
 import NavigationBar from '../../../NavigationBar';
+import {api} from "../../../helpers/api";
 
 const customStyle1 = {
     backgroundColor: 'transparent',
@@ -70,6 +71,7 @@ const Test =styled.div`
  `;
 
 const Post = ({ post: { name, text, file } }) => {
+
     return (
         <PostContainer>
             <Test>
@@ -81,34 +83,66 @@ const Post = ({ post: { name, text, file } }) => {
     );
 };
 
-function Posts(){
-    const posts = [
-        {
-            name: "Karim Abouel Naga",
-            text: `Hello this is a first post!`,
-            file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
-        },
-        {
-            name: "Kevin Kindler",
-            text: `Hello this is the second post!`,
-            file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-        },
-        {
-            name: "Kevin Kindler",
-            text: `Hello this is the third post!`,
-            file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-        }
-    ];
 
-    return (
-        <div className="posts-container">
-            {posts.map((post) => (
-                <div className="aroundAPost" style={{background: "transparent"}}>
-                    <Post  post={post} />
-                </div>
-            ))}
-        </div>
-    );
+
+
+function Posts(){
+        const [posts, setPosts] = useState([]);
+        let config = {
+            method: 'GET',
+            maxBodyLength: Infinity,
+            url: 'posts/retrievePost/',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        };
+
+        useEffect(() => {
+            api.request(config)
+                .then((response) => {
+                    const responseData = response.data;
+                    console.log(responseData.length)
+                    let newPosts = []
+                    //iterate over retrievedPosts and add to posts
+                    for (let i = 0; i < responseData.length; i++) {
+                        //show the image received in format image.jpg
+                        //posts.push(responseData[i].image)
+                        var headers = response.headers;
+                        var blob = new Blob([responseData[i].image], {type: headers['content-type']});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = responseData[i].image;
+                        console.log("imageUrl: ", link)
+
+                        newPosts = newPosts.concat({
+                            id: i,
+                            name: responseData[i].title,
+                            text: responseData[i].content,
+                            file: link,
+                        })
+                    }
+                    setPosts(newPosts)
+                    console.log("retrievedPosts: ", JSON.stringify(responseData))
+                    console.log("posts: ", posts)
+
+                })
+                .catch((error) => {
+                    alert("Something went wrong when getting the posts");
+                    console.log(error);
+                });
+        }, []);
+
+            return (
+                console.log("posts in return: ", posts),
+                    <div className="posts-container">
+                        {posts.map((post) => (
+                            <div className="aroundAPost" key={post.id} style={{background: "transparent"}}>
+                                <Post post={post}/>
+                            </div>
+                        ))}
+                    </div>
+            );
+
 }
 
 // clickable icon to move to create post page

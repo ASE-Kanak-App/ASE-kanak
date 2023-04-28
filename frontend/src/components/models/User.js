@@ -53,4 +53,10 @@ export class User{
     setToken(token) {
         this.token = token;
     }
+    getUserName() {
+        return this.userName;
+    }
+    getEmail() {
+        return this.email;
+    }
 }
