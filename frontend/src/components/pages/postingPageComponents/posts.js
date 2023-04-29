@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {View} from "react-native";
 import {Space} from "antd";
 import getUserId from "./GetUserID";
+import {api} from "../../../helpers/api";
 
 
 const customStyle1 = {
@@ -121,15 +122,64 @@ export function createPostInProfile(name, title, text, image){
 }
 
 function Posts() {
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        console.log("userId", localStorage.getItem("userId"))
+
+        // retrieve the Posts of the user
+        let config = {
+            method: 'GET',
+            maxBodyLength: Infinity,
+            url: 'posts/retrieveUserPosts/'+ localStorage.getItem("userId"),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        };
+        api.request(config)
+            .then((response) => {
+                const responseDataOfRetrieveUserPosts = response.data;
+                let newPosts = []
+
+                //iterate over retrievedPosts and add them to list posts
+                for (let i = 0; i < responseDataOfRetrieveUserPosts.length; i++) {
+                            // get the link to the file
+
+
+                    // add the post to the list of posts
+                    newPosts = newPosts.concat({
+                        id: responseDataOfRetrieveUserPosts[i].id,
+                        title: responseDataOfRetrieveUserPosts[i].title,
+                        name: localStorage.getItem("username"),
+                        text: responseDataOfRetrieveUserPosts[i].content,
+                        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+                    })
+                    console.log("newPosts: ", newPosts.reverse())
+
+                }
+                // sort the posts by newPosts[i].id
+                newPosts.sort(function(a, b) {
+                    return b.id - a.id;
+                });
+
+                setPosts(newPosts)
+            })
+            .catch((error) => {
+                alert("Something went wrong when getting the posts");
+                console.log(error);
+            });
+    }, []);
+
     return (
-        <div className="posts-container">
-            {posts.map((post) => (
-                <div className="aroundAPost" style={{background: "transparent"}}>
-                    <Post  post={post} />
-                </div>
-            ))}
-        </div>
+        console.log("posts in return: ", posts),
+            <div className="posts-container">
+                {posts.map((post) => (
+                    <div className="aroundAPost" key={post.id} style={{background: "transparent"}}>
+                        <Post post={post}/>
+                    </div>
+                ))}
+            </div>
     );
+
 }
 
 // clickable icon to move to create post page
