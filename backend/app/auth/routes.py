@@ -1,3 +1,5 @@
+from flask_restful.fields import Integer
+
 from app.auth import bp
 from app.extensions import db   
 from flask import jsonify, make_response, request
@@ -135,6 +137,23 @@ def getUser():
             "message": "Could not retrieve, user does not exists"
         }
         return make_response(jsonify(resp))
+
+@bp.route('/getUserName/', methods=['GET'])
+def getUserById():
+    args = request.args
+    user_id = int(args.get('user_id'))
+
+    user = User.query.get(user_id)
+
+    if user:
+        return make_response(jsonify(user.obj_to_dict()))
+    else:
+        resp = {
+            "status": "Error",
+            "message": "Could not retrieve, user does not exists"
+        }
+        return make_response(jsonify(resp))
+
 
 @bp.route('/editUserInfo/', methods = ['POST'])
 def edit_user_info():

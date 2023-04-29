@@ -39,14 +39,14 @@ const PostContainer = styled.div`
   margin: 0 2%;
 `;
 
-const Heading = styled.div`
+const Title = styled.div`
   background: #D7ADAD;
   font-family: 'Cousine';
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
   line-height: 24px;
-  height: 126px;
+  height: 50px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -57,9 +57,19 @@ const Text =styled.div`
   font-family: 'Akshar';
   font-style: normal;
   font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+`;
+
+export const Name =styled.div`
+  background: #D7ADAD;
+  font-family: 'Akshar';
+  font-style: normal;
+  font-weight: 400;
   font-size: 15px;
   line-height: 24px;
- `;
+`;
+
 const Test =styled.div`
   background: #D7ADAD;
   font-size: 15px;
@@ -70,12 +80,13 @@ const Test =styled.div`
   margin: 0 2%;
  `;
 
-const Post = ({ post: { name, text, file } }) => {
+const Post = ({ post: { title, name, text, file } }) => {
 
     return (
         <PostContainer>
             <Test>
-                <Heading>{name}</Heading>
+                <Title>{title}</Title>
+                <Name>{"posted by " + name}</Name>
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
             </Test>
@@ -87,43 +98,62 @@ const Post = ({ post: { name, text, file } }) => {
 
 
 function Posts(){
-        const [posts, setPosts] = useState([]);
-        let config = {
-            method: 'GET',
-            maxBodyLength: Infinity,
-            url: 'posts/retrievePost/',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        };
-
+    const [posts, setPosts] = useState([]);
         useEffect(() => {
+
+            // get all posts
+            let config = {
+                method: 'GET',
+                maxBodyLength: Infinity,
+                url: 'posts/retrievePost/',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            };
             api.request(config)
                 .then((response) => {
-                    const responseData = response.data;
-                    console.log(responseData.length)
+                    const responseDataOfRetrievePost = response.data;
                     let newPosts = []
-                    //iterate over retrievedPosts and add to posts
-                    for (let i = 0; i < responseData.length; i++) {
-                        //show the image received in format image.jpg
-                        //posts.push(responseData[i].image)
-                        var headers = response.headers;
-                        var blob = new Blob([responseData[i].image], {type: headers['content-type']});
-                        var link = document.createElement('a');
-                        link.href = window.URL.createObjectURL(blob);
-                        link.download = responseData[i].image;
-                        console.log("imageUrl: ", link)
 
-                        newPosts = newPosts.concat({
-                            id: i,
-                            name: responseData[i].title,
-                            text: responseData[i].content,
-                            file: link,
-                        })
+                    //iterate over retrievedPosts and add them to list posts
+                    for (let i = 0; i < responseDataOfRetrievePost.length; i++) {
+                        // for every post, get the username of the user who posted it
+                        let config = {
+                            method: 'GET',
+                            maxBodyLength: Infinity,
+                            url: 'auth/getUserName/',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            params: {
+                                user_id: responseDataOfRetrievePost[i].user_id
+                            },
+                        };
+                        api.request(config)
+                            .then((response) => {
+                                console.log(JSON.stringify(response.data));
+                                const responseDataOfGetUsername = response.data;
+                                // get the link to the file
+
+
+
+                                // add the post to the list of posts
+                                newPosts = newPosts.concat({
+                                    id: responseDataOfRetrievePost[i].id,
+                                    title: responseDataOfRetrievePost[i].title,
+                                    name: responseDataOfGetUsername.username,
+                                    text: responseDataOfRetrievePost[i].content,
+                                    file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+                                })
+                                setPosts(newPosts)
+
+                            })
+                            .catch((error) => {
+                                alert("Something went wrong when getting the username")
+                                console.log(error);
+                            });
+
                     }
-                    setPosts(newPosts)
-                    console.log("retrievedPosts: ", JSON.stringify(responseData))
-                    console.log("posts: ", posts)
 
                 })
                 .catch((error) => {
