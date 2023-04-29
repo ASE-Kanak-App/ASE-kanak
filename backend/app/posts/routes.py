@@ -24,6 +24,14 @@ def retrieve_post(id):
 
     return jsonify(post.obj_to_dict())
 
+@bp.route('/retrieveUserPosts/<int:id>', methods = ['GET'])
+def retrieve_user_posts(id):
+    posts = Post.query.filter_by(user_id=id).all()
+    all_posts = list()
+    for post in posts:
+        all_posts.append(post.obj_to_dict())
+    return make_response(jsonify(all_posts)), 201
+
 @bp.route('/createPost/', methods = ['POST'])
 def create_post():
     if request.method == 'POST':

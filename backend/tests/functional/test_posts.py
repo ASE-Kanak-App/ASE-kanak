@@ -260,3 +260,13 @@ def test_obtaining_total_likes_on_post():
     with flask_app.test_client() as test_client:
         response = test_client.get("/posts/likesCount/6")
         assert response.status_code == 200
+
+def test_retrieving_all_user_posts():
+    """
+    Check if for an existent user
+    all posts can be retrieved
+    giving successful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.get("/posts/retrieveUserPosts/7")
+        assert response.status_code == 201
