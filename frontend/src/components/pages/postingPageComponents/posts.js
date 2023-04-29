@@ -28,7 +28,7 @@ export const PostContainer = styled.div`
   margin: 0 2%;
 `;
 
-export const Heading = styled.div`
+export const Title = styled.div`
   background: #D7ADAD;
   font-family: 'Cousine';
   font-style: normal;
@@ -50,7 +50,7 @@ export const Text =styled.div`
   line-height: 24px;
  `;
 
-export const Title =styled.div`
+export const Name =styled.div`
   background: #D7ADAD;
   font-family: 'Akshar';
   font-style: normal;
@@ -72,8 +72,8 @@ const Post = ({ post: { name,title, text, file } }) => {
     return (
         <PostContainer>
             <Test>
-                <Heading>{title}</Heading>
-                <Title>{"posted by: " +name}</Title>
+                <Title>{title}</Title>
+                <Name>{"posted by " +name}</Name>
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
             </Test>
