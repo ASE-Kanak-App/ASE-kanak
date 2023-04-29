@@ -109,9 +109,11 @@ const CreatePost: React.FC = () => {
             .then((response) => {
                 console.log(JSON.stringify(response.data));
                 const responseData = response.data;
+                // rerender the page
+                window.location.reload();
             })
             .catch((error) => {
-                alert("Wrong email or password, please try again")
+                alert("Error in creating post")
                 console.log(error);
             })
 
