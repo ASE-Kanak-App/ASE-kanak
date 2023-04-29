@@ -3,7 +3,7 @@ from app.extensions import db
 from flask import jsonify, make_response, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.auth.utils import encode_token
-from app.models.models import User, TokenBlockList, Follow
+from app.models.models import User, TokenBlockList, Follow, Post
 from flask_jwt_extended import get_jwt
 from flask_jwt_extended import jwt_required
 from datetime import datetime, timezone
@@ -242,18 +242,19 @@ def unfollow():
 @bp.route('/getFollowers/<int:id>', methods=['GET'])
 def get_followers(id):
     followers = Follow.query.filter_by(followed_id=id).all()
-
     all_followers = list()
     for follower in followers:
         all_followers.append(follower.obj_to_dict())
 
     return make_response(jsonify(all_followers)), 201
 
-
-
-
-
-# @bp.route("/protected", methods=["GET"])
-# @jwt_required()
-# def protected():
-#     return make_response(jsonify(msg="Access revoked"))
+@bp.route('/getFollowedUserPosts/<int:id>', methods = ['GET'])
+def get_followed_user_posts(id):
+    followed_users = Follow.query.filter_by(follower_id=id).all()
+    all_posts = list()
+    for user in followed_users:
+        id = user.followed_id
+        posts = Post.query.filter_by(user_id=id).all()
+        for post in posts:
+            all_posts.append(post.obj_to_dict())
+    return make_response(jsonify(all_posts)), 201

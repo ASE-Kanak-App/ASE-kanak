@@ -168,9 +168,9 @@ def test_non_existent_user_update():
     flask_app = create_app(Config)
     with flask_app.test_client() as test_client:
         response = test_client.post("/auth/editUserInfo/",
-                                    data={"email" : 'xyz@gmail.com', "firstname" : 'xyz', 
-                                    "username" : 'xyz', "lastname" : 'xyz',
-                                    "password" : 'xyzzzzzz', "intro" : 'intro', "phone" : '12345'})
+                                    data={"email" : 'abc@gmail.com', "firstname" : 'abc', 
+                                    "username" : 'abc', "lastname" : 'abc',
+                                    "password" : 'abcccccc', "intro" : 'intro', "phone" : '12345'})
 
     assert response.status_code == 401
     assert b"user does not exist" in response.data
@@ -211,8 +211,8 @@ def test_follow_for_non_existent_users():
     flask_app = create_app(Config)
     with flask_app.test_client() as test_client:
         response = test_client.post("/auth/follow/",  
-                                    data={"email" : 'xyz@gmail.com',
-                                    "username" : 'xyz'})
+                                    data={"email" : 'abc@gmail.com',
+                                    "username" : 'abc'})
         assert response.status_code == 401
         assert b"User cannot be none" in response.data
 
@@ -249,8 +249,8 @@ def test_non_existent_user_follower():
     flask_app = create_app(Config)
     with flask_app.test_client() as test_client:
         response = test_client.post("/auth/unfollow/",  
-                                    data={"email" : 'xyz@gmail.com',
-                                    "username" : 'xyz'})
+                                    data={"email" : 'abc@gmail.com',
+                                    "username" : 'abc'})
         assert response.status_code == 401
         assert b"User cannot be none" in response.data
 
@@ -268,13 +268,26 @@ def test_unfollowing_an_unfollowed_user():
         assert response.status_code == 402
         assert b"You are not following" in response.data
 
-    """"
-    def test_getting_follower_list():
-    # Test that if you pass a certain user ID
-    # you get a successful status and a list of followers
+
+def test_getting_follower_list():
+    """
+    Test that if you pass a certain user ID
+    you get a successful status and a list of followers
+    """
     flask_app = create_app(Config)
     with flask_app.test_client() as test_client:
-        response = test_client.get("/getFollowers/1")
+        response = test_client.get("/auth/getFollowers/7")
         assert response.status_code == 201
         assert response.data is not None
-    """""
+
+def test_getting_followed_user_posts():
+    """
+    Test if a user can obtain posts
+    from another user they follow
+    with a successful status
+    """
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.get("/auth/getFollowedUserPosts/7")
+        assert response.status_code == 201
+        assert response.data is not None

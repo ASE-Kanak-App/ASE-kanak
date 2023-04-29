@@ -250,3 +250,13 @@ def test_nonexisting_post_unlikes():
     with flask_app.test_client() as test_client:
         response = test_client.post("/posts/unlikePost/1000")
         assert response.status_code == 401
+
+def test_obtaining_total_likes_on_post():
+    """
+    Check if an existent post
+    the count for total number of likes
+    gives successful status"""
+    flask_app = create_app(Config)
+    with flask_app.test_client() as test_client:
+        response = test_client.get("/posts/likesCount/6")
+        assert response.status_code == 200

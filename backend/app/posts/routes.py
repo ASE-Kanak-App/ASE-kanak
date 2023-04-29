@@ -227,3 +227,12 @@ def unlike_post(id):
     }
     return make_response(jsonify(resp)), 201
 
+@bp.route('/likesCount/<int:id>', methods = ['GET'])
+def get_total_likes_on_post(id):
+    post = db.session.get(Post, id)
+    if post is None:
+        resp = {'status': 'not successful',
+            'message': 'Post not found'}
+        return make_response(jsonify(resp)), 401
+    total_likes = post.likes
+    return make_response(jsonify(total_likes)), 200
