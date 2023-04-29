@@ -97,6 +97,7 @@ class Post(db.Model):
             "content":self.content,
             "likes":self.likes,
             "image":self.mimetype,
+            "user_id": self.user_id,
         }  
 
 class Comment(db.Model):
