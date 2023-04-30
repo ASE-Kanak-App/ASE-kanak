@@ -111,7 +111,8 @@ class Comment(db.Model):
     
     def obj_to_dict(self):
         return {
-            "content":self.content,
+            "content": self.content,
+            "user_id": self.user_id,
         }
     
     

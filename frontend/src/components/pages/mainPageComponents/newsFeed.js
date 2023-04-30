@@ -7,7 +7,7 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import {View} from "react-native";
-import {Space} from "antd";
+import {Input, Space} from "antd";
 import NavigationBar from '../../../NavigationBar';
 import {api} from "../../../helpers/api";
 
@@ -80,16 +80,123 @@ const Test =styled.div`
   margin: 0 2%;
  `;
 
-const Post = ({ post: { title, name, text, file } }) => {
+const Comment = ({ comment: { user_id, content } }) => {
+    const [username, setUsername] = useState("");
+    // get the username of the user who posted the comment
+    let responseDataOfGetUsername
+    let config = {
+        method: 'GET',
+        maxBodyLength: Infinity,
+        url: 'auth/getUserName/',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        params: {
+            user_id: user_id
+        },
+    };
+    api.request(config)
+        .then((response) => {
+            responseDataOfGetUsername = response.data;
+            setUsername(responseDataOfGetUsername.username)
+        })
+        .catch((error) => {
+            alert("Something went wrong when getting the username of the user who posted the comment");
+            console.log(error);
+        });
 
     return (
-        <PostContainer>
+        <div>
+            <div style={{background: "transparent", height: "10px"}}></div>
+        <Test>
+            <Name>{"posted by " + username}</Name>
+            <Text>{content}</Text>
+        </Test>
+        </div>
+
+    );
+
+
+
+
+};
+
+const Post = ({ post: { title, name, text, file, comments, post_id} }) => {
+    const [newComment, setNewComment] = useState("");
+    const [seed, setSeed] = useState("");
+    const reset = () => {
+        setSeed(Math.random() * 5000);
+    }
+
+    const handleChange = (event) => {
+        setNewComment(event.target.value);
+        console.log("new comment: " + newComment);
+        console.log("post_id: " + post_id);
+        console.log("user_id: " + localStorage.getItem("userId"));
+    };
+    const createNewComment = () => {
+        // create new comment
+        setSeed(Math.random() * 5000);
+        let config = {
+            method: 'POST',
+            maxBodyLength: Infinity,
+            url: 'posts/makeComment/',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+                post_id: post_id,
+                content: newComment,
+                user_id: localStorage.getItem("userId"),
+            },
+        };
+        console.log(config)
+        api.request(config)
+            .then((response) => {
+                alert("Comment created successfully");
+                window.location.reload();
+
+            })
+            .catch((error) => {
+                alert("Something went wrong when creating the comment");
+                console.log(error);
+            });
+    };
+
+    return (
+        <PostContainer >
             <Test>
                 <Title>{title}</Title>
                 <Name>{"posted by " + name}</Name>
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
             </Test>
+            {comments.map((comment) => (
+                <Comment comment={comment}/>
+
+            ))}
+            <div style={{background: "transparent", height: "10px"}}></div>
+            <div className="title" style={{
+                'font-size': '1.5em',
+                'text-align': 'left',
+                'background':'#D7ADAD',
+                'display': 'flex',
+                'flex-direction': 'column',
+                'padding': '1%',
+                'margin': '0 2%'}}>
+                <Input placeholder = "Write a comment"  onChange={handleChange} name='newComment' />
+            </div>
+            <div className="submit" style={{
+                'background': '#D7ADAD',
+                'display': 'flex',
+                'justify-content': 'right',
+                'flex-direction': 'column',
+                'margin': '0% 2%',
+                'padding': '1%',
+                'border':'0'}}>
+                <button onClick={createNewComment}>Submit</button>
+            </div>
+
         </PostContainer>
     );
 };
@@ -131,22 +238,40 @@ function Posts(){
                         };
                         api.request(config)
                             .then((response) => {
-                                console.log(JSON.stringify(response.data));
                                 const responseDataOfGetUsername = response.data;
-                                // get the link to the file
+                                let config = {
+                                    method: 'GET',
+                                    maxBodyLength: Infinity,
+                                    url: 'posts/getCommentByPost/' + responseDataOfRetrievePost[i].id,
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    },
+                                };
+                                api.request(config)
+                                    .then((response) => {
+                                        const commentsByPost = response.data;
 
+                                        // get the link to the file
+                                        // add the post to the list of posts
+                                        newPosts = newPosts.concat({
+                                            post_id: responseDataOfRetrievePost[i].id,
+                                            title: responseDataOfRetrievePost[i].title,
+                                            name: responseDataOfGetUsername.username,
+                                            text: responseDataOfRetrievePost[i].content,
+                                            file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+                                            comments: commentsByPost,
 
-
-                                // add the post to the list of posts
-                                newPosts = newPosts.concat({
-                                    id: responseDataOfRetrievePost[i].id,
-                                    title: responseDataOfRetrievePost[i].title,
-                                    name: responseDataOfGetUsername.username,
-                                    text: responseDataOfRetrievePost[i].content,
-                                    file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-                                })
-                                setPosts(newPosts)
-
+                                        })
+                                        // order newPosts by id
+                                        newPosts.sort(function(a, b) {
+                                            return a.id - b.id;
+                                        });
+                                        setPosts(newPosts)
+                                    })
+                                    .catch((error) => {
+                                        alert("Something went wrong when getting the comments")
+                                        console.log(error);
+                                    });
                             })
                             .catch((error) => {
                                 alert("Something went wrong when getting the username")
@@ -163,7 +288,6 @@ function Posts(){
         }, []);
 
             return (
-                console.log("posts in return: ", posts),
                     <div className="posts-container">
                         {posts.map((post) => (
                             <div className="aroundAPost" key={post.id} style={{background: "transparent"}}>
