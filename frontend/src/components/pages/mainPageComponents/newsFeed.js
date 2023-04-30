@@ -4,12 +4,13 @@ import styled from "styled-components";
 import {
     ProfileOutlined,
     LogoutOutlined,
-    UserOutlined,
+    UserOutlined, LikeFilled, LikeOutlined,
 } from '@ant-design/icons';
 import {View} from "react-native";
 import {Input, Space} from "antd";
 import NavigationBar from '../../../NavigationBar';
 import {api} from "../../../helpers/api";
+import {Likes} from "../postingPageComponents/posts";
 
 const customStyle1 = {
     backgroundColor: 'transparent',
@@ -117,8 +118,10 @@ const Comment = ({ comment: { user_id, content } }) => {
     );
 };
 
-const Post = ({ post: { title, name, text, file, comments, post_id} }) => {
+const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) => {
     const [newComment, setNewComment] = useState("");
+    const [liked, setLiked] = useState(false);
+    const [likesCount, setLikesCount] = useState(likes);
     const [seed, setSeed] = useState("");
     const reset = () => {
         setSeed(Math.random() * 5000);
@@ -159,6 +162,63 @@ const Post = ({ post: { title, name, text, file, comments, post_id} }) => {
             });
     };
 
+    const like = () => {
+        if (liked === false) {
+            likePost();
+        } else {
+            unlikePost();
+        }
+    };
+
+    const likePost = () => {
+        // if liked == false, like the post
+        // if liked == true, unlike the post
+
+        let config = {
+            method: 'POST',
+            maxBodyLength: Infinity,
+            url: 'posts/likePost/'+post_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+
+        api.request(config)
+            .then((response) => {
+                alert("Liked successfully");
+                setLiked(true);
+                setLikesCount(likesCount + 1)
+                console.log("liked: " + liked)
+
+            })
+            .catch((error) => {
+                alert("Something went wrong when creating the comment");
+                console.log(error);
+            });
+    };
+
+    const unlikePost = () => {
+        let config = {
+            method: 'POST',
+            maxBodyLength: Infinity,
+            url: 'posts/unlikePost/'+post_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        api.request(config)
+            .then((response) => {
+                setLiked(false);
+                setLikesCount(likesCount - 1)
+                console.log("liked: " + liked)
+
+            })
+            .catch((error) => {
+                alert("Something went wrong when creating the comment");
+                console.log(error);
+            });
+    };
+
     return (
         <PostContainer >
             <Test>
@@ -167,6 +227,28 @@ const Post = ({ post: { title, name, text, file, comments, post_id} }) => {
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
             </Test>
+            <div className="likesAndDislikes" style={{
+                'text-align': 'left',
+                'background':'#D7ADAD',
+                'display': 'flex',
+                'flex-direction': 'column',
+                'padding': '0.5%',
+                'margin': '0 2%'}}>
+                <div className="likesAndDislikes" style={{
+                    'display': 'flex',
+                    'flex-direction': 'row',
+                    'justify-content': 'flex-end',
+                    'padding': '1%',
+                    'margin': '0 2%',
+                    'font-size': '0.8em'}}>
+                    <Likes>{likesCount}</Likes>
+                    {liked ? (
+                        <LikeFilled onClick={like} style={{color: "#b8ebb8", borderColor: "green"}}/>
+                    ) : (
+                        <LikeOutlined onClick={like} style={{color: "#b8ebb8", borderColor: "green"}}/>
+                    )}
+                </div>
+            </div>
             {comments.map((comment) => (
                 <Comment comment={comment}/>
 
@@ -256,6 +338,7 @@ function Posts(){
                                             text: responseDataOfRetrievePost[i].content,
                                             file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
                                             comments: commentsByPost,
+                                            likes: responseDataOfRetrievePost[i].likes,
 
                                         })
                                         // order newPosts by id
