@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/../backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/mainPageComponents/newsFeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/mainPageComponents/newsFeed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/postingPageComponents/posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/postingPageComponents/posts.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +82,7 @@
       <workItem from="1680547385408" duration="14626000" />
       <workItem from="1681238511288" duration="29854000" />
       <workItem from="1682577742316" duration="21911000" />
-      <workItem from="1682606138040" duration="44942000" />
+      <workItem from="1682606138040" duration="45997000" />
     </task>
     <servers />
   </component>

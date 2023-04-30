@@ -344,8 +344,11 @@ function Posts(){
                                         })
                                         // order newPosts by id
                                         newPosts.sort(function(a, b) {
-                                            return a.id - b.id;
+                                            console.log(a.post_id - b.post_id)
+                                            return a.post_id - b.post_id;
                                         });
+                                        // reverse the order of newPosts
+                                        newPosts.reverse()
                                         setPosts(newPosts)
                                     })
                                     .catch((error) => {
