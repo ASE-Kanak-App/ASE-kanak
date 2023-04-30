@@ -109,16 +109,12 @@ const Comment = ({ comment: { user_id, content } }) => {
         <div>
             <div style={{background: "transparent", height: "10px"}}></div>
         <Test>
-            <Name>{"posted by " + username}</Name>
+            <Name>{"Commented by " + username}</Name>
             <Text>{content}</Text>
         </Test>
         </div>
 
     );
-
-
-
-
 };
 
 const Post = ({ post: { title, name, text, file, comments, post_id} }) => {
