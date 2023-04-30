@@ -9,6 +9,9 @@ import {api} from "../../helpers/api";
 import axios from "axios";
 import {User} from "../models/User";
 
+import FormData from "form-data";
+import getUserId from "./postingPageComponents/GetUserID";
+
 
 
 
@@ -77,18 +80,22 @@ const Login: React.FC = () => {
         api.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                const user = new User(response.data);
-                user.setEmail(LoginData.email);
-                localStorage.setItem('user', JSON.stringify(user));
+                const responseData = response.data;
+                const user = new User();
+                user.setEmail(LoginData.email)
+                user.setToken(responseData.token)
+                localStorage.setItem('email', LoginData.email);
+                localStorage.setItem('token', JSON.stringify(responseData.token));
                 console.log("new user: "+localStorage.getItem('user'));
-
-                // move to main page
-                window.location.href = "/MainPage";
             })
             .catch((error) => {
                 alert("Wrong email or password, please try again")
                 console.log(error);
-            });
+            }).then(getUserId(localStorage.getItem("email")).then(r => {
+            console.log("userId", localStorage.getItem("userId"))
+            // move to main page
+            window.location.href = "/MainPage";
+            }))
     };
 
     return(
@@ -151,7 +158,9 @@ const Login: React.FC = () => {
                     </Form.Item>*/}
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button style={customStyle1} htmlType="submit" onClick={onLogin}>
+                        <Button
+                            disabled={!LoginData.email || !LoginData.password}
+                            style={customStyle1} htmlType="submit" onClick={onLogin}>
                             Sign In
                         </Button>
                     </Form.Item>

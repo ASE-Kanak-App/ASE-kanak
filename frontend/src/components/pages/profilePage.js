@@ -6,7 +6,20 @@ import '../../App.css';
 import NavigationBar from '../../NavigationBar';
 import headerImage from "../images/header2.png";
 import ProfilePicture from '../images/dog.png';
-import Posts, { PostContainer, Heading, Text, Test } from "./postingPageComponents/posts";
+import Posts, { PostContainer, Text, Test } from "./postingPageComponents/posts";
+
+export const Heading = styled.div`
+  background: #D7ADAD;
+  font-family: 'Cousine';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 24px;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+`;
 
 
 function ProfilePage() {

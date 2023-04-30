@@ -76,7 +76,7 @@ const PostingPage: React.FC = () => (
             }} />
         </div>
 
-        <div style={{marginTop: '-15vh', marginLeft: '60vh'}}>
+        <div style={{marginTop: '-15vh', marginLeft: '96vh'}}>
             <NavigationBar/>
         </div>
 

@@ -6,9 +6,8 @@ export class User{
     constructor(date = {}){
         this.id = date.id || null;
         this.name = date.name || null;
+        this.userName = date.userName || null;
         this.email = date.email || null;
-        this.password = date.password || null;
-        this.role = date.role || null;
         this.token = date.token || null;
     }
 
@@ -20,9 +19,8 @@ export class User{
         return {
             id: this.id,
             name: this.name,
+            userName: this.userName,
             email: this.email,
-            password: this.password,
-            role: this.role,
             token: this.token
         }
     }
@@ -32,12 +30,11 @@ export class User{
      *  @param {Object} data
      */
     setData(data) {
-        this.id = data.id || this.id;
-        this.name = data.name || this.name;
-        this.email = data.email || this.email;
-        this.password = data.password || this.password;
-        this.role = data.role || this.role;
-        this.token = data.token || this.token;
+        this.id = data.id;
+        this.name = data.name;
+        this.userName = data.userName;
+        this.email = data.email;
+        this.token = data.token;
     }
 
     /**
@@ -46,5 +43,20 @@ export class User{
      */
     setEmail(email) {
         this.email = email;
+    }
+    setUserName(userName) {
+        this.userName = userName;
+    }
+    setID(id) {
+        this.id = id;
+    }
+    setToken(token) {
+        this.token = token;
+    }
+    getUserName() {
+        return this.userName;
+    }
+    getEmail() {
+        return this.email;
     }
 }
