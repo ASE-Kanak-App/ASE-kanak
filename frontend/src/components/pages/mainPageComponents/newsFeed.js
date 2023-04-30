@@ -123,6 +123,7 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(likes);
     const [seed, setSeed] = useState("");
+    const [commentsToShow, setCommentsToShow] = useState(comments);
     const reset = () => {
         setSeed(Math.random() * 5000);
     }
@@ -153,7 +154,7 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
         api.request(config)
             .then((response) => {
                 alert("Comment created successfully");
-                window.location.reload();
+                setCommentsToShow([...commentsToShow, response.data]);
 
             })
             .catch((error) => {
@@ -249,7 +250,7 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
                     )}
                 </div>
             </div>
-            {comments.map((comment) => (
+            {commentsToShow.map((comment) => (
                 <Comment comment={comment}/>
 
             ))}
