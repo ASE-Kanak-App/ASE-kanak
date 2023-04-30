@@ -7,10 +7,13 @@ import {
     LogoutOutlined,
     ProfileOutlined,
 } from '@ant-design/icons';
+import getUserId from "./postingPageComponents/GetUserID";
 
 
-const MainPage: React.FC = () => (
+const MainPage: React.FC = () => {
 
+
+    return (
     <div style={{
         background: 'linear-gradient(' +
             ' #7BD37A 0%,' +
@@ -32,7 +35,8 @@ const MainPage: React.FC = () => (
             {/* Render other components and content here */}
         </div>
     </div>
+        );
 
-);
+}
 
 export default MainPage;
