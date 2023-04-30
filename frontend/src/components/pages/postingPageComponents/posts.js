@@ -7,6 +7,7 @@ import {View} from "react-native";
 import {Input, Space} from "antd";
 import getUserId from "./GetUserID";
 import {api} from "../../../helpers/api";
+import {DislikeOutlined, LikeFilled, LikeOutlined} from "@ant-design/icons";
 
 
 const customStyle1 = {
@@ -68,14 +69,19 @@ export const Test =styled.div`
   padding: 3%;
   margin: 0 2%;
  `;
+export const Likes =styled.div`
+display: inline-block;
+width:60px;
+height:60px;
+ `;
 
-const Post = ({ post: { name,title, text, file, comments, post_id } }) => {
+const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => {
     const [newComment, setNewComment] = useState("");
+    const [liked, setLiked] = useState(false);
+    const [likesCount, setLikesCount] = useState(likes);
+    const [commentsToShow, setCommentsToShow] = useState(comments);
     const handleChange = (event) => {
         setNewComment(event.target.value);
-        console.log("new comment: " + newComment);
-        console.log("post_id: " + post_id);
-        console.log("user_id: " + localStorage.getItem("userId"));
     };
     const createNewComment = () => {
         // create new comment
@@ -92,11 +98,10 @@ const Post = ({ post: { name,title, text, file, comments, post_id } }) => {
                 user_id: localStorage.getItem("userId"),
             },
         };
-        console.log(config)
         api.request(config)
             .then((response) => {
                 alert("Comment created successfully");
-                window.location.reload();
+                setCommentsToShow([...commentsToShow, response.data]);
 
             })
             .catch((error) => {
@@ -141,6 +146,63 @@ const Post = ({ post: { name,title, text, file, comments, post_id } }) => {
         );
     };
 
+    const like = () => {
+        if (liked === false) {
+            likePost();
+        } else {
+            unlikePost();
+        }
+    };
+
+    const likePost = () => {
+        // if liked == false, like the post
+        // if liked == true, unlike the post
+
+        let config = {
+            method: 'POST',
+            maxBodyLength: Infinity,
+            url: 'posts/likePost/'+post_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+
+        api.request(config)
+            .then((response) => {
+                alert("Liked successfully");
+                setLiked(true);
+                setLikesCount(likesCount + 1)
+                console.log("liked: " + liked)
+
+            })
+            .catch((error) => {
+                alert("Something went wrong when creating the comment");
+                console.log(error);
+            });
+    };
+
+    const unlikePost = () => {
+        let config = {
+            method: 'POST',
+            maxBodyLength: Infinity,
+            url: 'posts/unlikePost/'+post_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        api.request(config)
+            .then((response) => {
+                setLiked(false);
+                setLikesCount(likesCount - 1)
+                console.log("liked: " + liked)
+
+            })
+            .catch((error) => {
+                alert("Something went wrong when creating the comment");
+                console.log(error);
+            });
+    };
+
     return (
         <PostContainer>
             <Test>
@@ -149,7 +211,29 @@ const Post = ({ post: { name,title, text, file, comments, post_id } }) => {
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
             </Test>
-            {comments.map((comment) => (
+            <div className="likesAndDislikes" style={{
+                'text-align': 'left',
+                'background':'#D7ADAD',
+                'display': 'flex',
+                'flex-direction': 'column',
+                'padding': '0.5%',
+                'margin': '0 2%'}}>
+                <div className="likesAndDislikes" style={{
+                    'display': 'flex',
+                    'flex-direction': 'row',
+                    'justify-content': 'flex-end',
+                    'padding': '1%',
+                    'margin': '0 2%',
+                    'font-size': '0.8em'}}>
+                    <Likes>{likesCount}</Likes>
+                    {liked ? (
+                        <LikeFilled onClick={like} style={{color: "#b8ebb8", borderColor: "green"}}/>
+                    ) : (
+                        <LikeOutlined onClick={like} style={{color: "#b8ebb8", borderColor: "green"}}/>
+                    )}
+                </div>
+            </div>
+            {commentsToShow.map((comment) => (
                 <Comment comment={comment}/>
 
             ))}
@@ -203,7 +287,6 @@ const posts = [
 // input: title, text, image if any
 // add it to the posts array
 export function createPostInProfile(name, title, text, image){
-    console.log("here1")
     //add post to posts
     posts.push({
         name: name,
@@ -211,8 +294,6 @@ export function createPostInProfile(name, title, text, image){
         text: text,
         file: image,
     })
-    console.log("here")
-    console.log(posts)
     //reload Posts
 
 }
@@ -220,7 +301,6 @@ export function createPostInProfile(name, title, text, image){
 function Posts() {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        console.log("userId", localStorage.getItem("userId"))
 
         // retrieve the Posts of the user
         let config = {
@@ -260,7 +340,8 @@ function Posts() {
                                 name: localStorage.getItem("username"),
                                 text: responseDataOfRetrieveUserPosts[i].content,
                                 file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-                                comments: commentsByPost
+                                comments: commentsByPost,
+                                likes: responseDataOfRetrieveUserPosts[i].likes,
                             })
                             newPosts.sort(function(a, b) {
                                 return a.id - b.id;
@@ -281,7 +362,6 @@ function Posts() {
     }, []);
 
     return (
-        console.log("posts in return: ", posts),
             <div className="posts-container">
                 {posts.map((post) => (
                     <div className="aroundAPost" key={post.id} style={{background: "transparent"}}>
