@@ -2,12 +2,6 @@ import React from "react";
 import NewsFeed from "./mainPageComponents/newsFeed";
 import '../../App.css';
 import headerImage from "../images/header2.png"
-import { Space } from 'antd';
-import {
-    LogoutOutlined,
-    ProfileOutlined,
-} from '@ant-design/icons';
-import getUserId from "./postingPageComponents/GetUserID";
 
 
 const MainPage: React.FC = () => {

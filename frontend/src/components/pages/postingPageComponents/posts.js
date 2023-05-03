@@ -3,11 +3,9 @@ import '../../../App.css';
 import styled from "styled-components";
 
 
-import {View} from "react-native";
-import {Input, Space} from "antd";
-import getUserId from "./GetUserID";
+import {Input,} from "antd";
 import {api} from "../../../helpers/api";
-import {DislikeOutlined, LikeFilled, LikeOutlined} from "@ant-design/icons";
+import {LikeFilled, LikeOutlined} from "@ant-design/icons";
 
 
 const customStyle1 = {
@@ -80,6 +78,7 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(likes);
     const [commentsToShow, setCommentsToShow] = useState(comments);
+    const [username, setUsername] = useState("");
     const handleChange = (event) => {
         setNewComment(event.target.value);
     };
@@ -110,7 +109,6 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
             });
     };
     const Comment = ({ comment: { user_id, content } }) => {
-        const [username, setUsername] = useState("");
         // get the username of the user who posted the comment
         let responseDataOfGetUsername
         let config = {
@@ -262,26 +260,7 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     );
 };
 
-const posts = [
-    {
-        name: localStorage.getItem("username"),
-        title: "Title",
-        text: `Hello this is a first post!`,
-        file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
-    },
-    {
-        name: localStorage.getItem("username"),
-        title: "Title",
-        text: `Hello this is the second post!`,
-        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-    },
-    {
-        name: localStorage.getItem("username"),
-        title: "Title",
-        text: `Hello this is the third post!`,
-        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-    }
-];
+const posts = [];
 
 // function to create a post
 // input: title, text, image if any
@@ -311,10 +290,12 @@ function Posts() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
         };
+        console.log("config of retrieveUserPosts: " + JSON.stringify(config))
         api.request(config)
             .then((response) => {
                 const responseDataOfRetrieveUserPosts = response.data;
                 let newPosts = []
+                console.log("retrieveUserPosts: " + JSON.stringify(responseDataOfRetrieveUserPosts))
 
                 //iterate over retrievedPosts and add them to list posts
                 for (let i = 0; i < responseDataOfRetrieveUserPosts.length; i++) {

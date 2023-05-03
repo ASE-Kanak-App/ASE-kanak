@@ -94,8 +94,61 @@ const Register: React.FC = () => {
             .then((response) => {
                 console.log(JSON.stringify(response.data));
                 alert("You have successfully registered!")
-                // move to main page
-                window.location.href = "/MainPage";
+
+                // login after registration
+                let config = {
+                    method: 'POST',
+                    maxBodyLength: Infinity,
+                    url: 'auth/login',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: {
+                        email: RegistrationData.email,
+                        password: RegistrationData.password
+                    },
+                };
+                api.request(config)
+                    .then((response) => {
+                        const responseData = response.data;
+                        localStorage.setItem('email', RegistrationData.email);
+                        localStorage.setItem('token', JSON.stringify(responseData.token));
+
+                        // get user id
+                        let config = {
+                            method: 'GET',
+                            maxBodyLength: Infinity,
+                            url: 'auth/getUserId/',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            params: {
+                                email: RegistrationData.email
+                            }
+                        };
+                        api.request(config)
+                            .then((response) => {
+                                const responseData = response.data;
+                                localStorage.setItem('userId', responseData.id);
+                                localStorage.setItem('username', responseData.username);
+                                console.log("userId in localStorage", localStorage.getItem("userId"))
+                                console.log("email in localStorage", localStorage.getItem("email"))
+                                console.log("token in localStorage", localStorage.getItem("token"))
+                                console.log("username in localStorage", localStorage.getItem("username"))
+
+                                // move to main page
+                                window.location.href = "/mainPage";
+                            })
+                            .catch((error) => {
+                                alert("Something went wrong while getting the user id in Registration.")
+                                console.log(error);
+                            });
+                    })
+                    .catch((error) => {
+                        alert("Wrong email or password in Registration")
+                        console.log(error);
+
+                    });
             })
             .catch((error) => {
                 alert("Registration failed!")
