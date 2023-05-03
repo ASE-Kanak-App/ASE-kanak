@@ -32,8 +32,7 @@ const logout = () => {
             localStorage.removeItem('token');
             localStorage.removeItem('userId');
             localStorage.removeItem('username');
-            console.log("local storage cleared");
-            console.log("local storage items:" + localStorage.getItem('email') + " " + localStorage.getItem('token') + " " + localStorage.getItem('userId') + " " + localStorage.getItem('username'));
+
             window.location.href = '/';
         })
         .catch((error) => {
@@ -49,7 +48,7 @@ function NavigationBar() {
                 <li><Link to="/mainpage"><FaHome /> Home</Link></li>
                 <li><Link to="/profile"><FaUser /> Profile</Link></li>
                 <li><Link to="/posts"><FaPlus /> Post</Link></li>
-                <li><FaSignOutAlt onClick={logout}/> Logout</li>
+                <li><Link onClick={logout}><FaSignOutAlt /> Logout</Link></li>
             </ul>
         </nav>
     );
