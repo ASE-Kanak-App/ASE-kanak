@@ -154,6 +154,7 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
         api.request(config)
             .then((response) => {
                 alert("Comment created successfully");
+                console.log("comment created successfully", response.data);
                 setCommentsToShow([...commentsToShow, response.data]);
 
             })
@@ -344,7 +345,6 @@ function Posts(){
                                         })
                                         // order newPosts by id
                                         newPosts.sort(function(a, b) {
-                                            console.log(a.post_id - b.post_id)
                                             return a.post_id - b.post_id;
                                         });
                                         // reverse the order of newPosts

@@ -109,7 +109,9 @@ def login():
 @jwt_required()
 def logout():
     auth = request.form
+    print("auth", auth)
     jti = auth.get('token')
+    print(jti)
     now = datetime.now(timezone.utc)
     db.session.add(TokenBlockList(jti=jti, created_at=now))
     db.session.commit()
