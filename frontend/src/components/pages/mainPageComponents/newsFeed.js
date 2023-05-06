@@ -161,6 +161,7 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
                 alert("Comment created successfully");
                 console.log("comment created successfully", response.data);
                 setCommentsToShow([...commentsToShow, response.data]);
+                setNewComment("");
 
             })
             .catch((error) => {

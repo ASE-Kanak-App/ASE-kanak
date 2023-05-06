@@ -7,7 +7,10 @@
     <list default="true" id="ee0283e6-1499-4898-9283-915f9518e437" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/mainPageComponents/newsFeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/mainPageComponents/newsFeed.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +84,15 @@
       <workItem from="1682577742316" duration="21911000" />
       <workItem from="1682606138040" duration="47189000" />
       <workItem from="1683095028636" duration="13673000" />
+      <workItem from="1683358460176" duration="8499000" />
+      <workItem from="1683367967294" duration="841000" />
+      <workItem from="1683368814299" duration="141000" />
+      <workItem from="1683368959897" duration="55000" />
+      <workItem from="1683369019300" duration="657000" />
+      <workItem from="1683369682477" duration="380000" />
+      <workItem from="1683370067869" duration="1246000" />
+      <workItem from="1683371320759" duration="34000" />
+      <workItem from="1683371358766" duration="482000" />
     </task>
     <servers />
   </component>
