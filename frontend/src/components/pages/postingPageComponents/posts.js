@@ -5,7 +5,10 @@ import styled from "styled-components";
 
 import {Input,} from "antd";
 import {api} from "../../../helpers/api";
-import {LikeFilled, LikeOutlined} from "@ant-design/icons";
+import {DeleteFilled, DeleteOutlined, LikeFilled, LikeOutlined, UserOutlined} from "@ant-design/icons";
+import {Link} from "react-router-dom";
+import {FaSignOutAlt} from "react-icons/fa";
+
 
 
 const customStyle1 = {
@@ -77,8 +80,20 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     const [newComment, setNewComment] = useState("");
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(likes);
-    const [commentsToShow, setCommentsToShow] = useState(comments);
+    let [commentsToShow, setCommentsToShow] = useState(comments);
     const [username, setUsername] = useState("");
+
+    useEffect(
+        () => setCommentsToShow(comments),
+        [comments]
+    );
+    useEffect(
+        () => setLikesCount(likes),
+        [likes]
+    );
+
+    console.log("post_id: " + post_id)
+    console.log("likes: " + likes)
     const handleChange = (event) => {
         setNewComment(event.target.value);
     };
@@ -146,6 +161,8 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
 
     const like = () => {
         if (liked === false) {
+            // check if the user has already liked the post
+
             likePost();
         } else {
             unlikePost();
@@ -201,10 +218,37 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
             });
     };
 
+    const deletePost = () => {
+        let config = {
+            method: 'DELETE',
+            maxBodyLength: Infinity,
+            url: 'posts/deletePost/'+post_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        api.request(config)
+            .then((response) => {
+                alert("Post deleted successfully");
+                window.location.reload();
+            })
+            .catch((error) => {
+                alert("Something went wrong when deleting the post");
+                console.log(error);
+            });
+    };
+
     return (
         <PostContainer>
             <Test>
-                <Title>{title}</Title>
+                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                    <Title>{title}</Title>
+                    <div>
+                        <Link onClick={deletePost}><DeleteFilled style={{color: "black", borderColor: "green"}}/> deletePost</Link>
+                    </div>
+
+                </div>
+
                 <Name>{"posted by " +name}</Name>
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
@@ -260,23 +304,6 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     );
 };
 
-const posts = [];
-
-// function to create a post
-// input: title, text, image if any
-// add it to the posts array
-export function createPostInProfile(name, title, text, image){
-    //add post to posts
-    posts.push({
-        name: name,
-        title: title,
-        text: text,
-        file: image,
-    })
-    //reload Posts
-
-}
-
 function Posts() {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
@@ -310,6 +337,7 @@ function Posts() {
                     api.request(config)
                         .then((response) => {
                             const commentsByPost = response.data;
+                            console.log("commentsByPost: " + JSON.stringify(commentsByPost))
 
 
 

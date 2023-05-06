@@ -124,9 +124,14 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
     const [likesCount, setLikesCount] = useState(likes);
     const [seed, setSeed] = useState("");
     const [commentsToShow, setCommentsToShow] = useState(comments);
-    const reset = () => {
-        setSeed(Math.random() * 5000);
-    }
+    useEffect(
+        () => setCommentsToShow(comments),
+        [comments]
+    );
+    useEffect(
+        () => setLikesCount(likes),
+        [likes]
+    );
 
     const handleChange = (event) => {
         setNewComment(event.target.value);
@@ -156,6 +161,7 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
                 alert("Comment created successfully");
                 console.log("comment created successfully", response.data);
                 setCommentsToShow([...commentsToShow, response.data]);
+                setNewComment("");
 
             })
             .catch((error) => {
