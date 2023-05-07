@@ -114,7 +114,7 @@ const Comment = ({ comment: { user_id, content } }) => {
             setUsername(responseDataOfGetUsername.username)
         })
         .catch((error) => {
-            alert("Something went wrong when getting the username of the user who posted the comment");
+          console.log("Something went wrong when getting the username of the user who posted the comment");
             console.log(error);
         });
 
