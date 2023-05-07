@@ -1,7 +1,7 @@
 from flask_restful.fields import Integer
 
 from app.auth import bp
-from app.extensions import db   
+from app.extensions import db
 from flask import jsonify, make_response, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.auth.utils import encode_token
@@ -16,6 +16,7 @@ import jwt
 
 @bp.route('/signup', methods = ['POST'])
 def register():
+
     user = User.query.filter_by(email = request.form['email']).first()
 
     if not user:
@@ -26,7 +27,7 @@ def register():
                     'message': 'incorrect password length'
                 }
                 return make_response(jsonify(resp)), 401
-            
+
             if len(request.form['email'])==0 or len(request.form['email'])>100:
                 resp = {
                     'status': 'not successful',
@@ -39,7 +40,7 @@ def register():
             user = User(email = request.form['email'], username = request.form['username'],
                         firstname=request.form['firstname'], lastname = request.form['lastname'],
                         password = hashed_password, intro = request.form['intro'], phone = request.form['phone'])
-            
+
             db.session.add(user)
             db.session.commit()
 
@@ -57,7 +58,7 @@ def register():
             }
 
             return make_response(jsonify(resp)), 401
-        
+
     else:
         resp = {
             "status": "Error",
@@ -73,7 +74,7 @@ def login():
     auth = request.form
 
     print(auth)
-  
+
     if not auth or not auth.get('email') or not auth.get('password'):
         # returns 401 if any email or / and password is missing
         resp = {
@@ -90,13 +91,13 @@ def login():
             "message": "Could not Verify, user does not exists"
         }
         return make_response(jsonify(resp)), 401
-  
+
     if check_password_hash(user.password, auth.get('password')):
         # generates the JWT Token
         token = encode_token(user.id)
         load_dotenv()
         return make_response(jsonify({'token' : token}), 201)
-    
+
     # returns 403 if password is wrong
     resp = {
         "status": "Error",
@@ -159,29 +160,31 @@ def getUserById():
 
 @bp.route('/editUserInfo/', methods = ['POST'])
 def edit_user_info():
+
+
     user = User.query.filter_by(email = request.form['email']).first()
 
     if not user:
         resp = {
-                    'status': 'not successful',
-                    'message': 'user does not exist'
+                    'status': 'not successful ',
+                    'message': 'user does not exist test'
                 }
         return make_response(jsonify(resp)), 401
 
-    if len(request.form['password'])<5 or len(request.form['password'])>100:
-        resp = {
-            'status': 'not successful',
-            'message': 'incorrect password length'
-        }
-        return make_response(jsonify(resp)), 402
-    
-    if len(request.form['email'])==0 or len(request.form['email'])>100:
-        resp = {
-            'status': 'not successful',
-            'message': 'incorrect email length'
-        }
-        return make_response(jsonify(resp)), 403
-    
+   if len(request.form['password'])<5 or len(request.form['password'])>100:
+           resp = {
+               'status': 'not successful',
+               'message': 'incorrect password length'
+           }
+           return make_response(jsonify(resp)), 402
+
+       if len(request.form['email'])==0 or len(request.form['email'])>100:
+           resp = {
+               'status': 'not successful',
+               'message': 'incorrect email length'
+           }
+           return make_response(jsonify(resp)), 403
+
     user.email = request.form['email']
     user.username = request.form['username']
     user.firstname = request.form['firstname']
@@ -191,7 +194,7 @@ def edit_user_info():
 
     hashed_password = generate_password_hash(request.form['password'])
     assert hashed_password != request.form['password']
-    user.password = hashed_password      
+    user.password = hashed_password
     db.session.add(user)
     db.session.commit()
 
@@ -216,7 +219,7 @@ def follow():
             "message": "User cannot be none"
         }
         return make_response(jsonify(resp)), 401
-    
+
     if current_user.is_following(user):
         resp = {
             "status": "Error",
