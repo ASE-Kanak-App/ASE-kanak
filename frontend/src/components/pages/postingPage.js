@@ -71,7 +71,7 @@ const PostingPage: React.FC = () => (
                 flexDirection: 'column',
                 justifyContent: 'space-around',
                 alignItems: 'center',
-                height: '100%',
+                height: '50vh',
                 textAlign: 'center',
             }} />
         </div>
