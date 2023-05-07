@@ -1,7 +1,8 @@
 import React from "react";
 import NewsFeed from "./mainPageComponents/newsFeed";
 import '../../App.css';
-import headerImage from "../images/header2.png"
+import headerImage from "../images/header2.png";
+import SearchBar from '../../searchBar';
 
 
 const MainPage: React.FC = () => {
@@ -23,6 +24,11 @@ const MainPage: React.FC = () => {
                 height: '100%',
                 textAlign: 'center',
             }} />
+
+            <div className='search-bar-container'>
+                <SearchBar />
+            </div>
+
             <div className="news-feed-container">
                 <NewsFeed />
             </div>

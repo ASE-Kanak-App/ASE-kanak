@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="409fba92-09f4-43c8-82f9-1da461f50096" name="Changes" comment="">
 
+
       <change beforePath="$PROJECT_DIR$/backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.db" afterDir="false" />
 
     </list>
@@ -24,7 +25,9 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/profileRevised" />
+
+        <entry key="$PROJECT_DIR$" value="feature/profilePageRevised" />
+
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
