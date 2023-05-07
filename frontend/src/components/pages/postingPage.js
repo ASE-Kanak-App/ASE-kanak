@@ -76,7 +76,7 @@ const PostingPage: React.FC = () => (
             }} />
         </div>
 
-        <div style={{marginTop: '-15vh', marginLeft: '96vh'}}>
+        <div style={{marginTop: '-15vh'}}>
             <NavigationBar/>
         </div>
 
@@ -99,10 +99,6 @@ const PostingPage: React.FC = () => (
                 <PostsFeed />
             </div>
 
-
-
-
-            {/* Render other components and content here */}
     </div>
 
 
