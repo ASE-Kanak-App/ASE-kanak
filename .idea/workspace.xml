@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="409fba92-09f4-43c8-82f9-1da461f50096" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/NavigationBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/newsFeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/newsFeed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/postingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/postingPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/profilePage" />
+        <entry key="$PROJECT_DIR$" value="feature/profileRevised" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,6 +83,8 @@
       <workItem from="1679605053541" duration="3402000" />
       <workItem from="1681559792938" duration="461000" />
       <workItem from="1681560271232" duration="7151000" />
+      <workItem from="1683212451676" duration="1253000" />
+      <workItem from="1683453270376" duration="4065000" />
     </task>
     <servers />
   </component>
