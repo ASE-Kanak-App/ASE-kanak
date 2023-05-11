@@ -81,7 +81,7 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(likes);
     let [commentsToShow, setCommentsToShow] = useState(comments);
-    const [username, setUsername] = useState("");
+
 
     useEffect(
         () => setCommentsToShow(comments),
@@ -92,8 +92,6 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
         [likes]
     );
 
-    console.log("post_id: " + post_id)
-    console.log("likes: " + likes)
     const handleChange = (event) => {
         setNewComment(event.target.value);
     };
@@ -124,6 +122,7 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
             });
     };
     const Comment = ({ comment: { user_id, content } }) => {
+        const [username, setUsername] = useState("");
         // get the username of the user who posted the comment
         let responseDataOfGetUsername
         let config = {
@@ -306,8 +305,8 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
 
 function Posts() {
     const [posts, setPosts] = useState([]);
-    useEffect(() => {
 
+    useEffect(() => {
         // retrieve the Posts of the user
         let config = {
             method: 'GET',
@@ -317,14 +316,13 @@ function Posts() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
         };
-        console.log("config of retrieveUserPosts: " + JSON.stringify(config))
         api.request(config)
             .then((response) => {
                 const responseDataOfRetrieveUserPosts = response.data;
                 let newPosts = []
-                console.log("retrieveUserPosts: " + JSON.stringify(responseDataOfRetrieveUserPosts))
 
                 //iterate over retrievedPosts and add them to list posts
+                console.log("responseDataOfRetrieveUserPosts.length: " + JSON.stringify(responseDataOfRetrieveUserPosts.length))
                 for (let i = 0; i < responseDataOfRetrieveUserPosts.length; i++) {
                     let config = {
                         method: 'GET',
@@ -374,6 +372,7 @@ function Posts() {
                 console.log(error);
             });
     }, []);
+
 
     return (
             <div className="posts-container">
