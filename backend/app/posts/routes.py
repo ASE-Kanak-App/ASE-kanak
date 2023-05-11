@@ -1,3 +1,5 @@
+import time
+
 from app.posts import bp
 from app.extensions import db
 from app.models.models import Post, Comment
@@ -56,7 +58,13 @@ def create_post():
             return make_response(jsonify(resp)), 401
         
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            #create a unique filename not stored in the database
+
+            file_name, file_extension = os.path.splitext(file.filename)
+            user_id = request.form['user_id']
+            timestamp = time.time()
+            filename = secure_filename(file_name + str(timestamp) + str(user_id) + file_extension)
+            print(filename)
 
             post = Post(title = request.form['title'], content = request.form['content'],
                 user_id = request.form['user_id'], mimetype = filename)

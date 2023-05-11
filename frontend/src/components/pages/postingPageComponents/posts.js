@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../../App.css';
 import styled from "styled-components";
 
-
+//import postImages
 import {Input,} from "antd";
 import {api} from "../../../helpers/api";
 import {DeleteFilled, DeleteOutlined, LikeFilled, LikeOutlined, UserOutlined} from "@ant-design/icons";
@@ -348,7 +348,8 @@ function Posts() {
                                 title: responseDataOfRetrieveUserPosts[i].title,
                                 name: localStorage.getItem("username"),
                                 text: responseDataOfRetrieveUserPosts[i].content,
-                                file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+                                //get file from local directory postImages
+                                file: "/images/" + responseDataOfRetrieveUserPosts[i].image,
                                 comments: commentsByPost,
                                 likes: responseDataOfRetrieveUserPosts[i].likes,
                             })
@@ -357,6 +358,7 @@ function Posts() {
                                 return a.post_id - b.post_id;
                             });
                             // reverse the order of newPosts
+                            console.log("newPosts: " + JSON.stringify(newPosts))
                             newPosts.reverse()
                             setPosts(newPosts)
                         })
