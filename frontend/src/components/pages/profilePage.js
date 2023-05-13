@@ -24,7 +24,7 @@ export const Heading = styled.div`
 `;
 const layout = {
     labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+    wrapperCol: { span: 10 },
 };
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
@@ -101,6 +101,7 @@ const  ProfilePage:React.FC=()=>{
             </PostContainer>
         );
     };
+
     const posts = [
         {
             name: "Karim Abouel Naga",
@@ -108,6 +109,7 @@ const  ProfilePage:React.FC=()=>{
             file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
         }
     ];
+
     return (
         <div
             style={{
@@ -120,16 +122,19 @@ const  ProfilePage:React.FC=()=>{
                 width: '100vw'
             }}>
 
-            <div>
+            <div className="main-page">
                 <img src={headerImage} alt="My Image" style={{
-                    position: 'absolute',
-                    marginLeft: '70vh',
-                    height: '5vh'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    height: '20vh',
+                    textAlign: 'center',
                 }} />
             </div>
 
-            <div style={{ marginLeft:'50vh' ,marginTop: '20vh' }}>
-                <NavigationBar />
+            <div style={{marginTop: '-5vh'}}>
+                <NavigationBar/>
             </div>
 
 
