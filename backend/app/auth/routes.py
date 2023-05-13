@@ -171,14 +171,14 @@ def edit_user_info():
                 }
         return make_response(jsonify(resp)), 401
 
-   if len(request.form['password'])<5 or len(request.form['password'])>100:
+    if len(request.form['password'])<5 or len(request.form['password'])>100:
            resp = {
                'status': 'not successful',
                'message': 'incorrect password length'
            }
            return make_response(jsonify(resp)), 402
 
-       if len(request.form['email'])==0 or len(request.form['email'])>100:
+    if len(request.form['email'])==0 or len(request.form['email'])>100:
            resp = {
                'status': 'not successful',
                'message': 'incorrect email length'

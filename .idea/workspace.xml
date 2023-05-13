@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="409fba92-09f4-43c8-82f9-1da461f50096" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/auth/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/newsFeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/newsFeed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/profilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/profilePage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,21 +40,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Karim/OneDrive/Desktop/uzh/Master/Not Done/ASE/KANAK/frontend/src/components/pages&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Karim/Desktop/UniZH/Master/Not Done/Advanced Software Engineering/KANAK_Petbook",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Karim\OneDrive\Desktop\uzh\Master\Not Done\ASE\KANAK\frontend\src\components\pages" />
@@ -81,6 +78,11 @@
       <workItem from="1681560271232" duration="7151000" />
       <workItem from="1683212451676" duration="1253000" />
       <workItem from="1683453270376" duration="4663000" />
+      <workItem from="1683477444304" duration="102000" />
+      <workItem from="1683477556627" duration="26000" />
+      <workItem from="1683478659884" duration="204000" />
+      <workItem from="1683478916847" duration="648000" />
+      <workItem from="1683480927980" duration="38000" />
     </task>
     <servers />
   </component>
