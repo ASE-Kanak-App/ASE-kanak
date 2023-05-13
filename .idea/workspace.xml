@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="409fba92-09f4-43c8-82f9-1da461f50096" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/followedUserPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/auth/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/newsFeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/mainPageComponents/newsFeed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/pages/profilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/pages/profilePage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/profilePageRevised" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
