@@ -22,50 +22,38 @@ export const Heading = styled.div`
   display: flex;
   align-items: center;
 `;
-
+const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+};
+const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+};
 const  ProfilePage:React.FC=()=>{
 
-    const [firstName, setFirstName] = useState('John');
-    const [lastName, setLastName] = useState('Doe');
-    const [bio, setBio] = useState('');
-    const [profilePicture, setProfilePicture] = useState(null);
+    const [form] = Form.useForm();
 
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
-        editProfile()
+    const handleSubmit = async (values) => {
+        const formData = new FormData();
 
-    };
-
-    const editProfile=async()=>{
-        const FormData = require('form-data');
-        let data = new FormData();
-        data.append('username',ProfileData.username);
-        data.append('firstname', ProfileData.firstName);
-        data.append('lastname',ProfileData.lastName);
-
-        data.append('phone', ProfileData.phone);
-        data.append('intro', ProfileData.intro);
-
-        data.append('email', ProfileData.email);
-        data.append('password', ProfileData.password);
-        console.log("data "+data);
-
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'auth/editUserInfo/',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data : data
-        };
-
-        api.request(config)
-            .then((response) => {
-                console.log(JSON.stringify(response.data));
-                alert("You have successfully edit")
-            }).catch(e=>console.log(e))
-
+        for (const key in values) {
+            formData.append(key, values[key]);
+        }
+        try {
+            const response = await fetch('http://127.0.0.1:5000/auth/editUserInfo/', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to update user profile: ${errorText}`);
+            }
+            message.success('User profile updated successfully');
+            form.resetFields();
+        } catch (error) {
+            console.error(error);
+            message.error(error.message);
+        }
 
     }
 
@@ -123,14 +111,14 @@ const  ProfilePage:React.FC=()=>{
     return (
         <div
             style={{
-            background: 'linear-gradient(' +
-                'to left,' +
-                ' #40B44B  75%,' +
-                ' #7BD37A 75%,' +
-                ' #7BD37A 0%)',
-            height: '100vh',
-            width: '100vw'
-        }}>>
+                background: 'linear-gradient(' +
+                    'to left,' +
+                    ' #40B44B  75%,' +
+                    ' #7BD37A 75%,' +
+                    ' #7BD37A 0%)',
+                height: '100vh',
+                width: '100vw'
+            }}>
 
             <div>
                 <img src={headerImage} alt="My Image" style={{
@@ -145,61 +133,81 @@ const  ProfilePage:React.FC=()=>{
             </div>
 
 
-                <Form
-                    name="basic"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    style={{ maxWidth: 600 }}
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
+            <Form
+
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                style={{ maxWidth: 600 }}
+                {...layout}
+                form={form}
+                name="profile"
+                onFinish={handleSubmit}
+                initialValues={{
+                    email: '',
+                    username: '',
+                    firstname: '',
+                    lastname: '',
+                    intro: '',
+                    phone: '',
+                    password: '',
+                }}
+            >
+                <Form.Item
+                    name="email"
+                    label="Email"
+                    rules={[{ required: true, message: 'Please enter your email' }]}
                 >
-                    <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input onChange={handleChange} name='username'/>
-                    </Form.Item>
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="username"
+                    label="Username"
+                    rules={[{ required: true, message: 'Please enter your username' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="firstname"
+                    label="First Name"
+                    rules={[{ required: true, message: 'Please enter your first name' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="lastname"
+                    label="Last Name"
+                    rules={[{ required: true, message: 'Please enter your last name' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="intro"
+                    label="Introduction"
+                    rules={[{ required: true, message: 'Please enter an introduction' }]}
+                >
+                    <Input.TextArea />
+                </Form.Item>
+                <Form.Item
+                    name="phone"
+                    label="Phone Number"
+                    rules={[{ required: true, message: 'Please enter your phone number' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[{ required: true, message: 'Please enter your password' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                        Update Profile
+                    </Button>
+                </Form.Item>
 
-                    <Form.Item
-
-                        label="First Name"
-                        name="firstName"
-                        rules={[{ required: true, message: 'Please input your First Name!' }]}
-                    >
-                        <Input onChange={handleChange} name='firstname'/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Last Name"
-                        name="lastName"
-                        rules={[{ required: true, message: 'Please input your Last Name!' }]}
-                    >
-                        <Input onChange={handleChange} name='lastname'/>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Phone Number"
-                        name="phoneNumber"
-                        rules={[{ required: true, message: 'Please input your Phone Number!' }]}
-                    >
-                        <Input onChange={handleChange} name='phone'/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Introduction"
-                        name="introduction"
-                        rules={[{ min: 8, required: true, message: 'Please input an introduction!' }]}
-                    >
-                        <Input onChange={handleChange} name='intro'/>
-                    </Form.Item>
-
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button htmlType="submit" >
-                            Save
-                        </Button>
-                    </Form.Item>
-                </Form>
+            </Form>
 
             <div className='news-feed-container2'>
                 {posts.map((post) => (
