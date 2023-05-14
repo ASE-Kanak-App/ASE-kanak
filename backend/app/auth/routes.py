@@ -407,3 +407,46 @@ def get_followed_user_posts(id):
         for post in posts:
             all_posts.append(post.obj_to_dict())
     return make_response(jsonify(all_posts)), 201
+
+@bp.route('/search/<username>', methods=['GET'])
+def search_users(username):
+    users = User.query.filter(User.username.ilike(f'%{username}%')).all()
+
+    if not users:
+        resp = {
+            "status": "Error",
+            "message": "No users found"
+        }
+        return make_response(jsonify(resp)), 404
+
+    results = [user.obj_to_dict() for user in users]
+    return make_response(jsonify(results)), 200
+
+
+@bp.route('/getUserDetail/', methods=['GET'])
+def getUserDetail():
+    user_id = request.args.get('user_id')
+
+    if not user_id:
+        resp = {
+            "status": "Error",
+            "message": "Please provide a user id"
+        }
+        return make_response(jsonify(resp))
+
+    user = User.query.get(user_id)
+
+    if user:
+        user_dict = {
+            'username': user.username,
+            'firstname': user.firstname,
+            'lastname': user.lastname,
+            'intro': user.intro
+        }
+        return make_response(jsonify(user_dict))
+
+    resp = {
+        "status": "Error",
+        "message": "User not found"
+    }
+    return make_response(jsonify(resp))
