@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
     Routes,
@@ -17,15 +18,15 @@ export default class AppRouter extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                    <Routes>
-                        <React.Fragment>
-                            <Route path='/register' element={<Register/>} />
-                            <Route path='/mainpage' element={<MainPage/>}/>
-                            <Route path='/posts' element={<PostingPage/>}/>
-                            <Route path='/profile' element={<ProfilePage/>}/>
-                            <Route exact path='/' element={<Login/>} />
-                        </React.Fragment>
-                    </Routes>
+                <Routes>
+                    <React.Fragment>
+                        <Route path='/register' element={<Register/>} />
+                        <Route path='/mainpage' element={<MainPage/>}/>
+                        <Route path='/posts' element={<PostingPage/>}/>
+                        <Route path='/profile' element={<ProfilePage/>}/>
+                        <Route exact path='/' element={<Login/>} />
+                    </React.Fragment>
+                </Routes>
 
             </BrowserRouter>
         )

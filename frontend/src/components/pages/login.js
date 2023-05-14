@@ -6,11 +6,6 @@ import headerImage from '../images/Component 3.png'
 import dogImage from '../images/Component 1.png'
 import {useState} from "react";
 import {api} from "../../helpers/api";
-import axios from "axios";
-import {User} from "../models/User";
-
-import FormData from "form-data";
-import getUserId from "./postingPageComponents/GetUserID";
 
 
 
@@ -61,41 +56,60 @@ const Login: React.FC = () => {
         })
     }
 
-    const onLogin = async () => {
-        const FormData = require('form-data');
-        let data = new FormData();
-        data.append('email', LoginData.email);
-        data.append('password', LoginData.password);
-
+    const onLogin = () => {
         let config = {
-            method: 'post',
+            method: 'POST',
             maxBodyLength: Infinity,
             url: 'auth/login',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            data : data
+            data: {
+                email: LoginData.email,
+                password: LoginData.password
+            },
         };
-
         api.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
                 const responseData = response.data;
-                const user = new User();
-                user.setEmail(LoginData.email)
-                user.setToken(responseData.token)
                 localStorage.setItem('email', LoginData.email);
                 localStorage.setItem('token', JSON.stringify(responseData.token));
-                console.log("new user: "+localStorage.getItem('user'));
+
+                // get user id
+                let config = {
+                    method: 'GET',
+                    maxBodyLength: Infinity,
+                    url: 'auth/getUserId/',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    params: {
+                        email: LoginData.email
+                    }
+                };
+                api.request(config)
+                    .then((response) => {
+                        const responseData = response.data;
+                        localStorage.setItem('userId', responseData.id);
+                        localStorage.setItem('username', responseData.username);
+                        console.log("userId in localStorage", localStorage.getItem("userId"))
+                        console.log("email in localStorage", localStorage.getItem("email"))
+                        console.log("token in localStorage", localStorage.getItem("token"))
+                        console.log("username in localStorage", localStorage.getItem("username"))
+
+                        // move to main page
+                        window.location.href = "/mainPage";
+                    })
+                    .catch((error) => {
+                        alert("Something went wrong while getting the user id.")
+                        console.log(error);
+                    });
             })
             .catch((error) => {
-                alert("Wrong email or password, please try again")
+                alert("Wrong email or password")
                 console.log(error);
-            }).then(getUserId(localStorage.getItem("email")).then(r => {
-            console.log("userId", localStorage.getItem("userId"))
-            // move to main page
-            window.location.href = "/MainPage";
-            }))
+
+            });
     };
 
     return(

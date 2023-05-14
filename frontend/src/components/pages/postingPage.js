@@ -71,12 +71,12 @@ const PostingPage: React.FC = () => (
                 flexDirection: 'column',
                 justifyContent: 'space-around',
                 alignItems: 'center',
-                height: '100%',
+                height: '50vh',
                 textAlign: 'center',
             }} />
         </div>
 
-        <div style={{marginTop: '-15vh', marginLeft: '96vh'}}>
+        <div style={{marginTop: '-15vh'}}>
             <NavigationBar/>
         </div>
 
@@ -99,10 +99,6 @@ const PostingPage: React.FC = () => (
                 <PostsFeed />
             </div>
 
-
-
-
-            {/* Render other components and content here */}
     </div>
 
 

@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee0283e6-1499-4898-9283-915f9518e437" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/mainPageComponents/newsFeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/mainPageComponents/newsFeed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/postingPageComponents/posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/postingPageComponents/posts.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,26 +34,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kevin-kindlerhotmail.com/Documents/uzh/FS23/advancedSoftwareEngineering/ASE-kanak/frontend/src/components/pages/postingPageComponents&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;/opt/homebrew/bin/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/kevin-kindlerhotmail.com/Documents/uzh/FS23/advancedSoftwareEngineering/ASE-kanak/frontend/src/components/postImages",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/opt/homebrew/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/postImages" />
       <recent name="$PROJECT_DIR$/src/components/pages/postingPageComponents" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -82,7 +79,17 @@
       <workItem from="1680547385408" duration="14626000" />
       <workItem from="1681238511288" duration="29854000" />
       <workItem from="1682577742316" duration="21911000" />
-      <workItem from="1682606138040" duration="45997000" />
+      <workItem from="1682606138040" duration="47189000" />
+      <workItem from="1683095028636" duration="13673000" />
+      <workItem from="1683358460176" duration="8499000" />
+      <workItem from="1683367967294" duration="841000" />
+      <workItem from="1683368814299" duration="141000" />
+      <workItem from="1683368959897" duration="55000" />
+      <workItem from="1683369019300" duration="657000" />
+      <workItem from="1683369682477" duration="380000" />
+      <workItem from="1683370067869" duration="1246000" />
+      <workItem from="1683371320759" duration="34000" />
+      <workItem from="1683371358766" duration="482000" />
     </task>
     <servers />
   </component>
