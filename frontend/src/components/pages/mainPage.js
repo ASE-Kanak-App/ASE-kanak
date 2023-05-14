@@ -4,6 +4,7 @@ import Post from "./mainPageComponents/followedUserPosts";
 import '../../App.css';
 import headerImage from "../images/header2.png";
 import SearchBar from '../../searchBar';
+import FollowedList from "./mainPageComponents/followedList";
 
 
 const MainPage: React.FC = () => {
@@ -32,6 +33,10 @@ const MainPage: React.FC = () => {
 
                 <div className="news-feed-container">
                     <NewsFeed />
+                </div>
+
+                <div>
+                    <FollowedList />
                 </div>
                 {/* Render other components and content here */}
             </div>
