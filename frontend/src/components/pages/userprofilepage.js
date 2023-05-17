@@ -9,6 +9,59 @@ import { api } from "../../helpers/api";
 import FormData from "form-data";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AiFillLike } from 'react-icons/ai';
+
+const PostContainer = styled.div`
+  background: #D7ADAD;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+`;
+
+const PostTitle = styled.h3`
+  color: #333;
+`;
+
+const PostContent = styled.p`
+  color: #555;
+`;
+
+const PostImage = styled.img`
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+`;
+
+const LikesContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+const LikesIcon = styled(AiFillLike)`
+  margin-right: 5px;
+`;
+
+const Post = ({ title, content, image, likes }) => (
+    <PostContainer>
+        <PostTitle>{title}</PostTitle>
+        <PostContent>{content}</PostContent>
+        <PostImage
+       src={`https://github.com/ASE-Kanak-App/ASE-kanak/blob/dev/frontend/public/images/${image}?raw=true`}
+             alt="Post Image"
+             style={{ width: '300px', height: '200px'}}
+        />
+        <LikesContainer>
+            <LikesIcon size={18} color="#333" />
+            {likes}
+        </LikesContainer>
+    </PostContainer>
+);
+
+
 
 export const Name = styled.div`
   background: #D7ADAD;
@@ -20,16 +73,6 @@ export const Name = styled.div`
 `;
 
 
-const Post = ({ title, content, image, likes }) => (
-    <div>
-        <h3>Title: {title}</h3>
-        <p>Content: {content}</p>
-        <img src={`https://github.com/ASE-Kanak-App/ASE-kanak/blob/dev/frontend/public/images/${image}?raw=true`}
-             alt="Post Image"
-             style={{ width: '300px', height: '200px'}} />
-        <p>Likes: {likes}</p>
-    </div>
-);
 
 // path: frontend/src/components/pages/userprofilepage.js
 const layout = {
