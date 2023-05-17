@@ -142,3 +142,54 @@
   padding: 20px;
 }
 
+.followed-list-container {
+  position: fixed;
+  top: 50%;
+  right: 2%;
+  height: calc(33vh - 40px);
+  width: 20%;
+  background-color: beige;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.followed-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.followed-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.followed-list-item:hover {
+  background-color: #ffe4b5;
+}
+
+.followed-list-item-icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.followed-list-item-button {
+  background-color: #40b44b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.followed-list-item-button:hover {
+  background-color: #36a443;
+}
+

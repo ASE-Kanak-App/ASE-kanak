@@ -1,59 +1,59 @@
-import { useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Input, List } from "antd";
+import axios from "axios";
 
-function SearchBar() {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResult, setSearchResult] = useState(null);
+const { Search } = Input;
 
-    const handleSearch = async (event) => {
-        event.preventDefault();
+const SearchBar = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const handleSearch = async (value) => {
+        setLoading(true);
+        setSearchTerm(value);
         try {
             const response = await axios.get(
-                `http://127.0.0.1:5000/auth/searchUsers?query=${searchQuery}`
+                `http://127.0.0.1:5000/auth/search/${value}`
             );
-            setSearchResult(response.data);
+            setUsers(response.data);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
-    };
-
-    const handleFollow = async () => {
-        try {
-            const response = await axios.post(
-                'http://127.0.0.1:5000/auth/follow/',
-                {
-                    userId: searchResult.id,
-                }
-            );
-            console.log(response.data); // handle successful follow response
-        } catch (error) {
-            console.log(error);
-        }
+        setLoading(false);
     };
 
     return (
-        <div>
-            <form onSubmit={handleSearch}>
-                <input
-                    type="text"
-                    placeholder="Search for a user"
-                    value={searchQuery}
-                    onChange={(event) => setSearchQuery(event.target.value)}
+        <div style={{ position: "relative" }}>
+            <Search
+                placeholder="Search Users"
+                allowClear
+                enterButton="Search"
+                size="large"
+                loading={loading}
+                onSearch={handleSearch}
+            />
+            {users.length > 0 && (
+                <List
+                    style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        zIndex: 1,
+                        width: "100%",
+                    }}
+                    bordered
+                    dataSource={users}
+                    renderItem={(user) => (
+                        <List.Item style={{background: 'white'}}>
+                            <Link to={`/user/${user.id}`}>{user.username}</Link>
+                        </List.Item>
+                    )}
                 />
-                <button type="submit">Search</button>
-            </form>
-            {searchResult && (
-                <div>
-                    <h2>{searchResult.name}</h2>
-                    <img src={searchResult.profilePic} alt="Profile" />
-                    <button onClick={handleFollow}>Follow</button>
-                </div>
             )}
         </div>
     );
-}
+};
 
 export default SearchBar;
-
-

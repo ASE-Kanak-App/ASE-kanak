@@ -9,6 +9,7 @@ import ProfilePicture from '../images/dog.png';
 import Posts, { PostContainer, Text, Test } from "./postingPageComponents/posts";
 import {api} from "../../helpers/api";
 import FormData from "form-data";
+import PetProfile from "./petProfile";
 
 export const Heading = styled.div`
   background: #D7ADAD;
@@ -29,6 +30,16 @@ const layout = {
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -80vh;
+`;
+
+
 const  ProfilePage:React.FC=()=>{
 
     const [form] = Form.useForm();
@@ -142,7 +153,15 @@ const  ProfilePage:React.FC=()=>{
 
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
+                style={{
+                    maxWidth: 450,
+                    backgroundColor: "#F5F5DC",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    marginLeft: "2vh",
+                    marginTop: "5vh",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)"
+                }}
                 {...layout}
                 form={form}
                 name="profile"
@@ -214,13 +233,14 @@ const  ProfilePage:React.FC=()=>{
 
             </Form>
 
-            <div className='news-feed-container2'>
-                {posts.map((post) => (
-                    <div className="aroundAPost" style={{background: "transparent"}}>
-                        <Post  post={post} />
-                    </div>
-                ))}
-            </div>
+            <Container>
+                <PetProfile
+                    name="Buddy"
+                    age="3 years"
+                    description="Buddy is a playful and friendly dog who loves to go for long walks and play fetch in the park."
+                />
+            </Container>
+
         </div>
     );
 }
