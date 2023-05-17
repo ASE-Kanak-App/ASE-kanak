@@ -18,14 +18,7 @@ const PostContainer = styled.div`
   text-align: center;
   width: 300px;
   margin: 0 auto;
-`;
-
-const PostTitle = styled.h3`
-  color: #333;
-`;
-
-const PostContent = styled.p`
-  color: #555;
+  margin-top: 10vh;
 `;
 
 const PostImage = styled.img`
@@ -41,10 +34,84 @@ const LikesContainer = styled.div`
   margin-top: 10px;
 `;
 
+const PostTitle = styled.h3`
+  background: beige;
+  padding: 10px;
+  border-radius: 5px;
+`;
+
+const PostContent = styled.p`
+  background: beige;
+  padding: 10px;
+  border-radius: 5px;
+`;
+
 const LikesIcon = styled(AiFillLike)`
   margin-right: 5px;
 `;
 
+
+const UserInfoContainer = styled.div`
+  background-color: beige;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  margin-right: auto;
+  margin-left: 7.5vh;
+  border-radius: 10px;
+  transform: translateY(200%);
+`;
+
+const UserName = styled.h1`
+  color: #000000;
+  font-family: 'Akshar';
+  font-size: 24px;
+  margin-bottom: 10px;
+`;
+
+const Email = styled.p`
+  color: #000000;
+  font-family: 'Akshar';
+  font-size: 16px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const FollowButton = styled(Button)`
+  background-color: #40B44B;
+  color: #FFFFFF;
+  border: none;
+  margin-right: 10px;
+`;
+
+const UnfollowButton = styled(Button)`
+  background-color: #ffaeae;
+  color: #FFFFFF;
+  border: none;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+`;
+
+const HeaderImage = styled.img`
+  height: 5vh;
+`;
+
+const NavigationBarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 15vh; /* Adjust the distance from the header image */
+  left: 50%;
+  transform: translateX(-50%);
+`;
 const Post = ({ title, content, image, likes }) => (
     <PostContainer>
         <PostTitle>{title}</PostTitle>
@@ -90,7 +157,8 @@ const UserProfilePage: React.FC = () => {
 
     useEffect(() => {
         axios
-            .get(`http://127.0.0.1:5000/auth/getUserName/?user_id=${id}`) // use id parameter in API call
+            .get(`http://127.0.0.1:5000/auth/getUserName/?user_id=${id}`)
+            // use id parameter in API call
             .then((response) => {
                 setUser(response.data);
             })
@@ -163,24 +231,26 @@ const UserProfilePage: React.FC = () => {
                 width: '100vw'
             }}>
 
-            <div>
-                <img src={headerImage} alt="My Image" style={{
+            <HeaderContainer>
+                <HeaderImage src={headerImage} alt="My Image" style={{
                     position: 'absolute',
-                    marginLeft: '70vh',
-                    height: '5vh'
+                    height: '20vh'
                 }} />
-            </div>
+            </HeaderContainer>
 
-            <div style={{ marginLeft: '50vh' }}>
+            <NavigationBarContainer>
                 <NavigationBar />
-            </div>
+            </NavigationBarContainer>
 
-            <div>
-                <h1>{user.username}</h1>
-                <p>email: {user.email}</p>
-                <h2>Follow the user</h2>
-                <Button onClick={handleFollow}>Follow</Button>
-                <Button onClick={handleUnfollow}>Unfollow</Button>
+            <div style={{ display: "flex"}}>
+                <UserInfoContainer>
+                    <UserName>{user.username}</UserName>
+                    <Email>E-Mail: {user.email}</Email>
+                    <ButtonContainer>
+                        <FollowButton onClick={handleFollow}>Follow</FollowButton>
+                        <UnfollowButton onClick={handleUnfollow}>Unfollow</UnfollowButton>
+                    </ButtonContainer>
+                </UserInfoContainer>
             </div>
 
             <div>
