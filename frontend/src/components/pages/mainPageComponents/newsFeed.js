@@ -400,40 +400,6 @@ function Posts(){
 
 }
 
-// clickable icon to move to create post page
-function CreatePost(){
-    return (
-        <div className="create-post">
-            <a href="/posts">
-                <ProfileOutlined className="create-post-icon" style={iconStyle} ProfileOutlined />
-                <p className="create-post-text" style={iconStyle} >Posts</p>
-            </a>
-        </div>
-    );
-}
-
-// clickable icon with text to move to Profile
-function EditUser(){
-    return (
-        <div className="edit-profile">
-            <a href="/profile">
-                <UserOutlined className="edit-profile-icon"  style={iconStyle} UserOutlined/>
-                <p className="edit-profile-text" style={iconStyle} >Profile</p>
-            </a>
-        </div>
-    );
-}
-function Logout(){
-    return (
-        <div className="logout">
-            <a href="/login">
-                <LogoutOutlined className="edit-profile-icon"  style={iconStyle} LogoutOutlined/>
-                <p className="logout-text" style={iconStyle} >Logout</p>
-            </a>
-        </div>
-    );
-}
-
 const NewsFeed: React.FC = () => (
         <div className="news-feed" style={customStyle1}>
 
@@ -445,8 +411,6 @@ const NewsFeed: React.FC = () => (
                 <Posts />
             </div>
 
-
-            {/* Your article components go here */}
         </div>
 );
 

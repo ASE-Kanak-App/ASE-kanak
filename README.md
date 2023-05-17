@@ -28,5 +28,5 @@ In order to start the frontend code, Please follow the commands below.
 ### Docker containerization
 * Install docker and docker-compose in your system.
 * From the backend directory run "docker build -t flask-app ."
-* From the frontend directory run "docker build -t react app ."
+* From the frontend directory run "docker build -t react-app ."
 * And once that is done from the root directory run "docker-compose up"

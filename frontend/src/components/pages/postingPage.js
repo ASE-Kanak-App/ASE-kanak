@@ -21,43 +21,6 @@ const iconStyle = {
     fontSize: '20px',
 }
 
-function MainPage(){
-    return (
-        <div className="create-post">
-            <a href="/mainPage">
-                <ProfileOutlined className="main-page-icon" style={iconStyle} ProfileOutlined />
-                <p className="main-page-text" style={iconStyle} >Main Page</p>
-            </a>
-        </div>
-    );
-}
-
-// clickable icon with text to move to Profile
-function EditUser(){
-    return (
-        <div className="edit-profile">
-            <a href="/profile">
-                <UserOutlined className="edit-profile-icon"  style={iconStyle} UserOutlined/>
-                <p className="edit-profile-text" style={iconStyle} >Profile</p>
-            </a>
-        </div>
-    );
-}
-function Logout(){
-    return (
-        <div className="logout">
-            <a href="/login">
-                <LogoutOutlined className="edit-profile-icon"  style={iconStyle} LogoutOutlined/>
-                <p className="logout-text" style={iconStyle} >Logout</p>
-            </a>
-        </div>
-    );
-}
-
-
-
-
-
 const PostingPage: React.FC = () => (
 
     <div style={{
