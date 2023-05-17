@@ -24,23 +24,6 @@ jobs:
       run: pip install tox
     - name: Run tox
       run: tox -e py
-    - name: Build with SonarSource Build-Wrapper
-      run: |
-        build-wrapper-linux-x86-64 --out-dir bw-output make
-    - name: Run SonarCloud Analysis
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        # Other SonarCloud properties
-        sonar.cfamily.build-wrapper-output: bw-output
-    - name: Generate Clang Compilation Database
-      run: |
-        # Generate your Clang Compilation Database command here
-        # Example: compiledb -n make
-    - name: Run SonarCloud Analysis
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        # Other SonarCloud properties
-        sonar.cfamily.compile-commands: compile_commands.json
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
