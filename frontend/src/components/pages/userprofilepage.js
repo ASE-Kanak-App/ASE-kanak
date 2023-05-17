@@ -24,7 +24,9 @@ const Post = ({ title, content, image, likes }) => (
     <div>
         <h3>Title: {title}</h3>
         <p>Content: {content}</p>
-        <img src={`https://github.com/ASE-Kanak-App/ASE-kanak/blob/dev/frontend/public/images/${image}?raw=true`} alt="Post Image" />
+        <img src={`https://github.com/ASE-Kanak-App/ASE-kanak/blob/dev/frontend/public/images/${image}?raw=true`}
+             alt="Post Image"
+             style={{ width: '300px', height: '200px'}} />
         <p>Likes: {likes}</p>
     </div>
 );
