@@ -21,43 +21,6 @@ const iconStyle = {
     fontSize: '20px',
 }
 
-function MainPage(){
-    return (
-        <div className="create-post">
-            <a href="/mainPage">
-                <ProfileOutlined className="main-page-icon" style={iconStyle} ProfileOutlined />
-                <p className="main-page-text" style={iconStyle} >Main Page</p>
-            </a>
-        </div>
-    );
-}
-
-// clickable icon with text to move to Profile
-function EditUser(){
-    return (
-        <div className="edit-profile">
-            <a href="/profile">
-                <UserOutlined className="edit-profile-icon"  style={iconStyle} UserOutlined/>
-                <p className="edit-profile-text" style={iconStyle} >Profile</p>
-            </a>
-        </div>
-    );
-}
-function Logout(){
-    return (
-        <div className="logout">
-            <a href="/login">
-                <LogoutOutlined className="edit-profile-icon"  style={iconStyle} LogoutOutlined/>
-                <p className="logout-text" style={iconStyle} >Logout</p>
-            </a>
-        </div>
-    );
-}
-
-
-
-
-
 const PostingPage: React.FC = () => (
 
     <div style={{
@@ -71,12 +34,12 @@ const PostingPage: React.FC = () => (
                 flexDirection: 'column',
                 justifyContent: 'space-around',
                 alignItems: 'center',
-                height: '100%',
+                height: '50vh',
                 textAlign: 'center',
             }} />
         </div>
 
-        <div style={{marginTop: '-15vh', marginLeft: '96vh'}}>
+        <div style={{marginTop: '-15vh'}}>
             <NavigationBar/>
         </div>
 
@@ -99,10 +62,6 @@ const PostingPage: React.FC = () => (
                 <PostsFeed />
             </div>
 
-
-
-
-            {/* Render other components and content here */}
     </div>
 
 
