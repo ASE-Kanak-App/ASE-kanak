@@ -193,6 +193,7 @@ const UserProfilePage: React.FC = () => {
             .post('http://127.0.0.1:5000/auth/follow/', formData)
             .then((response) => {
                 console.log(response.data);
+                console.log("The ID you followed is:", id)
                 console.log("You just followed")// Log the response for debugging purposes
                 // Add any logic you want to perform after successful follow
             })
@@ -228,7 +229,9 @@ const UserProfilePage: React.FC = () => {
                     ' #7BD37A 75%,' +
                     ' #7BD37A 0%)',
                 height: '100vh',
-                width: '100vw'
+                width: '100vw',
+                position: 'relative',
+                overflowY: 'auto'
             }}>
 
             <HeaderContainer>
