@@ -24,3 +24,9 @@ In order to start the frontend code, Please follow the commands below.
 ### Starting the frontend
 * From the frontend of the directory run "npm start"
 * Verify the same by going to "http://localhost:3000"
+
+### Docker containerization
+* Install docker and docker-compose in your system.
+* From the backend directory run "docker build -t flask-app ."
+* From the frontend directory run "docker build -t react-app ."
+* And once that is done from the root directory run "docker-compose up"

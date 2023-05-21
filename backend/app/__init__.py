@@ -4,6 +4,10 @@ from config import Config
 from app.extensions import db
 from flask_jwt_extended import JWTManager
 
+"""
+Function for initialising the flask extension
+and registering blueprints for '/auth' and '/posts' url.
+"""
 def create_app(config_class = Config):
     app = Flask(__name__)
     CORS(app)

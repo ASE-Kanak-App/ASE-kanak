@@ -31,13 +31,18 @@ const iconStyle = {
 const PostContainer = styled.div`
   font-size: 1.5em;
   text-align: left;
-  background: 'linear-gradient(' +
-            ' #7BD37A 0%,' +
-            ' #40B44B 100%)';
+  background: beige;
   display: flex;
   flex-direction: column;
   padding: 3%;
   margin: 0 2%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const Title = styled.div`
@@ -71,15 +76,22 @@ export const Name =styled.div`
   line-height: 24px;
 `;
 
-const Test =styled.div`
+const Test = styled.div`
   background: #D7ADAD;
-  font-size: 15px;
-  line-height: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  padding: 3%;
+  padding: 0.5%;
   margin: 0 2%;
- `;
+  font-size: 1.2em;
+  line-height: 1.5;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+`;
 
 const Comment = ({ comment: { user_id, content } }) => {
     const [username, setUsername] = useState("");
@@ -102,7 +114,7 @@ const Comment = ({ comment: { user_id, content } }) => {
             setUsername(responseDataOfGetUsername.username)
         })
         .catch((error) => {
-            alert("Something went wrong when getting the username of the user who posted the comment");
+          console.log("Something went wrong when getting the username of the user who posted the comment");
             console.log(error);
         });
 
@@ -124,9 +136,14 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
     const [likesCount, setLikesCount] = useState(likes);
     const [seed, setSeed] = useState("");
     const [commentsToShow, setCommentsToShow] = useState(comments);
-    const reset = () => {
-        setSeed(Math.random() * 5000);
-    }
+    useEffect(
+        () => setCommentsToShow(comments),
+        [comments]
+    );
+    useEffect(
+        () => setLikesCount(likes),
+        [likes]
+    );
 
     const handleChange = (event) => {
         setNewComment(event.target.value);
@@ -154,7 +171,9 @@ const Post = ({ post: { title, name, text, file, comments, post_id, likes} }) =>
         api.request(config)
             .then((response) => {
                 alert("Comment created successfully");
+                console.log("comment created successfully", response.data);
                 setCommentsToShow([...commentsToShow, response.data]);
+                setNewComment("");
 
             })
             .catch((error) => {
@@ -337,14 +356,13 @@ function Posts(){
                                             title: responseDataOfRetrievePost[i].title,
                                             name: responseDataOfGetUsername.username,
                                             text: responseDataOfRetrievePost[i].content,
-                                            file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+                                            file: "/images/" + responseDataOfRetrievePost[i].image,
                                             comments: commentsByPost,
                                             likes: responseDataOfRetrievePost[i].likes,
 
                                         })
                                         // order newPosts by id
                                         newPosts.sort(function(a, b) {
-                                            console.log(a.post_id - b.post_id)
                                             return a.post_id - b.post_id;
                                         });
                                         // reverse the order of newPosts
@@ -382,40 +400,6 @@ function Posts(){
 
 }
 
-// clickable icon to move to create post page
-function CreatePost(){
-    return (
-        <div className="create-post">
-            <a href="/posts">
-                <ProfileOutlined className="create-post-icon" style={iconStyle} ProfileOutlined />
-                <p className="create-post-text" style={iconStyle} >Posts</p>
-            </a>
-        </div>
-    );
-}
-
-// clickable icon with text to move to Profile
-function EditUser(){
-    return (
-        <div className="edit-profile">
-            <a href="/profile">
-                <UserOutlined className="edit-profile-icon"  style={iconStyle} UserOutlined/>
-                <p className="edit-profile-text" style={iconStyle} >Profile</p>
-            </a>
-        </div>
-    );
-}
-function Logout(){
-    return (
-        <div className="logout">
-            <a href="/login">
-                <LogoutOutlined className="edit-profile-icon"  style={iconStyle} LogoutOutlined/>
-                <p className="logout-text" style={iconStyle} >Logout</p>
-            </a>
-        </div>
-    );
-}
-
 const NewsFeed: React.FC = () => (
         <div className="news-feed" style={customStyle1}>
 
@@ -427,8 +411,6 @@ const NewsFeed: React.FC = () => (
                 <Posts />
             </div>
 
-
-            {/* Your article components go here */}
         </div>
 );
 

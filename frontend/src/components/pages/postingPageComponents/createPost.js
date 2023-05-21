@@ -115,6 +115,7 @@ const CreatePost: React.FC = () => {
             .catch((error) => {
                 alert("Error in creating post")
                 console.log(error);
+                console.log("the problem is near line 117")
             })
 
     };

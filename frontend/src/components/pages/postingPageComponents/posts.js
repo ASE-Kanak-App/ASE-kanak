@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import '../../../App.css';
 import styled from "styled-components";
 
-
-import {View} from "react-native";
-import {Input, Space} from "antd";
-import getUserId from "./GetUserID";
+//import postImages
+import {Input,} from "antd";
 import {api} from "../../../helpers/api";
-import {DislikeOutlined, LikeFilled, LikeOutlined} from "@ant-design/icons";
+import {DeleteFilled, DeleteOutlined, LikeFilled, LikeOutlined, UserOutlined} from "@ant-design/icons";
+import {Link} from "react-router-dom";
+import {FaSignOutAlt} from "react-icons/fa";
+
 
 
 const customStyle1 = {
@@ -79,7 +80,18 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     const [newComment, setNewComment] = useState("");
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(likes);
-    const [commentsToShow, setCommentsToShow] = useState(comments);
+    let [commentsToShow, setCommentsToShow] = useState(comments);
+
+
+    useEffect(
+        () => setCommentsToShow(comments),
+        [comments]
+    );
+    useEffect(
+        () => setLikesCount(likes),
+        [likes]
+    );
+
     const handleChange = (event) => {
         setNewComment(event.target.value);
     };
@@ -148,6 +160,8 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
 
     const like = () => {
         if (liked === false) {
+            // check if the user has already liked the post
+
             likePost();
         } else {
             unlikePost();
@@ -203,10 +217,37 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
             });
     };
 
+    const deletePost = () => {
+        let config = {
+            method: 'DELETE',
+            maxBodyLength: Infinity,
+            url: 'posts/deletePost/'+post_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        api.request(config)
+            .then((response) => {
+                alert("Post deleted successfully");
+                window.location.reload();
+            })
+            .catch((error) => {
+                alert("Something went wrong when deleting the post");
+                console.log(error);
+            });
+    };
+
     return (
         <PostContainer>
             <Test>
-                <Title>{title}</Title>
+                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                    <Title>{title}</Title>
+                    <div>
+                        <Link onClick={deletePost}><DeleteFilled style={{color: "black", borderColor: "green"}}/> deletePost</Link>
+                    </div>
+
+                </div>
+
                 <Name>{"posted by " +name}</Name>
                 <Text>{text}</Text>
                 <img className="image" src={file} alt="" />
@@ -262,46 +303,10 @@ const Post = ({ post: { name,title, text, file, comments, post_id, likes} }) => 
     );
 };
 
-const posts = [
-    {
-        name: localStorage.getItem("username"),
-        title: "Title",
-        text: `Hello this is a first post!`,
-        file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
-    },
-    {
-        name: localStorage.getItem("username"),
-        title: "Title",
-        text: `Hello this is the second post!`,
-        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-    },
-    {
-        name: localStorage.getItem("username"),
-        title: "Title",
-        text: `Hello this is the third post!`,
-        file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
-    }
-];
-
-// function to create a post
-// input: title, text, image if any
-// add it to the posts array
-export function createPostInProfile(name, title, text, image){
-    //add post to posts
-    posts.push({
-        name: name,
-        title: title,
-        text: text,
-        file: image,
-    })
-    //reload Posts
-
-}
-
 function Posts() {
     const [posts, setPosts] = useState([]);
-    useEffect(() => {
 
+    useEffect(() => {
         // retrieve the Posts of the user
         let config = {
             method: 'GET',
@@ -317,6 +322,7 @@ function Posts() {
                 let newPosts = []
 
                 //iterate over retrievedPosts and add them to list posts
+                console.log("responseDataOfRetrieveUserPosts.length: " + JSON.stringify(responseDataOfRetrieveUserPosts.length))
                 for (let i = 0; i < responseDataOfRetrieveUserPosts.length; i++) {
                     let config = {
                         method: 'GET',
@@ -329,6 +335,7 @@ function Posts() {
                     api.request(config)
                         .then((response) => {
                             const commentsByPost = response.data;
+                            console.log("commentsByPost: " + JSON.stringify(commentsByPost))
 
 
 
@@ -339,7 +346,8 @@ function Posts() {
                                 title: responseDataOfRetrieveUserPosts[i].title,
                                 name: localStorage.getItem("username"),
                                 text: responseDataOfRetrieveUserPosts[i].content,
-                                file: "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRPMKnq00NF_T7RusUNeLrSazRZM0S5O8_AOcw2iBTmYTxd3Q7uXf0sW41odpAKqSblKDMUMHGb8nZRo9g",
+                                //get file from local directory postImages
+                                file: "/images/" + responseDataOfRetrieveUserPosts[i].image,
                                 comments: commentsByPost,
                                 likes: responseDataOfRetrieveUserPosts[i].likes,
                             })
@@ -348,6 +356,7 @@ function Posts() {
                                 return a.post_id - b.post_id;
                             });
                             // reverse the order of newPosts
+                            console.log("newPosts: " + JSON.stringify(newPosts))
                             newPosts.reverse()
                             setPosts(newPosts)
                         })
@@ -363,6 +372,7 @@ function Posts() {
                 console.log(error);
             });
     }, []);
+
 
     return (
             <div className="posts-container">

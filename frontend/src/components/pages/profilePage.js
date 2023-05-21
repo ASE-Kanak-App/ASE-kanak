@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {Button, Form, Input, Upload, message} from "antd";
 import styled from "styled-components";
 import { UploadOutlined } from "@ant-design/icons";
@@ -7,6 +7,9 @@ import NavigationBar from '../../NavigationBar';
 import headerImage from "../images/header2.png";
 import ProfilePicture from '../images/dog.png';
 import Posts, { PostContainer, Text, Test } from "./postingPageComponents/posts";
+import {api} from "../../helpers/api";
+import FormData from "form-data";
+import PetProfile from "./petProfile";
 
 export const Heading = styled.div`
   background: #D7ADAD;
@@ -20,27 +23,55 @@ export const Heading = styled.div`
   display: flex;
   align-items: center;
 `;
+const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 10 },
+};
+const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+};
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -80vh;
+`;
 
 
-function ProfilePage() {
-    const [firstName, setFirstName] = useState('John');
-    const [lastName, setLastName] = useState('Doe');
-    const [bio, setBio] = useState('');
-    const [profilePicture, setProfilePicture] = useState(null);
+const  ProfilePage:React.FC=()=>{
 
-    const handleUpload = (info) => {
-        if (info.file.status === "done") {
-            message.success(`${info.file.name} file uploaded successfully`);
-            setProfilePicture(info.file.originFileObj);
-        } else if (info.file.status === "error") {
-            message.error(`${info.file.name} file upload failed.`);
+    const [form] = Form.useForm();
+
+    const handleSubmit = async (values) => {
+        const formData = new FormData();
+
+        for (const key in values) {
+            formData.append(key, values[key]);
         }
+        try {
+            const response = await fetch('http://127.0.0.1:5000/auth/editUserInfo/', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to update user profile: ${errorText}`);
+            }
+            message.success('User profile updated successfully');
+            form.resetFields();
+        } catch (error) {
+            console.error(error);
+            message.error(error.message);
+        }
+
+    }
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
     };
 
-    const onFinish = (values) => {
-        console.log("Received values of form: ", values);
-        console.log("Profile Picture: ", profilePicture);
-    };
 
     let [ProfileData, setProfileData] = useState({
         username: '',
@@ -48,11 +79,13 @@ function ProfilePage() {
         lastName: '',
         email: '',
         phone: '',
-        intro: ''
+        intro: '',
+        password: ''
     })
 
     const handleChange = (event) => {
         const { name, value } = event.target
+
 
         setProfileData({
             ...ProfileData,
@@ -68,13 +101,11 @@ function ProfilePage() {
     height: 243px;
     `;
 
-
-
     const Post = ({ post: { name, text, file } }) => {
         return (
             <PostContainer>
                 <Test>
-                    <Heading>{name}</Heading>
+                    {/* <Heading>{name}</Heading>*/}
                     <Text>{text}</Text>
                     <img className="image" src={file} alt="" />
                 </Test>
@@ -93,120 +124,122 @@ function ProfilePage() {
     return (
         <div
             style={{
-            background: 'linear-gradient(' +
-                'to left,' +
-                ' #40B44B  75%,' +
-                ' #7BD37A 75%,' +
-                ' #7BD37A 0%)',
-            height: '100vh',
-            width: '100vw'
-        }}>>
+                background: 'linear-gradient(' +
+                    'to left,' +
+                    ' #40B44B  75%,' +
+                    ' #7BD37A 75%,' +
+                    ' #7BD37A 0%)',
+                height: '100vh',
+                width: '100vw'
+            }}>
 
-
-            <div>
+            <div className="main-page">
                 <img src={headerImage} alt="My Image" style={{
-                    position: 'absolute',
-                    marginLeft: '70vh',
-                    height: '30%'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    height: '20vh',
+                    textAlign: 'center',
                 }} />
             </div>
 
-            <div style={{ marginLeft:'85vh' ,marginTop: '20vh' }}>
-                <NavigationBar />
+            <div style={{marginTop: '-5vh'}}>
+                <NavigationBar/>
             </div>
 
 
-            <FormContainer>
-                <Form
-                    name="basic"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    style={{ maxWidth: 600 }}
-                    initialValues={{ remember: true }}
-                    autoComplete="off"
+            <Form
+
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                style={{
+                    maxWidth: 450,
+                    backgroundColor: "#F5F5DC",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    marginLeft: "2vh",
+                    marginTop: "5vh",
+                    boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)"
+                }}
+                {...layout}
+                form={form}
+                name="profile"
+                onFinish={handleSubmit}
+                initialValues={{
+                    email: '',
+                    username: '',
+                    firstname: '',
+                    lastname: '',
+                    intro: '',
+                    phone: '',
+                    password: '',
+                }}
+            >
+                <Form.Item
+                    name="email"
+                    label="Email"
+                    rules={[{ required: true, message: 'Please enter your email' }]}
                 >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="username"
+                    label="Username"
+                    rules={[{ required: true, message: 'Please enter your username' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="firstname"
+                    label="First Name"
+                    rules={[{ required: true, message: 'Please enter your first name' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="lastname"
+                    label="Last Name"
+                    rules={[{ required: true, message: 'Please enter your last name' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="intro"
+                    label="Introduction"
+                    rules={[{ required: true, message: 'Please enter an introduction' }]}
+                >
+                    <Input.TextArea />
+                </Form.Item>
+                <Form.Item
+                    name="phone"
+                    label="Phone Number"
+                    rules={[{ required: true, message: 'Please enter your phone number' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[{ required: true, message: 'Please enter your password' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                        Update Profile
+                    </Button>
+                </Form.Item>
 
-                    <Form.Item>
-                        <Upload
-                            name="profilePicture"
-                            accept=".jpg,.jpeg,.png"
-                            action="/api/upload"
-                            onChange={handleUpload}
-                            showUploadList={false}
-                        >
-                                <div
-                                    style={{ marginLeft: "17vh", width: "250px", height: "250px", backgroundColor: "#f0f0f0", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", marginTop:'-10vh'}}
-                                >
-                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                        <img
-                                            src="frontend/src/components/images/Component 1.png"
-                                            alt="Picture"
-                                            style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "50%" }}
-                                        />
-                                        <div style={{ fontSize: "20px", color: "#a0a0a0"}}>
-                                            Upload Photo
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </Upload>
-                    </Form.Item>
+            </Form>
 
-                    <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <Input onChange={handleChange} name='username'/>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="First Name"
-                        name="firstName"
-                        rules={[{ required: true, message: 'Please input your First Name!' }]}
-                    >
-                        <Input onChange={handleChange} name='firstname'/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Last Name"
-                        name="lastName"
-                        rules={[{ required: true, message: 'Please input your Last Name!' }]}
-                    >
-                        <Input onChange={handleChange} name='lastname'/>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Phone Number"
-                        name="phoneNumber"
-                        rules={[{ required: true, message: 'Please input your Phone Number!' }]}
-                    >
-                        <Input onChange={handleChange} name='phone'/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Introduction"
-                        name="introduction"
-                        rules={[{ min: 8, required: true, message: 'Please input an introduction!' }]}
-                    >
-                        <Input onChange={handleChange} name='intro'/>
-                    </Form.Item>
-
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button htmlType="submit">
-                            Save
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </FormContainer>
-
-            <div className='news-feed-container2'>
-                {posts.map((post) => (
-                    <div className="aroundAPost" style={{background: "transparent"}}>
-                        <Post  post={post} />
-                    </div>
-                ))}
-            </div>
-
-
+            <Container>
+                <PetProfile
+                    name="Buddy"
+                    age="3 years"
+                    description="Buddy is a playful and friendly dog who loves to go for long walks and play fetch in the park."
+                />
+            </Container>
 
         </div>
     );
