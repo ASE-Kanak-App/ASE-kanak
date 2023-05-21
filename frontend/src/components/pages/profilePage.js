@@ -93,33 +93,6 @@ const  ProfilePage:React.FC=()=>{
         })
     }
 
-    const FormContainer = styled.div`
-    position: relative;
-    margin-right: 10vh;
-    margin-top: 25vh;  
-    width: 425px;
-    height: 243px;
-    `;
-
-    const Post = ({ post: { name, text, file } }) => {
-        return (
-            <PostContainer>
-                <Test>
-                    {/* <Heading>{name}</Heading>*/}
-                    <Text>{text}</Text>
-                    <img className="image" src={file} alt="" />
-                </Test>
-            </PostContainer>
-        );
-    };
-
-    const posts = [
-        {
-            name: "Karim Abouel Naga",
-            text: `Hello this is a first post!`,
-            file: 'https://fei-fan-production.s3.amazonaws.com/s3fs-public/styles/full_page_image/public/250122-friend-1.jpg?itok=0W5QyNM5',
-        }
-    ];
 
     return (
         <div
